@@ -1,5 +1,6 @@
 <template>
-  <p>Mon composant</p>
+  <p>Rank s'affiche ici</p>
+  <!-- Liste rank -->
 </template>
 
 <script setup>

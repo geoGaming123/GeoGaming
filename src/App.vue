@@ -13,6 +13,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/rank">Rank</RouterLink>
         <RouterLink to="/profile">Profile</RouterLink>
         <RouterLink to="/game">Game</RouterLink>
+        <RouterLink to="/nextgame">NextGame</RouterLink>
       </nav>
     </div>
   </header>
