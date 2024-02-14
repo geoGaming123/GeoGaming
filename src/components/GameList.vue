@@ -1,4 +1,5 @@
 <template>
+  <section class="gamelist-content">
   <section class="nav">
     <div class="nav-btns">
       <button @click="activateTab('created')" :class="{ activebtn: activeTab === 'created' }">Créées</button>
@@ -23,6 +24,7 @@
     </table>
   </section>
   <button @click="addGame()" class="addgame">+</button>
+</section>
 </template>
 
 <script setup>
@@ -42,6 +44,9 @@ const addGame = () => {
 </script>
 
 <style scoped>
+.gamelist-content {
+  padding-inline: 2rem;
+}
   .nav {
     display: flex;
     padding-block-start: 1rem;
@@ -85,7 +90,7 @@ const addGame = () => {
     border-radius: 50%;
     font-size: 1.5rem;
     position: absolute;
-    bottom: 3rem;
+    bottom: 5rem;
     right: 1rem;
   }
 </style>
