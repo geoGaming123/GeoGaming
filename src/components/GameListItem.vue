@@ -1,11 +1,11 @@
 <template>
   <tbody>
     <tr class="gamelist-item">
-      <th>{{ props.data }}</th>
-      <th>{{ props.data }}</th>
-      <th>{{ props.data }}</th>
-      <th>{{ props.data }}</th>
-    </tr>
+        <router-link to="/rank"><th>{{ props.data }}</th></router-link>
+        <th>{{ props.data }}</th>
+        <th>{{ props.data }}</th>
+        <th>{{ props.data }}</th>
+      </tr>
     <tr class="gamelist-item">
       <th>1</th>
       <th>Charleroi</th>
@@ -28,6 +28,9 @@
 </template>
 
 <script setup>
+import { useRoute, useRouter } from 'vue-router'
+
+const router = useRouter()
 
  const props = defineProps({
     data : String

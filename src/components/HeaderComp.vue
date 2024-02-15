@@ -11,7 +11,7 @@
       <div id="profileWindow" class="myprofile hidden">
         <img src="" alt="Photo"><br>
         <router-link to="/profile">Modifier le profil</router-link>
-        <button @click="disconnect">Déconnexion</button>
+        <router-link to="/"><button @click="disconnect">Déconnexion</button></router-link>
       </div>
     </div>
   </section>
@@ -37,6 +37,7 @@ const showProfileBtn = computed(() => {
 
 const lastPage = () => {
   console.log("Page précédente")
+  router.go(-1);
 }
 
 const showProfileWindow = () => {
