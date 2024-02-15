@@ -1,8 +1,15 @@
 <script setup>
+import HeaderComp from '@/components/HeaderComp.vue';
+
+
 </script>
 
 <template>
   <main>
-    <h1>This is the Profile page</h1>
+    <HeaderComp></HeaderComp>
   </main>
 </template>
+
+<style scoped>
+
+</style>
