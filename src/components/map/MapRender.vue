@@ -88,8 +88,8 @@ onMounted(() => {
             console.error('Erreur de géolocalisation :', error.message)
           },
           {
-            enableHighAccuracy: true,
-            maximumAge: 0
+            enableHighAccuracy: true, // Activer une haute précision de la géolocalisation
+            maximumAge: 0, // Ne pas utiliser de position mise en cache
           }
         )
       } else {
