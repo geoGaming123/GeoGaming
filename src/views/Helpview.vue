@@ -50,7 +50,7 @@ import HeaderComp from '@/components/HeaderComp.vue';
 </template>
 
 <style scoped>
-  regles {
+  .regles {
     padding-inline: 1rem;
   }
   details {
