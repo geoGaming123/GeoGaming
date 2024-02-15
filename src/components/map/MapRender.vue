@@ -9,71 +9,92 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
-import * as L from 'leaflet';
-import { useGamesStore } from '@/stores/games';
+import { onMounted } from 'vue'
+import * as L from 'leaflet'
+import { useGamesStore } from '@/stores/games'
 
-const gamesStore = useGamesStore();
+const gamesStore = useGamesStore()
 
 onMounted(() => {
-  // Charger les données depuis le localStorage de manière asynchrone
-  gamesStore.loadFromLocalStorage();
+  gamesStore.loadFromLocalStorage()
 
-  // Utiliser les coordonnées du startPoint comme centre initial de la carte
   if (gamesStore.startPoint) {
-    const { latitude, longitude } = gamesStore.startPoint.position;
-
-    // Initialiser une nouvelle carte sans utiliser les props
+    const { latitude, longitude } = gamesStore.startPoint.position
     const map = L.map('map', {
       center: [latitude, longitude],
       zoom: 15,
-      layers: [L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')],
-    });
+      layers: [L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')]
+    })
 
-    // Ajouter des marqueurs pour les données stockées une fois que la carte est prête
     map.whenReady(() => {
-      gamesStore.markers.forEach(marker => {
-        const { latitude, longitude } = marker.position;
+      gamesStore.markers.forEach((marker) => {
+        const { latitude, longitude } = marker.position
         const markerIcon = L.icon({
           iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
           iconSize: [50, 50],
           iconAnchor: [12, 41],
-          popupAnchor: [0, -30],
-        });
-        L.marker([latitude, longitude], { icon: markerIcon }).addTo(map).bindPopup(`<b>${marker.name}</b>`);
-      });
+          popupAnchor: [0, -30]
+        })
+        L.marker([latitude, longitude], { icon: markerIcon })
+          .addTo(map)
+          .bindPopup(`<b>${marker.name}</b>`)
+      })
 
-      // Ajouter un marqueur pour le startPoint
       const startPointIcon = L.icon({
         iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
         iconSize: [50, 50],
         iconAnchor: [12, 41],
-        popupAnchor: [0, -30],
-      });
-      L.marker([latitude, longitude], { icon: startPointIcon }).addTo(map).bindPopup('<b>Start Point</b>');
+        popupAnchor: [0, -30]
+      })
+      L.marker([latitude, longitude], { icon: startPointIcon })
+        .addTo(map)
+        .bindPopup('<b>Start Point</b>')
 
-      // Ajouter la géolocalisation
       if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(
+        navigator.geolocation.getCurrentPosition(
           (position) => {
-            const { latitude, longitude } = position.coords;
-
-            // Mettre à jour la position du joueur dans le store
-            gamesStore.updateUserPosition({ latitude, longitude });
+            const { latitude, longitude } = position.coords
+            // Ajouter un marqueur pour la position de l'utilisateur
+            const userMarker = L.marker([latitude, longitude])
+              .addTo(map)
+              .bindPopup('Vous êtes ici!')
+              .openPopup()
+            // Stocker la référence du marqueur de l'utilisateur dans le store
+            gamesStore.userMarker = userMarker
           },
           (error) => {
-            console.error('Erreur de géolocalisation :', error.message);
+            console.error('Erreur de géolocalisation :', error.message)
+          }
+        )
+
+        // Ajouter la fonctionnalité de suivi en temps réel de la position de l'utilisateur
+        const watchUserPosition = navigator.geolocation.watchPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords
+            // Mettre à jour la position du joueur dans le store
+            gamesStore.updateUserPosition({ latitude, longitude })
+            // Vérifiez si le marqueur de l'utilisateur existe déjà
+            if (gamesStore.userMarker) {
+              gamesStore.userMarker.setLatLng([latitude, longitude])
+            } else {
+              gamesStore.userMarker = L.marker([latitude, longitude])
+                .addTo(map)
+                .bindPopup('Vous êtes ici!')
+                .openPopup()
+            }
+          },
+          (error) => {
+            console.error('Erreur de géolocalisation :', error.message)
           },
           {
-            enableHighAccuracy: true, // Activer une haute précision de la géolocalisation
-            maximumAge: 0, // Ne pas utiliser de position mise en cache
+            enableHighAccuracy: true,
+            maximumAge: 0
           }
-        );
+        )
       } else {
-        console.error('La géolocalisation n\'est pas prise en charge par ce navigateur.');
+        console.error("La géolocalisation n'est pas prise en charge par ce navigateur.")
       }
-    });
+    })
   }
-});
+})
 </script>
-
