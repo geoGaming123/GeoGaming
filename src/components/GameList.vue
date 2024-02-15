@@ -4,7 +4,7 @@
     <div class="nav-btns">
       <button @click="activateTab('created')" :class="{ activebtn: activeTab === 'created' }">Créées</button>
       <button @click="activateTab('joined')" :class="{ activebtn: activeTab === 'joined' }">Rejointes</button>
-      <button @click="activateTab('available')" :class="{ activebtn: activeTab === 'available' , hidden: activeMenu != '3' }">Disponibles</button>
+      <button @click="activateTab('available')" :class="{ activebtn: activeTab === 'available' , hidden: activeMenu != 'futur' }">Disponibles</button>
     </div>
     <SearchBar></SearchBar>
   </section>
@@ -28,21 +28,28 @@
 </template>
 
 <script setup>
-import SearchBar from './SearchBar.vue';
-import { ref } from 'vue';
 import GameListItem from '@/components/GameListItem.vue';
+import SearchBar from './SearchBar.vue';
+import { ref, defineProps, onMounted, watch } from 'vue';
+
+const props = defineProps({
+  menu: String
+});
 
 const activeTab = ref('created');
-
-const activeMenu = "1"
+const activeMenu = ref(null);
 
 const activateTab = (tab) => {
   activeTab.value = tab;
 };
 
 const addGame = () => {
-  console.log('Add a Game')
-}
+  console.log('Add a Game');
+};
+
+watch(() => props.menu, (newMenu) => {
+  activeMenu.value = newMenu;
+});
 </script>
 
 <style scoped>
