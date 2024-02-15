@@ -50,18 +50,16 @@ onMounted(() => {
         .addTo(map)
         .bindPopup('<b>Start Point</b>')
 
-        // Obtenir la position de l'utilisateur
+      // Obtenir la position de l'utilisateur
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords
             // Ajouter un marqueur pour la position de l'utilisateur
-            const userMarker = L.marker([latitude, longitude])
+            L.marker([latitude, longitude])
               .addTo(map)
               .bindPopup('Vous êtes ici!')
               .openPopup()
-            // Stocker la référence du marqueur de l'utilisateur dans le store
-            gamesStore.userMarker = userMarker
           },
           (error) => {
             console.error('Erreur de géolocalisation :', error.message)
@@ -72,16 +70,15 @@ onMounted(() => {
         const watchUserPosition = navigator.geolocation.watchPosition(
           (position) => {
             const { latitude, longitude } = position.coords
-            // Mettre à jour la position du joueur dans le store
-            gamesStore.updateUserPosition({ latitude, longitude })
             // Vérifiez si le marqueur de l'utilisateur existe déjà
-            if (gamesStore.userMarker) {
-              gamesStore.userMarker.setLatLng([latitude, longitude])
-            } else {
-              gamesStore.userMarker = L.marker([latitude, longitude])
+            const userMarker = map.getPane('user-marker')
+            if (!userMarker) {
+              L.marker([latitude, longitude], { pane: 'user-marker' })
                 .addTo(map)
                 .bindPopup('Vous êtes ici!')
                 .openPopup()
+            } else {
+              userMarker.setLatLng([latitude, longitude])
             }
           },
           (error) => {
