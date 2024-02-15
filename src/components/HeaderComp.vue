@@ -8,7 +8,7 @@
     </div>
     <div class="header-profile" :class="{ hidden : showProfileBtn}">
       <button @click="showProfileWindow">Mon Profil</button>
-      <div id="profileWindow" class="myprofile ">
+      <div id="profileWindow" class="myprofile hidden">
         <img src="" alt="Photo"><br>
         <router-link to="/profile">Modifier le profil</router-link>
         <button @click="disconnect">Déconnexion</button>
