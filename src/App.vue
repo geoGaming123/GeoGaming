@@ -14,6 +14,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/profile">Profile</RouterLink>
         <RouterLink to="/game">Game</RouterLink>
         <RouterLink to="/nextgame">NextGame</RouterLink>
+        <RouterLink to="/gameform">MapForm</RouterLink>
       </nav>
     </div>
   </header>
