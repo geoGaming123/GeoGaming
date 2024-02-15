@@ -1,10 +1,9 @@
-<!-- AddStartPoint.vue -->
 <template>
-  <button class="btn" @click.prevent="addNewStartPoint">Ajouter un point de départ</button>
+  <button class="btn" @click.prevent="addNewStartPoint" :disabled="startPointsExist">Ajouter un point de départ</button>
 </template>
 
 <script setup>
-import { ref, reactive, toRefs, defineProps } from 'vue';
+import { ref, reactive, toRefs, defineProps, computed } from 'vue';
 import * as L from 'leaflet';
 import { useGamesStore } from '@/stores/games';
 
@@ -22,8 +21,12 @@ const customIconStartPoint = L.icon({
   popupAnchor: [0, -30],
 });
 
+const startPointsExist = computed(() => {
+  return gamesStore.startPoint !== null;
+});
+
 const addNewStartPoint = () => {
-  if (!startPoint.value) {
+  if (!startPointsExist.value) {
     const center = map.value.getCenter();
     const newStartPoint = L.marker([center.lat, center.lng], {
       draggable: true,
@@ -39,17 +42,15 @@ const addNewStartPoint = () => {
       position: { latitude: center.lat, longitude: center.lng },
     });
 
-
     const deleteButton = document.createElement('button');
-  deleteButton.innerHTML = 'Delete';
+    deleteButton.innerHTML = 'Delete';
 
-  newStartPoint.bindPopup(deleteButton);
-  deleteButton.addEventListener('click', (e) => {
-  e.preventDefault();
-  map.value.removeLayer(newStartPoint);
-  gamesStore.deleteStartPoint(startPointData);
-});
-
+    newStartPoint.bindPopup(deleteButton);
+    deleteButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      map.value.removeLayer(newStartPoint);
+      gamesStore.deleteStartPoint(startPointData);
+    });
 
     newStartPoint.on('dragend', () => {
       const newStartPointLatLng = newStartPoint.getLatLng();
@@ -66,6 +67,5 @@ const addNewStartPoint = () => {
     alert('Vous ne pouvez ajouter qu\'un seul point de départ.');
   }
 };
-
 
 </script>
