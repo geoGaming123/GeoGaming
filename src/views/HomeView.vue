@@ -7,7 +7,7 @@ import GameList from '@/components/GameList.vue';
 
 <template>
   <main>
-    <HeaderComp data="logo"></HeaderComp>
+    <HeaderComp data="logo" profile="profile"></HeaderComp>
     <GameList></GameList>
     <FooterComp></FooterComp>
   </main>
