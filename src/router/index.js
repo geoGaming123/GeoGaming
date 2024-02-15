@@ -5,6 +5,7 @@ import RankView from '../views/RankView.vue'
 import GameView from '../views/GameView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import NextGameView from '../views/NextGameView.vue'
+import HelpView from '@/views/HelpView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: '/nextgame',
       name: 'NextGame',
       component: NextGameView
+    },
+    {
+      path: '/help',
+      name: 'Help',
+      component: HelpView
     }
   ]
 })

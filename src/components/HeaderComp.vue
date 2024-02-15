@@ -10,7 +10,8 @@
       <button @click="showProfileWindow">Mon Profil</button>
       <div id="profileWindow" class="myprofile hidden">
         <img src="" alt="Photo"><br>
-        <router-link to="/profile">Modifier le profil</router-link>
+        <router-link to="/profile">Modifier le profil</router-link><br>
+        <router-link to="/help">Besoin d'aide ?</router-link>
         <router-link to="/"><button @click="disconnect">Déconnexion</button></router-link>
       </div>
     </div>
