@@ -10,21 +10,27 @@ import MyRank from '@/components/MyRank.vue';
     <ul class="rankList">
       <li class="rankListEl first">
         <span>1</span>
-        <img class="center" src="" alt="Ma Photo">
+        <img class="center" src="" alt=" ">
         <span>monsuper.pseudo</span>
         <span class="right">180 pts</span>
       </li>
       <li class="rankListEl">
         <span>1</span>
-        <img class="center" src="" alt="Ma Photo">
+        <img class="center" src="" alt=" ">
         <span>jean</span>
         <span class="right">180 pts</span>
       </li>
       <li class="rankListEl">
         <span>1</span>
-        <img class="center" src="" alt="Ma Photo">
+        <img class="center" src="" alt=" ">
         <span>monsuper.pseudotropcool</span>
         <span class="right">180 pts</span>
+      </li>
+      <li class="rankListEl">
+        <span>1</span>
+        <img class="center" src="" alt=" ">
+        <span>mamy.hugette</span>
+        <span class="right">150 pts</span>
       </li>
     </ul>
   </main>
@@ -32,18 +38,20 @@ import MyRank from '@/components/MyRank.vue';
 
 <style scoped>
   .rankList {
-    padding: 0;
+    padding-inline-start: 0;
     font-size: 1rem;
     width: 100%;
+    padding-block-start: .5rem;
+    font-weight: 500;
   }
   .rankListEl {
     list-style: none;
     width: 100%;
-    padding: 1.5rem;
+    padding-inline: 1.5rem;
+    padding-block: .5rem;
     display: grid;
     grid-template-columns: 1fr 1fr 5fr 2fr;
     align-items: center;
-    font-size: 1rem;
   }
   .first {
     color: orange;
