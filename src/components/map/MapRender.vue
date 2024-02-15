@@ -50,6 +50,7 @@ onMounted(() => {
         .addTo(map)
         .bindPopup('<b>Start Point</b>')
 
+        // Obtenir la position de l'utilisateur
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
