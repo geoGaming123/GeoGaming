@@ -1,58 +1,71 @@
+<!-- AddStartPoint.vue -->
 <template>
-    <button class="btn" @click.prevent="addNewStartPoint">Add Start Point</button>
+  <button class="btn" @click.prevent="addNewStartPoint">Ajouter un point de départ</button>
 </template>
- 
 
-  <script setup>
-  import { ref, reactive, toRefs, defineProps } from 'vue';
-  import * as L from 'leaflet';
-  import { useGamesStore } from '@/stores/games';
-  
-  const props = defineProps(['map']);
-  const { map } = toRefs(props);
-  const gamesStore = useGamesStore(); // Import the store
-  
-  const startPoints = ref([]);
-  let weaponIndex = 1;
-  
-  const customIconStartPoint = L.icon({
-    iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
-    iconSize: [50, 50],
-    iconAnchor: [12, 41],
-    popupAnchor: [0, -30],
-  });
-  
-  const addNewStartPoint = () => {
-    if (startPoints.value.length === 0) {
-      const center = map.value.getCenter();
-      const newStartPoint = L.marker([center.lat, center.lng], {
-        draggable: true,
-        opacity: 1,
-        icon: customIconStartPoint,
-      });
-  
-      newStartPoint.addTo(map.value);
-  
-      const startPointData = reactive({
-        name: `StartPoint ${weaponIndex}`,
-        marker: newStartPoint,
-        position: { latitude: center.lat, longitude: center.lng },
-      });
-  
-      newStartPoint.on('dragend', () => {
-        const newStartPointLatLng = newStartPoint.getLatLng();
-        console.log(`StartPoint ${weaponIndex - 1} coordinates:`, newStartPointLatLng.lat, newStartPointLatLng.lng);
-        startPointData.position = { latitude: newStartPointLatLng.lat, longitude: newStartPointLatLng.lng };
-      });
-  
-      startPoints.value.push(startPointData);
-      weaponIndex++;
-  
-      // Mettre à jour le startPoint dans le store
-      gamesStore.updateStartPoint(startPointData);
-    } else {
-      alert('You can only add one StartPoint.');
-    }
-  };
-  </script>
-  
+<script setup>
+import { ref, reactive, toRefs, defineProps } from 'vue';
+import * as L from 'leaflet';
+import { useGamesStore } from '@/stores/games';
+
+const props = defineProps(['map']);
+const { map } = toRefs(props);
+const gamesStore = useGamesStore(); // Importer le store
+
+const startPoint = ref(null);
+let weaponIndex = 1;
+
+const customIconStartPoint = L.icon({
+  iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
+  iconSize: [50, 50],
+  iconAnchor: [12, 41],
+  popupAnchor: [0, -30],
+});
+
+const addNewStartPoint = () => {
+  if (!startPoint.value) {
+    const center = map.value.getCenter();
+    const newStartPoint = L.marker([center.lat, center.lng], {
+      draggable: true,
+      opacity: 1,
+      icon: customIconStartPoint,
+    });
+
+    newStartPoint.addTo(map.value);
+
+    const startPointData = reactive({
+      name: `Point de départ ${weaponIndex}`,
+      marker: newStartPoint,
+      position: { latitude: center.lat, longitude: center.lng },
+    });
+
+
+    const deleteButton = document.createElement('button');
+  deleteButton.innerHTML = 'Delete';
+
+  newStartPoint.bindPopup(deleteButton);
+  deleteButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  map.value.removeLayer(newStartPoint);
+  gamesStore.deleteStartPoint(startPointData);
+});
+
+
+    newStartPoint.on('dragend', () => {
+      const newStartPointLatLng = newStartPoint.getLatLng();
+      console.log(`Coordonnées du point de départ ${weaponIndex - 1}:`, newStartPointLatLng.lat, newStartPointLatLng.lng);
+      startPointData.position = { latitude: newStartPointLatLng.lat, longitude: newStartPointLatLng.lng };
+    });
+
+    startPoint.value = startPointData;
+    weaponIndex++;
+
+    // Mettre à jour le point de départ dans le store
+    gamesStore.updateStartPoint(startPointData);
+  } else {
+    alert('Vous ne pouvez ajouter qu\'un seul point de départ.');
+  }
+};
+
+
+</script>
