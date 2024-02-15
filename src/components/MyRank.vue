@@ -1,6 +1,6 @@
 <template>
   <div class="myRank">
-    <img src="" alt="Ma photo"><span class="pseudo">Rocko</span>
+    <img src="" alt=" "><span class="pseudo">Rocko</span>
     <div class="myRankStat">
       <span>15e</span><span>50 pts</span>
     </div>
@@ -17,7 +17,8 @@
     background-color: orange;
     text-align: center;
     padding: 1rem;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
+    font-weight: 700;
     color: white;
   }
   .pseudo {
