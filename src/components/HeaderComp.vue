@@ -56,7 +56,7 @@ const disconnect = () => {
   right: 0;
   height: 300px;
   width: 200px;
-  background-color: #f1f1f190;
+  background-color: #f1f1f1;
   padding: 1rem;
   border: 1px solid black;
   
