@@ -4,7 +4,7 @@
     <div class="nav-btns">
       <button @click="activateTab('created')" :class="{ activebtn: activeTab === 'created' }">Créées</button>
       <button @click="activateTab('joined')" :class="{ activebtn: activeTab === 'joined' }">Rejointes</button>
-      <button @click="activateTab('available')" :class="{ activebtn: activeTab === 'available' }">Disponibles</button>
+      <button @click="activateTab('available')" :class="{ activebtn: activeTab === 'available' , hidden: activeMenu != '3' }">Disponibles</button>
     </div>
     <SearchBar></SearchBar>
   </section>
@@ -33,6 +33,8 @@ import { ref } from 'vue';
 import GameListItem from '@/components/GameListItem.vue';
 
 const activeTab = ref('created');
+
+const activeMenu = "1"
 
 const activateTab = (tab) => {
   activeTab.value = tab;
@@ -92,5 +94,8 @@ const addGame = () => {
     position: absolute;
     bottom: 5rem;
     right: 1rem;
+  }
+  .hidden {
+    display: none;
   }
 </style>
