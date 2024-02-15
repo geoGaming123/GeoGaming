@@ -60,7 +60,7 @@ const disconnect = () => {
   background-color: #f1f1f1;
   padding: 1rem;
   border: 1px solid black;
-  
+  z-index: 999;
 }
 .header {
   display: flex;
