@@ -70,7 +70,7 @@ export const useGamesStore = defineStore('games', {
     deleteStartPoint() {
       this.startPoint = null;
       console.log("supprimer du store");
-      updateStartPoint()
+      this.updateStartPoint(null)
     },
   },
 });
