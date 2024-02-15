@@ -1,5 +1,5 @@
 <template>
-  <p>Ma loupe s'affiche ici</p>
+  <p>Loupe</p>
   <!-- SearchBar -->
 </template>
 
