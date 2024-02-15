@@ -6,7 +6,7 @@
     <div class="header-return" :class="{ hidden : !showLogo}">
       <button @click="lastPage">Return</button>
     </div>
-    <div class="header-profile" :class="{ hidden : !showProfileBtn}">
+    <div class="header-profile" :class="{ hidden : showProfileBtn}">
       <button @click="showProfileWindow">Mon Profil</button>
       <div id="profileWindow" class="myprofile ">
         <img src="" alt="Photo"><br>
