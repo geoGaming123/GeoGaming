@@ -8,13 +8,14 @@
 
 <script setup>
 import { ref } from 'vue';
+const emit = defineEmits(['activateMenu'])
 
 const activeTab = ref('present');
 
 const activateTab = (tab) => {
   activeTab.value = tab;
+  emit('activateMenu', tab)
 };
-
 </script>
 
 <style scoped>
