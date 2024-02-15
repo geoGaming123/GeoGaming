@@ -6,8 +6,8 @@
     <div class="header-return" :class="{ hidden : !showLogo}">
       <button @click="lastPage">Return</button>
     </div>
-    <div class="header-profile">
-      <button @click="showProfile">Mon Profil</button>
+    <div class="header-profile" :class="{ hidden : !showProfileBtn}">
+      <button @click="showProfileWindow">Mon Profil</button>
       <div id="profileWindow" class="myprofile ">
         <img src="" alt="Photo"><br>
         <router-link to="/profile">Modifier le profil</router-link>
@@ -22,19 +22,24 @@ import { defineProps, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const props = defineProps({
-  data: String
+  data: String,
+  profile: String
 })
 
 const router = useRouter()
+
 const showLogo = computed(() => {
   return props.data === "logo" ? false : true
+})
+const showProfileBtn = computed(() => {
+  return props.profile === "profile" ? false : true
 })
 
 const lastPage = () => {
   console.log("Page précédente")
 }
 
-const showProfile = () => {
+const showProfileWindow = () => {
   document.getElementById('profileWindow').classList.toggle('hidden')
 }
 
