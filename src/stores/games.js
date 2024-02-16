@@ -1,6 +1,6 @@
 // stores/games.js
-import { defineStore } from 'pinia';
-import { reactive } from 'vue';
+import { defineStore } from 'pinia'
+import { reactive } from 'vue'
 
 export const useGamesStore = defineStore('games', {
   state: () => ({
@@ -8,22 +8,25 @@ export const useGamesStore = defineStore('games', {
       title: '',
       description: '',
       startDate: '',
-      endDate: '',
+      endDate: ''
     },
     markers: reactive([]),
-    startPoint: reactive(null), 
+    startPoint: reactive(null),
+    userPosition: reactive({}),
+    userMarker: null
   }),
 
   actions: {
     loadFromLocalStorage() {
-      const storedData = localStorage.getItem('formData');
+      const storedData = localStorage.getItem('formData')
 
       if (storedData) {
-        const parsedData = JSON.parse(storedData);
+        const parsedData = JSON.parse(storedData)
 
-        this.formData = parsedData.formData || this.formData;
-        this.markers = reactive(parsedData.markers || []);
-        this.startPoint = reactive(parsedData.startPoint || null);
+        this.formData = parsedData.formData || this.formData
+        this.markers = reactive(parsedData.markers || [])
+        this.startPoint = reactive(parsedData.startPoint || null)
+        this.userPosition = reactive(parsedData.userPosition || null)
       }
     },
 
@@ -32,22 +35,23 @@ export const useGamesStore = defineStore('games', {
         formData: { ...this.formData },
         markers: this.markers.map((marker) => ({
           name: marker.name,
-          position: { ...marker.position },
+          position: { ...marker.position }
         })),
         startPoint: this.startPoint
           ? {
               name: this.startPoint.name,
-              position: { ...this.startPoint.position },
+              position: { ...this.startPoint.position }
             }
           : null,
-      };
+        userPosition: this.userPosition
+      }
 
-      localStorage.setItem('formData', JSON.stringify(cleanData));
-      console.log('Envoi au localStorage');
+      localStorage.setItem('formData', JSON.stringify(cleanData))
+      console.log('Envoi au localStorage')
     },
 
     updateStartPoint(startPoint) {
-      this.startPoint = startPoint;
+      this.startPoint = startPoint
     },
 
     updateMarkers(markers) {
@@ -55,23 +59,34 @@ export const useGamesStore = defineStore('games', {
         markers.map((marker) => ({
           name: marker.name,
           marker: marker.marker,
-          position: { ...marker.position },
+          position: { ...marker.position }
         }))
-      );
+      )
     },
 
     deleteMarker(marker) {
-      this.markers = this.markers.filter((m) => m.name !== marker.name);
+      this.markers = this.markers.filter((m) => m.name !== marker.name)
       // Mettez à jour le store après la suppression du marqueur
-      this.updateMarkers(this.markers);
-      console.log("supprimer du store");
+      this.updateMarkers(this.markers)
+      console.log('supprimer du store')
     },
 
     deleteStartPoint() {
-      this.startPoint = null;
-      console.log("supprimer du store");
+      this.startPoint = null
+      console.log('supprimer du store')
       this.updateStartPoint(null)
     },
-  },
-});
 
+    updateUserPosition(position) {
+      // Mettre à jour la position du joueur dans le store
+      this.userPosition = position
+      // Sauvegarder la position du joueur dans le localStorage
+      this.saveDataToLocalStorage()
+    },
+
+    updateUserMarker(marker) {
+      // Mettre à jour la référence du marqueur de l'utilisateur dans le store
+      this.userMarker = marker
+    }
+  }
+})
