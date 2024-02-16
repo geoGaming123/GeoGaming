@@ -1,3 +1,12 @@
+<template>
+  <main>
+    <HeaderComp data="logo" profile="profile"></HeaderComp>
+    <GameList :menu="showMenuData"></GameList>
+    <FooterComp @activate-menu="showMenu"></FooterComp>
+  </main>
+</template>
+
+
 <script setup>
 import HeaderComp from '@/components/HeaderComp.vue';
 import FooterComp from '@/components/FooterComp.vue';
@@ -11,13 +20,7 @@ const showMenu = (tab) => {
 
 </script>
 
-<template>
-  <main>
-    <HeaderComp data="logo" profile="profile"></HeaderComp>
-    <GameList :menu="showMenuData"></GameList>
-    <FooterComp @activate-menu="showMenu"></FooterComp>
-  </main>
-</template>
+
 <style scoped>
 
 </style>
