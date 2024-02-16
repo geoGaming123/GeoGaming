@@ -18,19 +18,7 @@ export const useGamesStore = defineStore('games', {
 
   actions: {
 
-
-    // loadFromLocalStorage() {
-    //   const storedData = localStorage.getItem('testData')
-
-    //   if (storedData) {
-    //     const parsedData = JSON.parse(storedData)
-
-    //     this.formData = parsedData.formData || this.formData
-    //     this.markers = reactive(parsedData.markers || [])
-    //     this.startPoint = reactive(parsedData.startPoint || null)
-    //     this.userPosition = reactive(parsedData.userPosition || null)
-    //   }
-    // },
+    
 
 loadFromLocalStorage() {
   const storedData = localStorage.getItem('testData');
@@ -51,34 +39,27 @@ loadFromLocalStorage() {
 
 
 getMatches() {
-  const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwNzk5MDE5NSwibmJmIjoxNzA3OTkwMTk1LCJleHAiOjE3MDg1OTQ5OTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.fgYfqHYmhNdFnW0xOoL2pY1HBsBCgThfi-6sy2ti-FQ";
+      const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwNzk5MDE5NSwibmJmIjoxNzA3OTkwMTk1LCJleHAiOjE3MDg1OTQ5OTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.fgYfqHYmhNdFnW0xOoL2pY1HBsBCgThfi-6sy2ti-FQ";
 
-  // Fetch matches data from the API
-  fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      // Fetch matches data from the API
+      fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Update the matches state with the retrieved data
+          this.matches = reactive(data);
+          console.log('Matches retrieved from API:', this.matches);
+        })
+        .catch(error => {
+          console.error('Error fetching matches from API:', error);
+        });
     },
-  })
-    .then(response => response.json())
-    .then(data => {
-      // Traitez les données récupérées
-      state.title.value = data.title || state.title.value;
-      state.description.value = data.description || state.description.value;
-      state.startDate.value = data.startDate || state.startDate.value;
-      state.endDate.value = data.endDate || state.endDate.value;
-      state.markers.value = reactive(data.markers || []);
-      state.start_point.value = reactive(data.start_point || null);
-      state.userPosition.value = reactive(data.userPosition || null);
-      state.matches.value = reactive(data);
-
-      console.log('Matches retrieved from API:', state.matches.value);
-    })
-    .catch(error => {
-      console.error('Error fetching matches from API:', error);
-    });
-},
+  
 
 
     
