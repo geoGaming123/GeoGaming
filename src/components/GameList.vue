@@ -30,7 +30,7 @@
 <script setup>
 import GameListItem from '@/components/GameListItem.vue';
 import SearchBar from './SearchBar.vue';
-import { ref, defineProps, onMounted, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps({
   menu: String
