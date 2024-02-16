@@ -16,16 +16,21 @@ import { useGamesStore } from '@/stores/games'
 const gamesStore = useGamesStore()
 
 onMounted(() => {
+  // Charger les données depuis le localStorage de manière asynchrone
   gamesStore.loadFromLocalStorage()
 
+  // Utiliser les coordonnées du startPoint comme centre initial de la carte
   if (gamesStore.startPoint) {
     const { latitude, longitude } = gamesStore.startPoint.position
+
+    // Initialiser une nouvelle carte sans utiliser les props
     const map = L.map('map', {
       center: [latitude, longitude],
       zoom: 15,
       layers: [L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')]
     })
 
+    // Ajouter des marqueurs pour les données stockées une fois que la carte est prête
     map.whenReady(() => {
       gamesStore.markers.forEach((marker) => {
         const { latitude, longitude } = marker.position
@@ -40,6 +45,7 @@ onMounted(() => {
           .bindPopup(`<b>${marker.name}</b>`)
       })
 
+      // Ajouter un marqueur pour le startPoint
       const startPointIcon = L.icon({
         iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
         iconSize: [50, 50],
@@ -50,7 +56,7 @@ onMounted(() => {
         .addTo(map)
         .bindPopup('<b>Start Point</b>')
 
-        // Obtenir la position de l'utilisateur
+      // Obtenir la position de l'utilisateur
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
@@ -89,7 +95,7 @@ onMounted(() => {
           },
           {
             enableHighAccuracy: true, // Activer une haute précision de la géolocalisation
-            maximumAge: 0, // Ne pas utiliser de position mise en cache
+            maximumAge: 0 // Ne pas utiliser de position mise en cache
           }
         )
       } else {

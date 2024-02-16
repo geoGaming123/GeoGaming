@@ -1,3 +1,4 @@
+// stores/games.js
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
 
@@ -10,7 +11,7 @@ export const useGamesStore = defineStore('games', {
       endDate: ''
     },
     markers: reactive([]),
-    startPoint: reactive({}),
+    startPoint: reactive(null),
     userPosition: reactive({}),
     userMarker: null
   }),
@@ -51,22 +52,9 @@ export const useGamesStore = defineStore('games', {
 
     updateStartPoint(startPoint) {
       this.startPoint = startPoint
-        ? {
-            name: startPoint.name,
-            position: { ...startPoint.position }
-          }
-        : null
     },
 
     updateMarkers(markers) {
-      // Retirer les marqueurs obsolètes du magasin
-      this.markers.forEach((m) => {
-        if (!markers.find((newMarker) => newMarker.marker === m.marker)) {
-          this.removeMarker(m.marker)
-        }
-      })
-
-      // Mettre à jour le tableau des marqueurs dans le magasin
       this.markers = reactive(
         markers.map((marker) => ({
           name: marker.name,
@@ -76,9 +64,17 @@ export const useGamesStore = defineStore('games', {
       )
     },
 
-    removeMarker(marker) {
-      // Filtrer le tableau des marqueurs dans le magasin
-      this.markers = this.markers.filter((m) => m.marker !== marker)
+    deleteMarker(marker) {
+      this.markers = this.markers.filter((m) => m.name !== marker.name)
+      // Mettez à jour le store après la suppression du marqueur
+      this.updateMarkers(this.markers)
+      console.log('supprimer du store')
+    },
+
+    deleteStartPoint() {
+      this.startPoint = null
+      console.log('supprimer du store')
+      this.updateStartPoint(null)
     },
 
     updateUserPosition(position) {
