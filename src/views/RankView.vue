@@ -12,25 +12,25 @@ import MyRank from '@/components/MyRank.vue';
         <span>1</span>
         <img class="center" src="" alt=" ">
         <span>monsuper.pseudo</span>
-        <span class="right">180 pts</span>
+        <span class="right">3m 57s</span>
       </li>
       <li class="rankListEl">
-        <span>1</span>
+        <span>2</span>
         <img class="center" src="" alt=" ">
         <span>jean</span>
-        <span class="right">180 pts</span>
+        <span class="right">4m 02s</span>
       </li>
       <li class="rankListEl">
-        <span>1</span>
+        <span>3</span>
         <img class="center" src="" alt=" ">
         <span>monsuper.pseudotropcool</span>
-        <span class="right">180 pts</span>
+        <span class="right">5m 42s</span>
       </li>
       <li class="rankListEl">
-        <span>1</span>
+        <span>36</span>
         <img class="center" src="" alt=" ">
         <span>mamy.hugette</span>
-        <span class="right">150 pts</span>
+        <span class="right">22m 10s</span>
       </li>
     </ul>
   </main>

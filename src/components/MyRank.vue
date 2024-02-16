@@ -2,7 +2,7 @@
   <div class="myRank">
     <img src="" alt=" "><span class="pseudo">Rocko</span>
     <div class="myRankStat">
-      <span>15e</span><span>50 pts</span>
+      <span>15e</span><span>8m 32s</span>
     </div>
   </div>
 </template>
