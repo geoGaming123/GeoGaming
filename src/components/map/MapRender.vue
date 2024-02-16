@@ -67,7 +67,7 @@ onMounted(() => {
               .bindPopup('Vous êtes ici!')
               .openPopup()
             // Stocker la référence du marqueur de l'utilisateur dans le store
-            gamesStore.userMarker = userMarker
+            gamesStore.updateUserMarker(userMarker)
           },
           (error) => {
             console.error('Erreur de géolocalisation :', error.message)
@@ -84,10 +84,11 @@ onMounted(() => {
             if (gamesStore.userMarker) {
               gamesStore.userMarker.setLatLng([latitude, longitude])
             } else {
-              gamesStore.userMarker = L.marker([latitude, longitude])
+              const userMarker = L.marker([latitude, longitude])
                 .addTo(map)
                 .bindPopup('Vous êtes ici!')
                 .openPopup()
+              gamesStore.updateUserMarker(userMarker)
             }
           },
           (error) => {

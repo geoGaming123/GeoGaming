@@ -12,8 +12,7 @@ export const useGamesStore = defineStore('games', {
     },
     markers: reactive([]),
     startPoint: reactive(null),
-    userPosition: reactive({}),
-    userMarker: null
+    userMarker: reactive(null)
   }),
 
   actions: {
@@ -26,7 +25,7 @@ export const useGamesStore = defineStore('games', {
         this.formData = parsedData.formData || this.formData
         this.markers = reactive(parsedData.markers || [])
         this.startPoint = reactive(parsedData.startPoint || null)
-        this.userPosition = reactive(parsedData.userPosition || null)
+        this.userMarker = reactive(parsedData.userMarker || null)
       }
     },
 
@@ -35,7 +34,8 @@ export const useGamesStore = defineStore('games', {
         formData: { ...this.formData },
         markers: this.markers.map((marker) => ({
           name: marker.name,
-          position: { ...marker.position }
+          position: { ...marker.position },
+          isCaptured: false
         })),
         startPoint: this.startPoint
           ? {
@@ -43,7 +43,14 @@ export const useGamesStore = defineStore('games', {
               position: { ...this.startPoint.position }
             }
           : null,
-        userPosition: this.userPosition
+        userMarker: this.userMarker
+          ? {
+              position: {
+                latitude: this.userMarker.getLatLng().lat,
+                longitude: this.userMarker.getLatLng().lng
+              }
+            }
+          : null
       }
 
       localStorage.setItem('formData', JSON.stringify(cleanData))
@@ -59,22 +66,15 @@ export const useGamesStore = defineStore('games', {
         markers.map((marker) => ({
           name: marker.name,
           marker: marker.marker,
-          position: { ...marker.position }
+          position: { ...marker.position },
+          isCaptured: false
         }))
       )
     },
 
-    deleteMarker(marker) {
-      this.markers = this.markers.filter((m) => m.name !== marker.name)
-      // Mettez à jour le store après la suppression du marqueur
-      this.updateMarkers(this.markers)
-      console.log('supprimer du store')
-    },
-
-    deleteStartPoint() {
-      this.startPoint = null
-      console.log('supprimer du store')
-      this.updateStartPoint(null)
+    removeMarker(marker) {
+      // Filtrer le tableau des marqueurs dans le magasin
+      this.markers = this.markers.filter((m) => m.marker !== marker)
     },
 
     updateUserPosition(position) {
@@ -87,6 +87,8 @@ export const useGamesStore = defineStore('games', {
     updateUserMarker(marker) {
       // Mettre à jour la référence du marqueur de l'utilisateur dans le store
       this.userMarker = marker
+      // Sauvegarder la position du marqueur de l'utilisateur dans le localStorage
+      this.saveDataToLocalStorage()
     }
   }
 })
