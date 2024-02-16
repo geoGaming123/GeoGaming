@@ -12,8 +12,7 @@ export const useGamesStore = defineStore('games', {
     },
     markers: reactive([]),
     startPoint: reactive(null),
-    userPosition: reactive({}),
-    userMarker: null
+    userMarker: reactive(null)
   }),
 
   actions: {
@@ -26,7 +25,7 @@ export const useGamesStore = defineStore('games', {
         this.formData = parsedData.formData || this.formData
         this.markers = reactive(parsedData.markers || [])
         this.startPoint = reactive(parsedData.startPoint || null)
-        this.userPosition = reactive(parsedData.userPosition || null)
+        this.userMarker = reactive(parsedData.userMarker || null)
       }
     },
 
@@ -35,7 +34,8 @@ export const useGamesStore = defineStore('games', {
         formData: { ...this.formData },
         markers: this.markers.map((marker) => ({
           name: marker.name,
-          position: { ...marker.position }
+          position: { ...marker.position },
+          isCaptured: false
         })),
         startPoint: this.startPoint
           ? {
@@ -43,7 +43,14 @@ export const useGamesStore = defineStore('games', {
               position: { ...this.startPoint.position }
             }
           : null,
-        userPosition: this.userPosition
+        userMarker: this.userMarker
+          ? {
+              position: {
+                latitude: this.userMarker.getLatLng().lat,
+                longitude: this.userMarker.getLatLng().lng
+              }
+            }
+          : null
       }
 
       localStorage.setItem('formData', JSON.stringify(cleanData))
@@ -59,7 +66,8 @@ export const useGamesStore = defineStore('games', {
         markers.map((marker) => ({
           name: marker.name,
           marker: marker.marker,
-          position: { ...marker.position }
+          position: { ...marker.position },
+          isCaptured: false
         }))
       )
     },
@@ -77,16 +85,11 @@ export const useGamesStore = defineStore('games', {
       this.updateStartPoint(null)
     },
 
-    updateUserPosition(position) {
-      // Mettre à jour la position du joueur dans le store
-      this.userPosition = position
-      // Sauvegarder la position du joueur dans le localStorage
-      this.saveDataToLocalStorage()
-    },
-
     updateUserMarker(marker) {
       // Mettre à jour la référence du marqueur de l'utilisateur dans le store
       this.userMarker = marker
+      // Sauvegarder la position du marqueur de l'utilisateur dans le localStorage
+      this.saveDataToLocalStorage()
     }
   }
 })
