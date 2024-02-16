@@ -12,7 +12,8 @@ export const useGamesStore = defineStore('games', {
     },
     markers: reactive([]),
     startPoint: reactive(null),
-    userMarker: reactive(null)
+    userMarker: reactive(null),
+    userPosition: reactive({})
   }),
 
   actions: {
@@ -84,7 +85,9 @@ export const useGamesStore = defineStore('games', {
       console.log('supprimer du store')
       this.updateStartPoint(null)
     },
-
+    updateUserPosition(position) {
+      this.userPosition = position // Met à jour la position de l'utilisateur dans le store
+    },
     updateUserMarker(marker) {
       // Mettre à jour la référence du marqueur de l'utilisateur dans le store
       this.userMarker = marker
