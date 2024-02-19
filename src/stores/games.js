@@ -61,11 +61,7 @@ export const useGamesStore = defineStore('games', {
     },
 
     updateStartPoint(startPoint) {
-      this.startPoint = {
-        ...startPoint,
-        startGame: false,
-        endGame: false
-      }
+      this.startPoint = startPoint
     },
 
     updateMarkers(markers) {
