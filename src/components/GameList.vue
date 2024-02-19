@@ -3,8 +3,8 @@
   <section class="nav">
     <div class="nav-btns">
       <button @click="activateTab('created')" :class="{ activebtn: activeTab === 'created' }">Créées</button>
-      <button @click="activateTab('joined')" :class="{ activebtn: activeTab === 'joined' }">Rejointes</button>
       <button @click="activateTab('available')" :class="{ activebtn: activeTab === 'available' , hidden: activeMenu != 'futur' }">Disponibles</button>
+      <button @click="activateTab('joined')" :class="{ activebtn: activeTab === 'joined' }">Rejointes</button>
     </div>
   </section>
   <section class="gamelist">
@@ -60,13 +60,19 @@ const addGame = () => {
   padding-inline: 2rem;
 }
   .nav {
-    display: flex;
+    width: 100%;
     padding-block-start: 1rem;
     padding-block-end: .2rem;
     justify-content: space-between;
   }
+  .nav-btns {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
   .nav-btns button {
-    padding: .2rem;
+    width: 30%;
+    padding-block: .2rem;
     margin-inline-end: .2rem;
     border: 1px solid #f1f1f190;
     background-color: #f1f1f1;
@@ -77,7 +83,7 @@ const addGame = () => {
     border: none !important;
     color: white;
     position: relative;
-    top: .3rem;
+    top: .2rem;
   }
   .gamelist-title {
     border-top: 1px solid orange;
