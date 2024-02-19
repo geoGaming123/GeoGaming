@@ -1,8 +1,15 @@
 <script setup>
+import LoginComponent from '@/components/LoginComponent.vue';
+import SignupComponent from '@/components/SignupComponent.vue';
+import { ref } from 'vue'
+
+let loggedin = ref(true)
 </script>
 
 <template>
   <main>
-    <h1>This is the Login page</h1>
+    <button @click="loggedin = !loggedin">Logged in</button>
+    <LoginComponent v-if="loggedin == false"/>
+    <SignupComponent v-if="loggedin == true"/>
   </main>
 </template>
