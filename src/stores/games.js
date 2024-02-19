@@ -15,7 +15,8 @@ export const useGamesStore = defineStore('games', {
     startPoint: null,
     userPosition: {},
     userMarker: null,
-    match:{}
+    match:{},
+
 
   }),
 
@@ -53,12 +54,7 @@ async getMatch(matchId) {
             })
             .catch (err => console.log(err))
 },
-
-
-  
-
-
-    
+ 
     postMatchData() {
       const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwNzk5MDE5NSwibmJmIjoxNzA3OTkwMTk1LCJleHAiOjE3MDg1OTQ5OTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.fgYfqHYmhNdFnW0xOoL2pY1HBsBCgThfi-6sy2ti-FQ";
     
@@ -74,11 +70,14 @@ async getMatch(matchId) {
             name: marker.name,
             position: { ...marker.position },
             penality: "20",
+            isCaptured: false
           })),
           start_point: this.startPoint
             ? {
                 name: this.startPoint.name,
                 position: { ...this.startPoint.position },
+                startGame: false,
+                endGame: false,
               }
             : null,
           masteruid: '1', // Modifié en brut
@@ -134,15 +133,13 @@ async getMatch(matchId) {
         });
     },
     
-
-
-
     updateMarkers(markers) {
       this.markers = reactive(
         markers.map((marker) => ({
           name: marker.name,
           marker: marker.marker,
-          position: { ...marker.position }
+          position: { ...marker.position },
+          isCaptured: false
         }))
       )
     },
@@ -174,8 +171,8 @@ async getMatch(matchId) {
     updateUserMarker(marker) {
       // Mettre à jour la référence du marqueur de l'utilisateur dans le store
       this.userMarker = marker
+      this.saveDataToLocalStorage()
     }
   }
 })
-
 

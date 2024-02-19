@@ -5,7 +5,8 @@ import RankView from '../views/RankView.vue'
 import GameView from '../views/GameView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import NextGameView from '../views/NextGameView.vue'
-import GameFormVue from '@/views/GameForm.vue'
+import GameFormView from '@/views/GameFormView.vue'
+import GameFormModifView from '@/views/GameFormModifView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,7 +44,12 @@ const router = createRouter({
     {
       path: '/gameform',
       name: 'GameForm',
-      component: GameFormVue
+      component: GameFormView
+    },
+    {
+      path: '/gameformmodif',
+      name: 'GameFormModif',
+      component: GameFormModifView
     }
   ]
 })

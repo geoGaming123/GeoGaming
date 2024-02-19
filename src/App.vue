@@ -15,6 +15,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/game">Game</RouterLink>
         <RouterLink to="/nextgame">NextGame</RouterLink>
         <RouterLink to="/gameform">MapForm</RouterLink>
+        <RouterLink to="/gameformmodif">MapFormmodif</RouterLink>
       </nav>
     </div>
   </header>
