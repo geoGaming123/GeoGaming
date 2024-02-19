@@ -106,3 +106,49 @@
     justify-content: space-between;
   }
 }
+
+// ********************************* //
+// ********** PROFILE-VIEW ********* //
+// ********************************* //
+
+.profile {
+  padding-inline: 2rem;
+  &_Info {
+    margin-block: 2rem;
+  }
+  &_form {
+    display: flex;
+    width: 100%;
+    &_Picture {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      margin-block: 4rem;
+    }
+    & #pseudo {
+      width: 50%;
+      padding: 1rem;
+      background-color: #f1f1f153;
+      border: 1px solid #eaeaea;
+      border-radius: 15px;
+    }
+    &__Save {
+      width: 100%;
+      &_btn {
+        width: 300px;
+        position: absolute;
+        bottom: 50px;
+        left: calc(50% - 150px) ;
+      }
+    }
+  }
+  & button {
+    padding: 1rem;
+    border: 1px solid orange;
+    background-color: orange;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 15px;
+  }
+}
