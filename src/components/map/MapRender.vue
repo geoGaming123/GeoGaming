@@ -20,7 +20,7 @@ const showStartButton = ref(false)
 // Fonction à appeler lorsque le jeu démarre
 const startGame = () => {
   // Logique pour démarrer le jeu
-  console.log('Game started!')
+  alert('Game lancer !!')
 }
 
 // Fonction pour calculer la distance entre deux points en coordonnées géographiques
