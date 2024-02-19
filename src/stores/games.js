@@ -61,12 +61,7 @@ export const useGamesStore = defineStore('games', {
     },
 
     updateStartPoint(startPoint) {
-      // Mettre à jour l'objet startPoint avec la nouvelle valeur et inclure la propriété endGame
-      this.startPoint = {
-        ...startPoint,
-        startGame: false,
-        endGame: false
-      }
+      this.startPoint = startPoint
     },
 
     updateMarkers(markers) {
