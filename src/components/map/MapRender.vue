@@ -5,15 +5,23 @@
     <p>Start Date: {{ gamesStore.formData.startDate }}</p>
     <p>End Date: {{ gamesStore.formData.endDate }}</p>
     <div id="map"></div>
+    <button v-if="showStartButton" @click="startGame">Lancer le chrono</button>
   </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import * as L from 'leaflet'
 import { useGamesStore } from '@/stores/games'
 
 const gamesStore = useGamesStore()
+const showStartButton = ref(false)
+
+// Fonction à appeler lorsque le jeu démarre
+const startGame = () => {
+  // Logique pour démarrer le jeu
+  console.log('Game started!')
+}
 
 // Fonction pour calculer la distance entre deux points en coordonnées géographiques
 const calculateDistance = (pointA, pointB) => {
@@ -67,10 +75,10 @@ onMounted(() => {
         })
         const leafletMarker = L.marker([latitude, longitude], { icon: markerIcon })
           .addTo(map)
-          .bindPopup(`<b>${marker.name}</b>`);
+          .bindPopup(`<b>${marker.name}</b>`)
 
         // Assurez-vous que le marqueur a une référence à leafletMarker
-        marker.leafletMarker = leafletMarker;
+        marker.leafletMarker = leafletMarker
       })
 
       // Ajouter un marqueur pour le startPoint
@@ -119,23 +127,31 @@ onMounted(() => {
               gamesStore.updateUserMarker(userMarker)
             }
 
+            // Vérifier la distance par rapport au point de départ
+            const distanceToStart = calculateDistance(
+              { latitude, longitude },
+              gamesStore.startPoint.position
+            )
+
+            // Mettre à jour l'affichage du bouton "Start" en fonction de la distance
+            if (distanceToStart <= 10) {
+              showStartButton.value = true
+            }
+
             // Mettre à jour les marqueurs capturés lorsque l'utilisateur est à moins de 10 mètres
             gamesStore.markers.forEach((marker) => {
-              const distance = calculateDistance(
-                { latitude, longitude },
-                marker.position
-              );
+              const distance = calculateDistance({ latitude, longitude }, marker.position)
 
-              if (distance < 10 && !marker.isCaptured) {
-                marker.isCaptured = true;
-                marker.leafletMarker.setOpacity(0.4);
-                const totalBalises = gamesStore.markers.length;
-                const balisesRestantes = gamesStore.markers.filter(m => !m.isCaptured).length;
-                const message = `Vous avez récupéré 1/${totalBalises} balise(s). ${balisesRestantes} balise(s) restante(s).`;
-                alert(message);
-                updateMarkerCaptured(marker); // Mettre à jour l'état de capture du marqueur
+              if (distance <= 5 && !marker.isCaptured) {
+                marker.isCaptured = true
+                marker.leafletMarker.setOpacity(0.4)
+                const totalBalises = gamesStore.markers.length
+                const balisesRestantes = gamesStore.markers.filter((m) => !m.isCaptured).length
+                const message = `Vous avez récupéré 1/${totalBalises} balise(s). ${balisesRestantes} balise(s) restante(s).`
+                alert(message)
+                updateMarkerCaptured(marker) // Mettre à jour l'état de capture du marqueur
               }
-            });
+            })
           },
           (error) => {
             console.error('Erreur de géolocalisation :', error.message)
@@ -152,4 +168,3 @@ onMounted(() => {
   }
 })
 </script>
-

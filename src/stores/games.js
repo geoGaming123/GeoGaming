@@ -41,7 +41,9 @@ export const useGamesStore = defineStore('games', {
         startPoint: this.startPoint
           ? {
               name: this.startPoint.name,
-              position: { ...this.startPoint.position }
+              position: { ...this.startPoint.position },
+              startGame: false,
+              endGame: false
             }
           : null,
         userMarker: this.userMarker
@@ -59,7 +61,12 @@ export const useGamesStore = defineStore('games', {
     },
 
     updateStartPoint(startPoint) {
-      this.startPoint = startPoint
+      // Mettre à jour l'objet startPoint avec la nouvelle valeur et inclure la propriété endGame
+      this.startPoint = {
+        ...startPoint,
+        startGame: false,
+        endGame: false
+      }
     },
 
     updateMarkers(markers) {
