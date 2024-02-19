@@ -11,9 +11,9 @@ export const useGamesStore = defineStore('games', {
       endDate: ''
     },
     markers: reactive([]),
-    startPoint: reactive(null),
-    userMarker: reactive(null),
-    userPosition: reactive({})
+    startPoint: null,
+    userMarker: null,
+    userPosition: {}
   }),
 
   actions: {
