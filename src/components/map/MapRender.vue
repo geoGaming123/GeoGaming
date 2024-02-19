@@ -40,9 +40,12 @@ onMounted(() => {
           iconAnchor: [12, 41],
           popupAnchor: [0, -30]
         })
-        L.marker([latitude, longitude], { icon: markerIcon })
+        const leafletMarker = L.marker([latitude, longitude], { icon: markerIcon })
           .addTo(map)
-          .bindPopup(`<b>${marker.name}</b>`)
+          .bindPopup(`<b>${marker.name}</b>`);
+
+        // Assurez-vous que le marqueur a une référence à leafletMarker
+        marker.leafletMarker = leafletMarker;
       })
 
       // Ajouter un marqueur pour le startPoint
@@ -90,6 +93,23 @@ onMounted(() => {
                 .openPopup()
               gamesStore.updateUserMarker(userMarker)
             }
+
+            // Mettre à jour les marqueurs capturés lorsque l'utilisateur est à moins de 10 mètres
+            gamesStore.markers.forEach((marker) => {
+              const distance = gamesStore.calculateDistance(
+                { latitude, longitude },
+                marker.position
+              );
+
+              if (distance < 10 && !marker.isCaptured) {
+                marker.isCaptured = true;
+                marker.leafletMarker.setOpacity(0.4);
+                const totalBalises = gamesStore.markers.length;
+                const balisesRestantes = gamesStore.markers.filter(m => !m.isCaptured).length;
+                const message = `Vous avez récupéré 1/${totalBalises} balise(s). ${balisesRestantes} balise(s) restante(s).`;
+                alert(message);
+              }
+            });
           },
           (error) => {
             console.error('Erreur de géolocalisation :', error.message)
