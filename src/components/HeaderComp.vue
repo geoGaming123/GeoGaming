@@ -1,14 +1,14 @@
 <template>
   <section class="header">
-    <div class="header-logo" :class="{ hidden : showLogo }">
+    <div class="header_logo" :class="{ hidden : showLogo }">
       Logo
     </div>
-    <div class="header-return" :class="{ hidden : !showLogo}">
+    <div class="header_return" :class="{ hidden : !showLogo}">
       <button @click="lastPage">Return</button>
     </div>
-    <div class="header-profile" :class="{ hidden : showProfileBtn}">
+    <div class="header_profile" :class="{ hidden : showProfileBtn}">
       <button @click="showProfileWindow">Mon Profil</button>
-      <div id="profileWindow" class="myprofile hidden">
+      <div id="profileWindow" class="header_myprofile hidden">
         <img src="" alt="Photo"><br>
         <router-link to="/profile">Modifier le profil</router-link><br>
         <router-link to="/help">Besoin d'aide ?</router-link>
@@ -52,29 +52,5 @@ const disconnect = () => {
 </script>
 
 <style scoped>
-.myprofile {
-  position: absolute;
-  top: 84px; /* Set to 60 (header height) */
-  right: 0;
-  height: 300px;
-  width: 200px;
-  background-color: #f1f1f1;
-  padding: 1rem;
-  border: 1px solid black;
-  z-index: 999;
-}
-.header {
-  display: flex;
-  height: 60px;
-  width: 100%;
-  background-color: orange;
-  color: white;
-  font-weight: bold;
-  padding: 1rem;
-  justify-content: space-between;
-}
-.hidden {
-  display: none;
-}
 
 </style>
