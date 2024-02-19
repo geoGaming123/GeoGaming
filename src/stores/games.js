@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { reactive } from 'vue'
 
 export const useGamesStore = defineStore('games', {
+  id: 'test',
   state: () => ({
     formData: {
       title: '',
@@ -10,15 +11,21 @@ export const useGamesStore = defineStore('games', {
       startDate: '',
       endDate: ''
     },
-    markers: reactive([]),
-    startPoint: reactive(null),
-    userPosition: reactive({}),
-    userMarker: null
+    markers: [],
+    startPoint: null,
+    userPosition: {},
+    userMarker: null,
+    match:{}
+
   }),
 
-  actions: {
 
-    
+  getters: {
+    oneMatch: (state) => {
+      return state.match
+    }
+  },
+  actions: {
 
 loadFromLocalStorage() {
   const storedData = localStorage.getItem('testData');
@@ -36,29 +43,18 @@ loadFromLocalStorage() {
   }
 },
 
+async getMatch(matchId) {
+  await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`)
+
+            .then(resp => resp.json())
+            .then(resp => {
+                console.log(resp)
+                this.match = resp
+            })
+            .catch (err => console.log(err))
+},
 
 
-getMatches() {
-      const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwNzk5MDE5NSwibmJmIjoxNzA3OTkwMTk1LCJleHAiOjE3MDg1OTQ5OTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.fgYfqHYmhNdFnW0xOoL2pY1HBsBCgThfi-6sy2ti-FQ";
-
-      // Fetch matches data from the API
-      fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-      })
-        .then(response => response.json())
-        .then(data => {
-          // Update the matches state with the retrieved data
-          this.matches = reactive(data);
-          console.log('Matches retrieved from API:', this.matches);
-        })
-        .catch(error => {
-          console.error('Error fetching matches from API:', error);
-        });
-    },
   
 
 
@@ -181,4 +177,5 @@ getMatches() {
     }
   }
 })
+
 
