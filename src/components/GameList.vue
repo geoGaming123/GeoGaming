@@ -6,7 +6,6 @@
       <button @click="activateTab('joined')" :class="{ activebtn: activeTab === 'joined' }">Rejointes</button>
       <button @click="activateTab('available')" :class="{ activebtn: activeTab === 'available' , hidden: activeMenu != 'futur' }">Disponibles</button>
     </div>
-    <SearchBar></SearchBar>
   </section>
   <section class="gamelist">
     <table>
@@ -18,38 +17,42 @@
           <th>Date</th>
         </tr>
       </thead>
-      <GameListItem data="créées" v-show="activeTab === 'created'"></GameListItem>
-      <GameListItem data="rejointes" v-show="activeTab === 'joined'"></GameListItem>
-      <GameListItem data="dispos" v-show="activeTab === 'available'"></GameListItem>
+      <tbody>
+        <GameListItem v-for="(match, index) in MatchesData" :key="index" :index="index" :aMatch="match" v-show="activeTab === 'created'"></GameListItem>
+        <GameListItem v-for="(match, index) in MatchesData" :key="index" :index="index" :aMatch="match" v-show="activeTab === 'joined'"></GameListItem>
+        <GameListItem v-for="(match, index) in MatchesData" :key="index" :index="index" :aMatch="match" v-show="activeTab === 'available'"></GameListItem>
+      </tbody>
     </table>
   </section>
-  <button @click="addGame()" class="addgame">+</button>
+  <button @click="addGame()" class="addgame" :class="{hidden: activeMenu == 'past'}" >+</button>
 </section>
 </template>
 
 <script setup>
 import GameListItem from '@/components/GameListItem.vue';
-import SearchBar from './SearchBar.vue';
 import { ref, watch } from 'vue';
-
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const props = defineProps({
-  menu: String
+  menu: String,
+  MatchesData: Array // Tableau différent selon GameList actif
 });
 
 const activeTab = ref('created');
-const activeMenu = ref(null);
-
-const activateTab = (tab) => {
+const activateTab = (tab) => { // Check l'onglet actif pour afficher liste de partie qui correspond
   activeTab.value = tab;
 };
 
-const addGame = () => {
-  console.log('Add a Game');
-};
-
-watch(() => props.menu, (newMenu) => {
+const activeMenu = ref(null);
+watch(() => props.menu, (newMenu) => { // Récupère le menu actif pour l'affichage de l'onglet disponbible
   activeMenu.value = newMenu;
 });
+
+const addGame = () => {
+  console.log('Add a Game');
+  console.log("Tableau reçu : " + props.menu + " --- " + props.MatchesData)
+  router.push('/gameform')
+};
 </script>
 
 <style scoped>
