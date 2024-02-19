@@ -136,6 +136,8 @@ onMounted(() => {
             // Mettre à jour l'affichage du bouton "Start" en fonction de la distance
             if (distanceToStart <= 10) {
               showStartButton.value = true
+            } else {
+              showStartButton.value = false
             }
 
             // Mettre à jour les marqueurs capturés lorsque l'utilisateur est à moins de 10 mètres
@@ -147,7 +149,8 @@ onMounted(() => {
                 marker.leafletMarker.setOpacity(0.4)
                 const totalBalises = gamesStore.markers.length
                 const balisesRestantes = gamesStore.markers.filter((m) => !m.isCaptured).length
-                const message = `Vous avez récupéré 1/${totalBalises} balise(s). ${balisesRestantes} balise(s) restante(s).`
+                const balisesPrises = totalBalises - balisesRestantes
+                const message = `Vous avez récupéré ${balisesPrises}/${totalBalises} balise(s). ${balisesRestantes} balise(s) restante(s).`
                 alert(message)
                 updateMarkerCaptured(marker) // Mettre à jour l'état de capture du marqueur
               }
