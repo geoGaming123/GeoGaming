@@ -8,10 +8,10 @@
         <textarea id="description" v-model="gamesStore.formData.description"></textarea>
   
         <label>Date de début:</label>
-        <input type="date" v-model="gamesStore.formData.startDate">
+        <input type="datetime-local" v-model="gamesStore.formData.startDate">
   
         <label>Date de fin:</label>
-        <input type="date" v-model="gamesStore.formData.endDate">
+        <input type="datetime-local" v-model="gamesStore.formData.endDate">
   
         <label>Location:</label>
         <MapForm :searchBarVisible="true" :startPointVisible="true" :markersVisible="true"></MapForm>
@@ -33,7 +33,7 @@ import MapForm from '@/components/map/MapForm.vue';
     console.log("test");
   
     // Sauvegarder les données dans le localStorage
-    gamesStore.saveDataToLocalStorage();
+    gamesStore.postMatchData();
   
     // Afficher une alerte
     alert('Données sauvegardées dans le localStorage.');
