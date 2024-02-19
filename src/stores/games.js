@@ -80,6 +80,31 @@ export const useGamesStore = defineStore('games', {
       console.log('supprimer du store')
     },
 
+    // Fonction pour calculer la distance entre deux points en coordonnées géographiques
+    calculateDistance(pointA, pointB) {
+      const earthRadius = 6371e3 // Rayon de la Terre en mètres
+      const lat1 = (pointA.latitude * Math.PI) / 180 // Latitude du point A en radians
+      const lat2 = (pointB.latitude * Math.PI) / 180 // Latitude du point B en radians
+      const deltaLat = ((pointB.latitude - pointA.latitude) * Math.PI) / 180 // Différence de latitude en radians
+      const deltaLng = ((pointB.longitude - pointA.longitude) * Math.PI) / 180 // Différence de longitude en radians
+
+      const a =
+        Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+        Math.cos(lat1) * Math.cos(lat2) * Math.sin(deltaLng / 2) * Math.sin(deltaLng / 2)
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+      const distance = earthRadius * c // Distance en mètres
+      return distance
+    },
+
+    // Fonction pour mettre à jour l'état de capture d'un marqueur
+    updateMarkerCaptured(marker) {
+      const index = this.markers.findIndex((m) => m.name === marker.name)
+      if (index !== -1) {
+        this.markers[index].isCaptured = true
+      }
+    },
+
     deleteStartPoint() {
       this.startPoint = null
       console.log('supprimer du store')
