@@ -1,7 +1,7 @@
 <template>
   <section class="gamelist-content">
   <section class="nav">
-    <div class="nav-btns">
+    <div class="nav-btns"> 
       <button @click="activateTab('created')" :class="{ activebtn: activeTab === 'created' }">Créées</button>
       <button @click="activateTab('available')" :class="{ activebtn: activeTab === 'available' , hidden: activeMenu != 'futur' }">Disponibles</button>
       <button @click="activateTab('joined')" :class="{ activebtn: activeTab === 'joined' }">Rejointes</button>
@@ -32,7 +32,9 @@
 import GameListItem from '@/components/GameListItem.vue';
 import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+
 const router = useRouter();
+
 const props = defineProps({
   menu: String,
   MatchesData: Array // Tableau différent selon GameList actif
@@ -48,7 +50,7 @@ watch(() => props.menu, (newMenu) => { // Récupère le menu actif pour l'affich
   activeMenu.value = newMenu;
 });
 
-const addGame = () => {
+const addGame = () => { // Fonction du bouton "+"
   console.log('Add a Game');
   console.log("Tableau reçu : " + props.menu + " --- " + props.MatchesData)
   router.push('/gameform')

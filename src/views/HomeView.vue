@@ -20,7 +20,7 @@ const monStore = useCounterStore()
 monStore.getAllMatches(); // Charge les données des parties et distribue en 3 array selon la temporalité
 
 const showMenuData = ref('present')
-const showMenu = (tab) => {
+const showMenu = (tab) => { //Recois "tab" du footer pour savoir le menu actif
   showMenuData.value = tab
 }
 const FutureMatchesData = computed(() => { // Récupère le tableau des parties futures

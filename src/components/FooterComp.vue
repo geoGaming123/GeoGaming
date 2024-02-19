@@ -8,12 +8,11 @@
 
 <script setup>
 import { ref } from 'vue';
-const emit = defineEmits(['activateMenu'])
 
+const emit = defineEmits(['activateMenu']) //Définis l'évènement à émettre
 const activeTab = ref('present');
-
 const activateTab = (tab) => {
-  activeTab.value = tab;
+  activeTab.value = tab; // Valeur à émettre selon menu actif
   emit('activateMenu', tab)
 };
 </script>
