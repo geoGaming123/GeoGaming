@@ -37,6 +37,7 @@
   import MapAddMarkers from './MapAddMarkers.vue';
   import MapAddStartPoint from './MapAddStartPoint.vue';
   import { useGamesStore } from '@/stores/games';
+import { userposition } from './Userposition.vue';
 
   
   
@@ -82,7 +83,7 @@ console.log(info)
 
 
       // ADD SEARCH BAR
-      const { searchControl } = useGeoSearchControl(map.value);
+      const { position } = userposition;
 
   });
   </script>
