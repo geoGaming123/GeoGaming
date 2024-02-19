@@ -56,13 +56,14 @@ const addGame = () => {
 </script>
 
 <style scoped>
-.gamelist-content {
-  padding-inline: 2rem;
-}
+  .gamelist-content {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: start;
+  }
   .nav {
     width: 100%;
-    padding-block-start: 1rem;
-    padding-block-end: .2rem;
     justify-content: space-between;
   }
   .nav-btns {
@@ -72,33 +73,43 @@ const addGame = () => {
   }
   .nav-btns button {
     width: 30%;
+    height: 25px;
     padding-block: .2rem;
     margin-inline-end: .2rem;
+    margin-block-start: .2rem;
+    margin-block-end: .2rem;
     border: 1px solid #f1f1f190;
     background-color: #f1f1f1;
     font-weight: bold;
   }
   .activebtn {
     background-color: orange !important;
-    border: none !important;
+    border: orange !important;
+    margin-block-end: 0 !important;
     color: white;
     position: relative;
-    top: .2rem;
+    height: 32px !important;
+    
+  }
+  .gamelist {
+    display: flex;
+    width: 100%;
+    background-color: rgba(255, 166, 0, 0.333);
+    border: 1px solid orange;
+    height: calc(100vh - 120px - 59px);
+    align-items: start;
   }
   .gamelist-title {
-    border-top: 1px solid orange;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid orange;
     font-size: 1.5rem;
+    width: 100%;
   }
   .gamelist-title th {
-    padding-inline: 1rem;
-    padding-block: .2rem;
+    padding-block: .5rem;
   }
   table {
     border-collapse: collapse;
-  }
-  .gamelist-item th {
-    padding: .4rem;
+    width: 100%;
   }
   .addgame {
     width: 3rem;

@@ -41,6 +41,7 @@ button {
 .activebtn {
   background-color: orange;
   color: white;
+  border: 1px solid orange;
 }
 
 

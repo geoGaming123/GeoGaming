@@ -67,7 +67,9 @@ const disconnect = () => {
   display: flex;
   height: 60px;
   width: 100%;
-  background-color: #f1f1f1;
+  background-color: orange;
+  color: white;
+  font-weight: bold;
   padding: 1rem;
   justify-content: space-between;
 }
