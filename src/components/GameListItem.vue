@@ -1,39 +1,22 @@
 <template>
-  <tbody>
-    <tr class="gamelist-item">
-      <th>{{ props.data }}</th>
-      <th>{{ props.data }}</th>
-      <th>{{ props.data }}</th>
-      <th>{{ props.data }}</th>
-    </tr>
-    <tr class="gamelist-item">
-      <th>1</th>
-      <th>Charleroi</th>
-      <th>9</th>
-      <th>10/03/24</th>
-    </tr>
-    <tr class="gamelist-item">
-      <th>2</th>
-      <th>Bruxelles</th>
-      <th>33</th>
-      <th>15/03/24</th>
-    </tr>
-    <tr class="gamelist-item">
-      <th>3</th>
-      <th>Paris</th>
-      <th>3</th>
-      <th>22/03/24</th>
-    </tr>
-  </tbody>
+  <tr class="gamelist-item">
+    <th>{{ props.index + 1 }}</th>
+    <th>{{ props.aMatch.acf.title }}</th>
+    <th>{{ JSON.parse(props.aMatch.acf.players).length }}</th>
+    <th>{{ formatDate(props.aMatch.acf.start_date) }}</th>
+  </tr>
 </template>
 
 <script setup>
 
  const props = defineProps({
-    data : String
+    aMatch : Object,
+    index: Number
   })
-
-
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('fr-FR'); // Changez 'fr-FR' par le code de la locale souhaitée
+};
 
 </script>
 
