@@ -28,21 +28,6 @@ export const useGamesStore = defineStore('games', {
   },
   actions: {
 
-loadFromLocalStorage() {
-  const storedData = localStorage.getItem('testData');
-
-  if (storedData) {
-    const parsedData = JSON.parse(storedData);
-
-    this.title = parsedData.title || this.title;
-    this.description = parsedData.description || this.description;
-    this.startDate = parsedData.startDate || this.startDate;
-    this.endDate = parsedData.endDate || this.endDate;
-    this.markers = reactive(parsedData.markers || []);
-    this.start_point = reactive(parsedData.start_point || null);
-    this.userPosition = reactive(parsedData.userPosition || null);
-  }
-},
 
 async getMatch(matchId) {
   await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`)
@@ -54,6 +39,7 @@ async getMatch(matchId) {
             })
             .catch (err => console.log(err))
 },
+
  
     postMatchData() {
       const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwNzk5MDE5NSwibmJmIjoxNzA3OTkwMTk1LCJleHAiOjE3MDg1OTQ5OTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.fgYfqHYmhNdFnW0xOoL2pY1HBsBCgThfi-6sy2ti-FQ";
@@ -83,7 +69,7 @@ async getMatch(matchId) {
           masteruid: '2', // Modifié en brut
           players: [
             {
-              userId: '1',
+              userId: '5',
               time: '10',
               position: {
                 longitude: '',
