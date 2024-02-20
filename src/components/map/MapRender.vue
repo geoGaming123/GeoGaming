@@ -18,10 +18,10 @@ import { useGamesStore } from '@/stores/games'
 import { onMounted, computed } from 'vue'
 import * as L from 'leaflet'
 import Timer from '@/components/map/Timer.vue'
-import  { userposition } from './Userposition.vue';
+import { userposition } from './Userposition.vue';
 
 const gamesStore = useGamesStore()
-const matchId = 325
+const matchId = 341
 
 gamesStore.getMatch(matchId)
 
@@ -32,8 +32,8 @@ const match = computed(() => {
 
 onMounted(()=>{
 
-  const startPoint = JSON.parse(match.value.acf.start_point);
-  const markers = JSON.parse(match.value.acf.markers)
+  const startPoint = match.value.acf.start_point
+  const markers = match.value.acf.markers
   console.log(startPoint)
 
 const latitude = startPoint.position.latitude
