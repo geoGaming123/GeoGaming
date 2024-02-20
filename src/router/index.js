@@ -5,6 +5,8 @@ import RankView from '../views/RankView.vue'
 import GameView from '../views/GameView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import NextGameView from '../views/NextGameView.vue'
+import GameFormView from '@/views/GameFormView.vue'
+import GameFormModifView from '@/views/GameFormModifView.vue'
 import Helpview from '../views/Helpview.vue'
 
 const router = createRouter({
@@ -39,6 +41,16 @@ const router = createRouter({
       path: '/nextgame/:id',
       name: 'NextGame',
       component: NextGameView
+    },
+    {
+      path: '/gameform',
+      name: 'GameForm',
+      component: GameFormView
+    },
+    {
+      path: '/gameformmodif',
+      name: 'GameFormModif',
+      component: GameFormModifView
     },
     {
       path: '/help',
