@@ -2,27 +2,40 @@
   <section class="gamelist-content">
     <section class="gamelist">
       <table>
-        <thead>
+        <thead v-if="title === 'past'">
           <tr class="gamelist-title">
-            <th>#</th>
             <th>Lieu</th>
             <th>Joueurs</th>
-            <th>Date</th>
+            <th>Date de fin</th>
           </tr>
         </thead>
-          <GameListID :Matches="myMatches" v-show="activeTab === 'created'"></GameListID>
-          <GameListID :Matches="otherMatches" v-show="activeTab === 'available'"></GameListID>
-          <GameListID :Matches="joinedMatches" v-show="activeTab === 'joined'"></GameListID>
+        <thead v-if="title === 'present'">
+          <tr class="gamelist-title">
+            <th>Lieu</th>
+            <th>Joueurs</th>
+            <th>Temps restant</th>
+          </tr>
+        </thead>
+        <thead v-if="title === 'futur'">
+          <tr class="gamelist-title">
+            <th>Lieu</th>
+            <th>Joueurs</th>
+            <th>Date - Heure de début</th>
+          </tr>
+        </thead>
+        <GameListID :Matches="myMatches" :title="title" v-show="activeTab === 'created'"></GameListID>
+        <GameListID :Matches="otherMatches" :title="title" v-show="activeTab === 'available'"></GameListID>
+        <GameListID :Matches="joinedMatches" :title="title" v-show="activeTab === 'joined'"></GameListID>
       </table>
     </section>
-    <button @click="addGame()" class="addgame" :class="{hidden: activeMenu == 'past'}" >+</button>
-    <section class="nav">
-      <div class="nav-btns"> 
+    <section class="onglets">
+      <div class="onglets-btns"> 
         <button @click="activateTab('created')" :class="{ activebtn: activeTab === 'created' }">Créées</button>
         <button @click="activateTab('available')" :class="{ activebtn: activeTab === 'available' , hidden: activeMenu != 'futur' }">Disponibles</button>
         <button @click="activateTab('joined')" :class="{ activebtn: activeTab === 'joined' }">Rejointes</button>
       </div>
     </section>
+    <button @click="addGame()" class="addgame" :class="{hidden: activeMenu == 'past'}" >+</button>
   </section>
 </template>
 
@@ -35,7 +48,8 @@ const router = useRouter();
 
 const props = defineProps({
   menu: String,
-  MatchesData: Array // Tableau différent selon GameList actif
+  MatchesData: Array, // Tableau différent selon GameList actif
+  title: String
 });
 
 const activeTab = ref('created');
@@ -54,13 +68,8 @@ const joinedMatches = computed(()=>(props.MatchesData.filter(match => match.acf.
 const otherMatches = computed(()=>(props.MatchesData.filter(match => {return match.acf.masteruid != myID && !match.acf.players.some(player => player.userId == myID)})))
 
 const addGame = () => { // Fonction du bouton "+"
-/*
   console.log('Add a Game');
   router.push('/gameform')
-*/
-  console.log("all : " + props.MatchesData)
-  console.log("mine : " + myMatches)
-  console.log("notMine : " + joinedMatches)
 };
 </script>
 
@@ -71,16 +80,16 @@ const addGame = () => { // Fonction du bouton "+"
     width: 100%;
     align-items: start;
   }
-  .nav {
+  .onglets {
     width: 100%;
     justify-content: space-between;
   }
-  .nav-btns {
+  .onglets-btns {
     width: 100%;
     display: flex;
     justify-content: space-between;
   }
-  .nav-btns button {
+  .onglets-btns button {
     width: 30%;
     height: 25px;
     padding-block: .2rem;
@@ -100,16 +109,10 @@ const addGame = () => { // Fonction du bouton "+"
     height: 32px !important;
     
   }
-  .gamelist {
-    display: flex;
-    width: 100%;
-    border: 1px solid #00D1C5;
-    height: calc(100vh - 120px - 59px);
-    align-items: start;
-  }
   .gamelist-title {
     border-bottom: 1px solid #00D1C5;
     width: 100%;
+    font-size: .8rem;
   }
   .gamelist-title th {
     padding-block: .5rem;
@@ -118,6 +121,14 @@ const addGame = () => { // Fonction du bouton "+"
     border-collapse: collapse;
     width: 100%;
   }
+  .gamelist {
+    display: flex;
+    width: 100%;
+    border: 1px solid #00D1C5;
+    height: calc(100vh - 120px - 59px);
+    align-items: start;
+  }
+
   .addgame {
     width: 3rem;
     height: 3rem;

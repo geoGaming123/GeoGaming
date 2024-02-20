@@ -1,6 +1,6 @@
 <template>
   <tbody class="gameListId">
-    <GameListItem v-for="(match, index) in Matches" :key="index" :aMatch="match"></GameListItem>
+    <GameListItem v-for="(match, index) in Matches" :key="index" :aMatch="match" :title="title"></GameListItem>
   </tbody>
 </template>
 
@@ -8,10 +8,9 @@
 import GameListItem from './GameListItem.vue';
 
 const props = defineProps({
-  Matches: Array
+  Matches: Array,
+  title: String
 })
-
-console.log('plss - ' + props.Matches)
 
 </script>
 

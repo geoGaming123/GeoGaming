@@ -10,11 +10,10 @@
   height: 60px;
   display: flex;
   justify-content: space-evenly;
-  background-color: #f1f1f1;
+  background-color: $theme-color;
   & button {
     width: 33%;
-    border: 1px solid #f1f1f1;
-    background-color: #f1f1f1;
+    border: 1px solid $theme-color;
     color: black;
     padding: 1rem;
     font-weight: bold;
