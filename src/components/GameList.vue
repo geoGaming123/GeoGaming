@@ -10,11 +10,9 @@
             <th>Date</th>
           </tr>
         </thead>
-        <tbody>
-          <GameListItem v-for="(match, index) in MatchesData" :key="index" :index="index" :aMatch="match" v-show="activeTab === 'created'"></GameListItem>
-          <GameListItem v-for="(match, index) in MatchesData" :key="index" :index="index" :aMatch="match" v-show="activeTab === 'joined'"></GameListItem>
-          <GameListItem v-for="(match, index) in MatchesData" :key="index" :index="index" :aMatch="match" v-show="activeTab === 'available'"></GameListItem>
-        </tbody>
+          <GameListID :Matches="myMatches" v-show="activeTab === 'created'"></GameListID>
+          <GameListID :Matches="otherMatches" v-show="activeTab === 'available'"></GameListID>
+          <GameListID :Matches="joinedMatches" v-show="activeTab === 'joined'"></GameListID>
       </table>
     </section>
     <button @click="addGame()" class="addgame" :class="{hidden: activeMenu == 'past'}" >+</button>
@@ -29,8 +27,8 @@
 </template>
 
 <script setup>
-import GameListItem from '@/components/GameListItem.vue';
-import { ref, watch } from 'vue';
+import GameListID from '@/components/GameListID.vue';
+import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -50,10 +48,19 @@ watch(() => props.menu, (newMenu) => { // Récupère le menu actif pour l'affich
   activeMenu.value = newMenu;
 });
 
+const myID = 1
+const myMatches = computed(()=>(props.MatchesData.filter(match => match.acf.masteruid == myID)))
+const joinedMatches = computed(()=>(props.MatchesData.filter(match => match.acf.players.some(player => player.userId == myID))))
+const otherMatches = computed(()=>(props.MatchesData.filter(match => {return match.acf.masteruid != myID && !match.acf.players.some(player => player.userId == myID)})))
+
 const addGame = () => { // Fonction du bouton "+"
+/*
   console.log('Add a Game');
-  console.log("Tableau reçu : " + props.menu + " --- " + props.MatchesData)
   router.push('/gameform')
+*/
+  console.log("all : " + props.MatchesData)
+  console.log("mine : " + myMatches)
+  console.log("notMine : " + joinedMatches)
 };
 </script>
 

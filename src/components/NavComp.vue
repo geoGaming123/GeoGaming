@@ -14,7 +14,6 @@ const activeNav = ref('present');
 const activateNav = (tab) => {
   activeNav.value = tab; // Valeur à émettre selon menu actif
   emit('activateNav', tab);
-  console.log("footer : " + activeNav.value + " - " + tab)
 };
 </script>
 
