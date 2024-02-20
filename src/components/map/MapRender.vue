@@ -7,7 +7,7 @@
 
     <div id="map"></div>
     <Timer></Timer>
-    <!-- <button v-if="showStartButton" @click="startGame">Lancer le chrono</button> -->
+    
 
 
   </div>

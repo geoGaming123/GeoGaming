@@ -25,7 +25,6 @@ export function userposition(map) {
   });
 
   console.log("START : ", startPoint);
-  console.log("MARKERS : ", markers);
 
   // Fonction pour calculer la distance entre deux points en coordonnées géographiques
   const calculateDistance = (pointA, pointB) => {
@@ -101,20 +100,19 @@ export function userposition(map) {
         }
 
 // Mettre à jour les marqueurs capturés lorsque l'utilisateur est à moins de 10 mètres
-markerPositions.forEach((markerPosition) => {
-  markers.forEach((marker) => {
-    const distance = calculateDistance({ latitude, longitude }, markerPosition);
-    if (distance <= 5 && !marker.isCaptured) {
-      marker.isCaptured = true;
-      marker.leafletMarker.setOpacity(0.4);
-      const totalBalises = markers.length;
-      const balisesRestantes = markers.filter((m) => !m.isCaptured).length;
-      const balisesPrises = totalBalises - balisesRestantes;
-      const message = `Vous avez récupéré ${balisesPrises}/${totalBalises} balise(s). ${balisesRestantes} balise(s) restante(s).`;
-      alert(message);
-      updateMarkerCaptured(marker); // Mettre à jour l'état de capture du marqueur
-    }
-  });
+markers.forEach((marker) => {
+  const distance = calculateDistance({ latitude, longitude }, marker.position);
+  console.log(marker.position);
+  if (distance <= 10 && !marker.isCaptured) {
+    marker.isCaptured = true;
+    marker.leafletMarker.setOpacity(0.4);
+    const totalBalises = markers.length;
+    const balisesRestantes = markers.filter((m) => !m.isCaptured).length;
+    const balisesPrises = totalBalises - balisesRestantes;
+    const message = `Vous avez récupéré ${balisesPrises}/${totalBalises} balise(s). ${balisesRestantes} balise(s) restante(s).`;
+    alert(message);
+    updateMarkerCaptured(marker); // Mettre à jour l'état de capture du marqueur
+  }
 });
 
       },
