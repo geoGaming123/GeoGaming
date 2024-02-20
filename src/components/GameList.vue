@@ -1,31 +1,31 @@
 <template>
   <section class="gamelist-content">
-  <section class="nav">
-    <div class="nav-btns"> 
-      <button @click="activateTab('created')" :class="{ activebtn: activeTab === 'created' }">Créées</button>
-      <button @click="activateTab('available')" :class="{ activebtn: activeTab === 'available' , hidden: activeMenu != 'futur' }">Disponibles</button>
-      <button @click="activateTab('joined')" :class="{ activebtn: activeTab === 'joined' }">Rejointes</button>
-    </div>
+    <section class="gamelist">
+      <table>
+        <thead>
+          <tr class="gamelist-title">
+            <th>#</th>
+            <th>Lieu</th>
+            <th>Joueurs</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <GameListItem v-for="(match, index) in MatchesData" :key="index" :index="index" :aMatch="match" v-show="activeTab === 'created'"></GameListItem>
+          <GameListItem v-for="(match, index) in MatchesData" :key="index" :index="index" :aMatch="match" v-show="activeTab === 'joined'"></GameListItem>
+          <GameListItem v-for="(match, index) in MatchesData" :key="index" :index="index" :aMatch="match" v-show="activeTab === 'available'"></GameListItem>
+        </tbody>
+      </table>
+    </section>
+    <button @click="addGame()" class="addgame" :class="{hidden: activeMenu == 'past'}" >+</button>
+    <section class="nav">
+      <div class="nav-btns"> 
+        <button @click="activateTab('created')" :class="{ activebtn: activeTab === 'created' }">Créées</button>
+        <button @click="activateTab('available')" :class="{ activebtn: activeTab === 'available' , hidden: activeMenu != 'futur' }">Disponibles</button>
+        <button @click="activateTab('joined')" :class="{ activebtn: activeTab === 'joined' }">Rejointes</button>
+      </div>
+    </section>
   </section>
-  <section class="gamelist">
-    <table>
-      <thead>
-        <tr class="gamelist-title">
-          <th>#</th>
-          <th>Lieu</th>
-          <th>Joueurs</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <GameListItem v-for="(match, index) in MatchesData" :key="index" :index="index" :aMatch="match" v-show="activeTab === 'created'"></GameListItem>
-        <GameListItem v-for="(match, index) in MatchesData" :key="index" :index="index" :aMatch="match" v-show="activeTab === 'joined'"></GameListItem>
-        <GameListItem v-for="(match, index) in MatchesData" :key="index" :index="index" :aMatch="match" v-show="activeTab === 'available'"></GameListItem>
-      </tbody>
-    </table>
-  </section>
-  <button @click="addGame()" class="addgame" :class="{hidden: activeMenu == 'past'}" >+</button>
-</section>
 </template>
 
 <script setup>
@@ -85,8 +85,8 @@ const addGame = () => { // Fonction du bouton "+"
     font-weight: bold;
   }
   .activebtn {
-    background-color: orange !important;
-    border: orange !important;
+    background-color: #00D1C5 !important;
+    border: #00D1C5 !important;
     margin-block-end: 0 !important;
     color: white;
     position: relative;
@@ -96,14 +96,12 @@ const addGame = () => { // Fonction du bouton "+"
   .gamelist {
     display: flex;
     width: 100%;
-    background-color: rgba(255, 166, 0, 0.333);
-    border: 1px solid orange;
+    border: 1px solid #00D1C5;
     height: calc(100vh - 120px - 59px);
     align-items: start;
   }
   .gamelist-title {
-    border-bottom: 1px solid orange;
-    font-size: 1.5rem;
+    border-bottom: 1px solid #00D1C5;
     width: 100%;
   }
   .gamelist-title th {
@@ -116,8 +114,8 @@ const addGame = () => { // Fonction du bouton "+"
   .addgame {
     width: 3rem;
     height: 3rem;
-    background-color: orange;
-    border: 1px solid orange;
+    background-color: #00D1C5;
+    border: 1px solid #00D1C5;
     border-radius: 50%;
     font-size: 1.5rem;
     position: absolute;

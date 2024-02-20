@@ -2,7 +2,7 @@
   <tr class="gamelist-item">
     <th>{{ props.index + 1 }}</th>
     <th>{{ props.aMatch.acf.title }}</th>
-    <th>{{ JSON.parse(props.aMatch.acf.players).length }}</th>
+    <th>{{ props.aMatch.acf.players.length }}</th>
     <th>{{ formatDate(props.aMatch.acf.start_date) }}</th>
   </tr>
 </template>

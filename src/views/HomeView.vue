@@ -1,17 +1,17 @@
 <template>
   <main>
     <HeaderComp data="logo" profile="profile"></HeaderComp>
-    <GameList :MatchesData="PastMatchesData" v-show="showMenuData == 'past'" :menu="showMenuData"></GameList>
-    <GameList :MatchesData="PresentMatchesData" v-show="showMenuData == 'present'" :menu="showMenuData"></GameList>
-    <GameList :MatchesData="FutureMatchesData" v-show="showMenuData == 'futur'" :menu="showMenuData"></GameList>
-    <FooterComp @activate-menu="showMenu"></FooterComp>
-  </main>
+    <NavComp @activateNav="showMenu"></NavComp>
+    <GameList @activateMenu="showMenu" :MatchesData="PastMatchesData" v-show="showMenuData == 'past'" :menu="showMenuData"></GameList>
+    <GameList @activateMenu="showMenu" :MatchesData="PresentMatchesData" v-show="showMenuData == 'present'" :menu="showMenuData"></GameList>
+    <GameList @activateMenu="showMenu" :MatchesData="FutureMatchesData" v-show="showMenuData == 'futur'" :menu="showMenuData"></GameList>
+    </main>
 </template>
 
 
 <script setup>
 import HeaderComp from '@/components/HeaderComp.vue';
-import FooterComp from '@/components/FooterComp.vue';
+import NavComp from '@/components/NavComp.vue';
 import GameList from '@/components/GameList.vue';
 import { ref, computed } from 'vue';
 import { useCounterStore } from '@/stores/counter'
