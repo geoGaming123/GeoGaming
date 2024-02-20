@@ -6,6 +6,7 @@
     <p>End Date: {{ match.acf.end_date }}</p>
 
     <div id="map"></div>
+
     <Timer></Timer>
   </div>
 </template>
@@ -29,6 +30,8 @@ const match = ref(computed(() => {
  })
 
 setTimeout(() => {
+
+
   const startPoint = match.value.acf.start_point;
     const markers = match.value.acf.markers;
   

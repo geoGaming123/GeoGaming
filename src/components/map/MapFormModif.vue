@@ -13,16 +13,8 @@
   
         <label>Date de fin:</label>
         <input type="datetime-local" v-model="gamesStore.formData.endDate">
-  
-        <div>
+
       <div class="map-container" id="map"></div>
-      <div v-if="markersVisible">
-        <MapAddMarkers :map="map"></MapAddMarkers>
-      </div>
-      <div v-if="startPointVisible">
-        <MapAddStartPoint :map="map"></MapAddStartPoint>
-      </div>
-    </div>
         <button type="submit">Submit</button>
       </form>  
     </div>
@@ -33,58 +25,84 @@
   <script setup>
   import { onMounted, ref, computed } from 'vue';
   import * as L from 'leaflet';
-  import { useGeoSearchControl } from './MapSearchControl.vue';
-  import MapAddMarkers from './MapAddMarkers.vue';
-  import MapAddStartPoint from './MapAddStartPoint.vue';
   import { useGamesStore } from '@/stores/games';
+  import * as GeoSearch from 'leaflet-geosearch';
 
-  
-  
-  const gamesStore = useGamesStore()
-const matchId = 325
 
+const gamesStore = useGamesStore()
+const matchId = 335
+const allMarkers = ref([])
 
 gamesStore.getMatch(matchId)
 
-const info = computed(() => {
+const match = ref(computed(() => {
   return gamesStore.oneMatch
-})
-console.log(info)
-  const submitForm = () => {
-    // Afficher une alerte
-    alert('Données modifié');
+}))
+ onMounted(()=> {
   
-    // Réinitialiser le formulaire
-    gamesStore.formData = {
-      title: '',
-      description: '',
-      startDate: '',
-      endDate: '',
-      startPoint: gamesStore.formData.startPoint,
-    };
-  };
+ })
+
+setTimeout(() => {
+
+
+  const startPoint = match.value.acf.start_point;
+    const markers = match.value.acf.markers;
   
-  onMounted(() => {
-    const startPoint = JSON.parse(info.value.acf.start_point);
-    console.log("test")
-  console.log(info)
+      const latitude = startPoint.position.latitude;
+      const longitude = startPoint.position.longitude;
+
+      const map = L.map('map', {
+        center: [latitude, longitude],
+        zoom: 15,
+        layers: [L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')],
+      });
+
+      map.whenReady(() => {
+        markers.forEach((marker) => {
+          const { latitude, longitude } = marker.position;
+          const markerIcon = L.icon({
+            iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
+            iconSize: [50, 50],
+            iconAnchor: [12, 41],
+            popupAnchor: [0, -30],
+          });
+          L.marker([latitude, longitude], { icon: markerIcon })
+            .addTo(map)
+            .bindPopup(`<b>${marker.name}</b>`);
+            const allmarker = markers.marker;
+        });
+        
 
 
 
 
+      /////
+        // const startPointIcon = L.icon({
+        //   iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
+        //   iconSize: [50, 50],
+        //   iconAnchor: [12, 41],
+        //   popupAnchor: [0, -30],
+        // });
 
-    const map = L.map('map', {
-    center: [latitude, longitude],
-    zoom: 15,
-    layers: [L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')]
-  })
-  
+        // L.marker([latitude, longitude], { icon: startPointIcon })
+        //   .addTo(map)
+        //   .bindPopup('<b>Start Point</b>');
 
-
-      // ADD SEARCH BAR
-      const { searchControl } = useGeoSearchControl(map.value);
-
+  // ADD SEARCH BAR
+    const searchControl = new GeoSearch.GeoSearchControl({
+    provider: new GeoSearch.OpenStreetMapProvider(),
+    style: 'bar',
+    showMarker: false,
   });
+
+  map.addControl(searchControl);
+      });
+
+      
+},1000)
+
+
+
   </script>
   
   <style>
