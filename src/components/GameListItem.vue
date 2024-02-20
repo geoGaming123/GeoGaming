@@ -1,33 +1,19 @@
 <template>
-  <tr class="gamelist-item" v-if="title === 'past'">
+  
+  <tr class="gamelist-item" v-if="title === 'past'" @click="sendTo('rank', props.aMatch.id)">
     <th>{{ props.aMatch.acf.title }}</th>
     <th>{{ props.aMatch.acf.players.length }}</th>
     <th>{{ formatDate(props.aMatch.acf.end_date) }}</th>
   </tr>
-  <tr class="gamelist-desc" v-if="title === 'past'">
-    <th colspan="3">
-      {{ props.aMatch.acf.description }}
-    </th>
-  </tr>
-  <tr class="gamelist-item" v-if="title === 'present'">
+  <tr class="gamelist-item" v-if="title === 'present'" @click="sendTo('game', props.aMatch.id)">
     <th>{{ props.aMatch.acf.title }}</th>
     <th>{{ props.aMatch.acf.players.length }}</th>
     <th>{{ dayRemaining }} jours {{ hourRemaining }} heures</th>
   </tr>
-  <tr class="gamelist-desc" v-if="title === 'present'">
-    <th colspan="3">
-      {{ props.aMatch.acf.description }}
-    </th>
-  </tr>
-  <tr class="gamelist-item" v-if="title === 'futur'">
+  <tr class="gamelist-item" v-if="title === 'futur'" @click="sendTo('nextgame', props.aMatch.id)">
     <th>{{ props.aMatch.acf.title }}</th>
     <th>{{ props.aMatch.acf.players.length }}</th>
     <th>{{ formatDate(props.aMatch.acf.start_date) }} - {{ formattedStartTime }}</th>
-  </tr>
-  <tr class="gamelist-desc" v-if="title === 'futur'">
-    <th colspan="3">
-      {{ props.aMatch.acf.description }}
-    </th>
   </tr>
 </template>
 
@@ -56,7 +42,13 @@ var now = new Date();
 var futureDate = new Date(props.aMatch.acf.end_date);
 var timeDiff = futureDate.getTime() - now.getTime();
 var dayRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24));
-var hourRemaining = Math.floor((timeDiff / (1000 * 3600)) % 24); 
+var hourRemaining = Math.floor((timeDiff / (1000 * 3600)) % 24); // Utilisation de Math.floor au lieu de Math.ceil et correction de la formule
+
+
+const sendTo = (txt, id) => {
+  console.log(txt + id)
+  router.push(`/${txt}/${id}`);
+}
 
 </script>
 
@@ -65,9 +57,10 @@ var hourRemaining = Math.floor((timeDiff / (1000 * 3600)) % 24);
     padding-top: .4rem;
     font-size: .9rem;
   }
-  .gamelist-desc th {
-    padding-bottom: .4rem;
-    font-size: .7rem;
-    border-bottom: 1px solid #00000020;
+  tr {
+    position: relative;
+  }
+  tr::nth(1) {
+    background-color: blue;
   }
 </style>

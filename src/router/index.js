@@ -21,7 +21,7 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/rank',
+      path: '/rank/:id',
       name: 'Rank',
       component: RankView
     },
@@ -31,12 +31,12 @@ const router = createRouter({
       component: ProfileView
     },
     {
-      path: '/game',
+      path: '/game/:id',
       name: 'Game',
       component: GameView
     },
     {
-      path: '/nextgame',
+      path: '/nextgame/:id',
       name: 'NextGame',
       component: NextGameView
     },
