@@ -1,8 +1,8 @@
 <template>
   <section class="nav">
-    <button @click="activateNav('present')" :class="{ nav_activebtn: activeNav === 'present' }">En cours</button>
-    <button @click="activateNav('futur')" :class="{ nav_activebtn: activeNav === 'futur' }">Futures</button>
-    <button @click="activateNav('past')" :class="{ nav_activebtn: activeNav === 'past' }">Finies</button>
+    <button @click="activateNav('present')" :class="{ nav_activebtn: activeNav === 'present' }">Partie<br>En cours</button>
+    <button @click="activateNav('futur')" :class="{ nav_activebtn: activeNav === 'futur' }">Partie<br>Futures</button>
+    <button @click="activateNav('past')" :class="{ nav_activebtn: activeNav === 'past' }">Partie<br>Finies</button>
   </section>
 </template>
 
