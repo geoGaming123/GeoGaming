@@ -18,7 +18,7 @@ import { useGamesStore } from '@/stores/games'
 import { onMounted, computed } from 'vue'
 import * as L from 'leaflet'
 import Timer from '@/components/map/Timer.vue'
-import { userposition } from './Userposition.vue';
+import  { userposition } from './Userposition.vue';
 
 const gamesStore = useGamesStore()
 const matchId = 325
@@ -69,10 +69,13 @@ const longitude = startPoint.position.longitude
         L.marker([latitude, longitude], { icon: startPointIcon })
           .addTo(map)
           .bindPopup('<b>Start Point</b>')
+
       })
     
       ////USER POSITION
-      const { position, position2 } = userposition(map.value);
+        // Appel de la fonction userposition pour afficher la position de l'utilisateur
+  userposition(map);
+      // const { position, position2 } = userposition(map.value);
 
 })
   
