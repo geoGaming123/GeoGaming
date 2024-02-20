@@ -20,7 +20,7 @@ import * as L from 'leaflet'
 import Timer from '@/components/map/Timer.vue'
 
 const gamesStore = useGamesStore()
-const matchId = 325
+const matchId = 335
 
 gamesStore.getMatch(matchId)
 
