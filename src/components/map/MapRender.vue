@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+ <div v-if="match != undefined" class="container">
     <h2>{{ match.acf.title }}</h2>
     <p>{{ match.acf.description }}</p>
     <p>Start Date: {{ match.acf.start_date }}</p>
@@ -22,18 +22,20 @@ import Timer from '@/components/map/Timer.vue'
 const gamesStore = useGamesStore()
 const matchId = 335
 
+
 gamesStore.getMatch(matchId)
 
 const match = computed(() => {
   return gamesStore.oneMatch
 })
 
-
 onMounted(()=>{
+
+console.log(match.value)
+
 
   const startPoint = match.value.acf.start_point;
   const markers = match.value.acf.markers
-  console.log(startPoint)
 
 const latitude = startPoint.position.latitude
 const longitude = startPoint.position.longitude
