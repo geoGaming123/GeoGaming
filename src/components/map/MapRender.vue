@@ -7,7 +7,7 @@
 
     <div id="map"></div>
     <Timer></Timer>
-    <button v-if="showStartButton" @click="startGame">Lancer le chrono</button>
+    <!-- <button v-if="showStartButton" @click="startGame">Lancer le chrono</button> -->
 
 
   </div>
@@ -30,7 +30,7 @@ const match = computed(() => {
 })
 
 
-onMounted(()=>{
+setTimeout(()=>{
 
   const startPoint = match.value.acf.start_point
   const markers = match.value.acf.markers
@@ -77,7 +77,7 @@ const longitude = startPoint.position.longitude
   userposition(map);
       // const { position, position2 } = userposition(map.value);
 
-})
+},1000)
   
 
 </script>

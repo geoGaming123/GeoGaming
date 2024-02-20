@@ -1,5 +1,5 @@
 <script>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useGamesStore } from '@/stores/games'
 import * as L from 'leaflet'
 
@@ -7,8 +7,13 @@ import * as L from 'leaflet'
 export function userposition(map) {
   const gamesStore = useGamesStore()
 
-  const showStartButton = ref(false)
+  const match = computed(() => {
+  return gamesStore.oneMatch
+})
 
+  const showStartButton = ref(false)
+  const startPoint = match.value.acf.start_point
+  const markers = match.value.acf.markers
 
 
   // Fonction pour calculer la distance entre deux points en coordonnées géographiques
@@ -30,9 +35,9 @@ export function userposition(map) {
 
   // Fonction pour mettre à jour l'état de capture d'un marqueur
   const updateMarkerCaptured = (marker) => {
-    const index = gamesStore.markers.findIndex((m) => m.name === marker.name)
+    const index = markers.findIndex((m) => m.name === marker.name)
     if (index !== -1) {
-      gamesStore.markers[index].isCaptured = true
+      markers[index].isCaptured = true
     }
   }
   // Obtenir la position de l'utilisateur
@@ -73,7 +78,7 @@ export function userposition(map) {
         // Vérifier la distance par rapport au point de départ
         const distanceToStart = calculateDistance(
           { latitude, longitude },
-          gamesStore.startPoint.position
+          startPoint.position
         )
 
         // Mettre à jour l'affichage du bouton "Start" en fonction de la distance
@@ -84,14 +89,14 @@ export function userposition(map) {
         }
 
         // Mettre à jour les marqueurs capturés lorsque l'utilisateur est à moins de 10 mètres
-        gamesStore.markers.forEach((marker) => {
+        markers.forEach((marker) => {
           const distance = calculateDistance({ latitude, longitude }, marker.position)
 
           if (distance <= 5 && !marker.isCaptured) {
             marker.isCaptured = true
             marker.leafletMarker.setOpacity(0.4)
-            const totalBalises = gamesStore.markers.length
-            const balisesRestantes = gamesStore.markers.filter((m) => !m.isCaptured).length
+            const totalBalises = markers.length
+            const balisesRestantes = markers.filter((m) => !m.isCaptured).length
             const balisesPrises = totalBalises - balisesRestantes
             const message = `Vous avez récupéré ${balisesPrises}/${totalBalises} balise(s). ${balisesRestantes} balise(s) restante(s).`
             alert(message)
