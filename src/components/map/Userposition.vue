@@ -8,6 +8,7 @@ export function userposition(map) {
     const position= console.log("ceci te donne ta position")
 
     const position2= console.log("ceci te donne ta position2")
+    
  
 
   return {position, position2};

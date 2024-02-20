@@ -6,8 +6,8 @@
     <p>End Date: {{ match.acf.end_date }}</p>
 
     <div id="map"></div>
+    <MapAddMarkers :map="map" v-bind:match="match" :button="false"></MapAddMarkers>
     <Timer></Timer>
-    <button v-if="showStartButton" @click="startGame">Lancer le chrono</button>
 
 
   </div>
@@ -18,10 +18,11 @@ import { useGamesStore } from '@/stores/games'
 import { onMounted, computed } from 'vue'
 import * as L from 'leaflet'
 import Timer from '@/components/map/Timer.vue'
-import { userposition } from './Userposition.vue';
+import MapAddMarkers from './MapAddMarkers.vue'
+// import { userposition } from './Userposition.vue';
 
 const gamesStore = useGamesStore()
-const matchId = 325
+const matchId = 335
 
 gamesStore.getMatch(matchId)
 
@@ -32,9 +33,10 @@ const match = computed(() => {
 
 onMounted(()=>{
 
-  const startPoint = JSON.parse(match.value.acf.start_point);
-  const markers = JSON.parse(match.value.acf.markers)
-  console.log(startPoint)
+  const startPoint = (match.value.acf.start_point);
+  // const markers = (match.value.acf.markers)
+  // const players= (match.value.acf.players)
+  // console.log(players)
 
 const latitude = startPoint.position.latitude
 const longitude = startPoint.position.longitude
@@ -45,34 +47,32 @@ const longitude = startPoint.position.longitude
     layers: [L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')]
   })
 
-  map.whenReady(() => {
+  // map.whenReady(() => {
 
-    markers.forEach((marker) => {
-          const { latitude, longitude } = marker.position
-          const markerIcon = L.icon({
-            iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
-            iconSize: [50, 50],
-            iconAnchor: [12, 41],
-            popupAnchor: [0, -30]
-          })
-          L.marker([latitude, longitude], { icon: markerIcon })
-            .addTo(map)
-            .bindPopup(`<b>${marker.name}</b>`)
-        })
+  //   markers.forEach((marker) => {
+  //         const { latitude, longitude } = marker.position
+  //         const markerIcon = L.icon({
+  //           iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
+  //           iconSize: [50, 50],
+  //           iconAnchor: [12, 41],
+  //           popupAnchor: [0, -30]
+  //         })
+  //         L.marker([latitude, longitude], { icon: markerIcon })
+  //           .addTo(map)
+  //           .bindPopup(`<b>${marker.name}</b>`)
+  //       })
        
-        const startPointIcon = L.icon({
-          iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
-          iconSize: [50, 50],
-          iconAnchor: [12, 41],
-          popupAnchor: [0, -30]
-        })
-        L.marker([latitude, longitude], { icon: startPointIcon })
-          .addTo(map)
-          .bindPopup('<b>Start Point</b>')
-      })
+  //       const startPointIcon = L.icon({
+  //         iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
+  //         iconSize: [50, 50],
+  //         iconAnchor: [12, 41],
+  //         popupAnchor: [0, -30]
+  //       })
+  //       L.marker([latitude, longitude], { icon: startPointIcon })
+  //         .addTo(map)
+  //         .bindPopup('<b>Start Point</b>')
+  //     })
     
-      ////USER POSITION
-      const { position, position2 } = userposition(map.value);
 
 })
   

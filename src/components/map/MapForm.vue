@@ -2,7 +2,7 @@
     <div>
       <div class="map-container" id="map"></div>
       <div v-if="markersVisible">
-        <MapAddMarkers :map="map"></MapAddMarkers>
+        <MapAddMarkers :map="map" :button="true"></MapAddMarkers>
       </div>
       <div v-if="startPointVisible">
         <MapAddStartPoint :map="map"></MapAddStartPoint>
@@ -17,7 +17,7 @@
   import MapAddMarkers from './MapAddMarkers.vue';
   import MapAddStartPoint from './MapAddStartPoint.vue'
   
-  const props = defineProps(['searchBarVisible', 'startPointVisible', 'markersVisible', 'infoVisible']);
+  const props = defineProps(['searchBarVisible', 'startPointVisible', 'markersVisible', 'infoVisible', 'button']);
   const map = ref(null);
   const tiles = ref(null);
   

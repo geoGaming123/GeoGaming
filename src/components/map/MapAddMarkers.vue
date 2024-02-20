@@ -1,18 +1,25 @@
 <!-- Votre composant Vue -->
 <template>
+  <div v-if="button === true">
     <button class="btn" @click.prevent="addNewMarker">Add Marker</button>  
+  </div>
 </template>
 
 <script setup>
-import {  toRefs } from 'vue';
+import {  toRefs, computed } from 'vue';
 import * as L from 'leaflet';
 import { useGamesStore } from '@/stores/games';
 
-const props = defineProps(['map']);
+const props = defineProps(['map', 'match', 'button']);
 const { map } = toRefs(props);
 const gamesStore = useGamesStore();
 
 let weaponIndex = 1;
+
+
+
+const markers = computed(() => props.match.value.acf.markers);
+console.log(markers)
 
 const customIconMarkers = L.icon({
   iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',

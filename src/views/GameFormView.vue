@@ -14,7 +14,7 @@
         <input type="datetime-local" v-model="gamesStore.formData.endDate">
   
         <label>Location:</label>
-        <MapForm :searchBarVisible="true" :startPointVisible="true" :markersVisible="true"></MapForm>
+        <MapForm :searchBarVisible="true" :startPointVisible="true" :markersVisible="true" ></MapForm>
   
         <button type="submit">Submit</button>
       </form>  

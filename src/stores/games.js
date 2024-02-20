@@ -69,7 +69,7 @@ async getMatch(matchId) {
           markers: this.markers.map((marker) => ({
             name: marker.name,
             position: { ...marker.position },
-            penality: "20",
+            penalty: "20",
             isCaptured: false
           })),
           start_point: this.startPoint
@@ -80,11 +80,15 @@ async getMatch(matchId) {
                 endGame: false,
               }
             : null,
-          masteruid: '1', // Modifié en brut
+          masteruid: '2', // Modifié en brut
           players: [
             {
-              userId: '2',
+              userId: '1',
               time: '10',
+              position: {
+                longitude: '',
+                latitude: '',
+              },
               markers: [
                 {
                   marker_id: '1',
@@ -99,6 +103,10 @@ async getMatch(matchId) {
             {
               userId: '3',
               time: '10',
+              position: {
+                longitude: '',
+                latitude: '',
+              },
               markers: [
                 {
                   marker_id: '1',
@@ -120,7 +128,7 @@ async getMatch(matchId) {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(matchData),
+        body: JSON.stringify(matchData ),
       })
         .then(response => response.json())
         .then(data => {
@@ -133,6 +141,50 @@ async getMatch(matchId) {
         });
     },
     
+    patchMatchData() {
+      const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwNzk5MDE5NSwibmJmIjoxNzA3OTkwMTk1LCJleHAiOjE3MDg1OTQ5OTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.fgYfqHYmhNdFnW0xOoL2pY1HBsBCgThfi-6sy2ti-FQ";
+    
+      const matchData = {
+        status: "publish",
+        title: this.formData.title,
+        fields: {
+          title: this.formData.title,
+          description: this.formData.description,
+          start_date: this.formData.startDate,
+          end_date: this.formData.endDate,
+          markers: this.markers.map((marker) => ({
+            name: marker.name,
+            position: { ...marker.position },
+            penalty: "20",
+            isCaptured: false
+          })),
+        },
+      };
+    
+      fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/333', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(matchData ),
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Réponse de l\'API :', data);
+          // Ajoutez ici toute logique de gestion de la réponse de l'API
+        })
+        .catch(error => {
+          console.error('Erreur lors de la requête PATCH :', error);
+          // Ajoutez ici toute logique de gestion des erreurs
+        });
+    },
+
+
+
+
+
+
     updateMarkers(markers) {
       this.markers = reactive(
         markers.map((marker) => ({
