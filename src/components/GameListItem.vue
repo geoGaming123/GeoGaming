@@ -10,7 +10,7 @@
     <th>{{ props.aMatch.acf.players.length }}</th>
     <th>{{ dayRemaining }} jours {{ hourRemaining }} heures</th>
   </tr>
-  <tr class="gamelist-item" v-if="title === 'futur'" @click="sendTo('nextgame', props.aMatch.id)">
+  <tr class="gamelist-item" v-if="title === 'futur'"  @click="sendTo('nextgame', props.aMatch.id)">
     <th>{{ props.aMatch.acf.title }}</th>
     <th>{{ props.aMatch.acf.players.length }}</th>
     <th>{{ formatDate(props.aMatch.acf.start_date) }} - {{ formattedStartTime }}</th>

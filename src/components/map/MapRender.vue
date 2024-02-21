@@ -1,14 +1,17 @@
 <template>
-  <div class="container">
     <h2>{{ match.acf.title }}</h2>
     <p>{{ match.acf.description }}</p>
     <p>Start Date: {{ match.acf.start_date }}</p>
     <p>End Date: {{ match.acf.end_date }}</p>
 
     <div id="map"></div>
+<div v-if="timer === true">
+  <Timer></Timer>
+</div>
+<div v-if="timer === true">
+    <Gamedelete :id="matchId"></Gamedelete>
+</div>
 
-    <Timer></Timer>
-  </div>
 </template>
 
 <script setup>
@@ -16,9 +19,14 @@ import { useGamesStore } from '@/stores/games'
 import { onMounted, computed, ref } from 'vue'
 import * as L from 'leaflet'
 import Timer from '@/components/map/Timer.vue'
+import Gamedelete from './Gamedelete.vue'
 
 const gamesStore = useGamesStore()
-const matchId = 335
+const props = defineProps(['id']);
+const matchId = props.id
+
+
+console.log(matchId)
 
 gamesStore.getMatch(matchId)
 

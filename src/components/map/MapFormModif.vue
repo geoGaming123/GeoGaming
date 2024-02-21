@@ -18,7 +18,7 @@
         <button type="submit">Submit</button>
       </form>  
     </div>
-
+    <MapAddStartPoint :map="map"></MapAddStartPoint>
 
   </template>
   
@@ -28,9 +28,10 @@
   import { useGamesStore } from '@/stores/games';
   import * as GeoSearch from 'leaflet-geosearch';
 
-
+const props = defineProps('id')
 const gamesStore = useGamesStore()
-const matchId = 335
+const matchId = props.id
+console.log(matchId)
 const allMarkers = ref([])
 
 gamesStore.getMatch(matchId)
@@ -69,7 +70,8 @@ setTimeout(() => {
           L.marker([latitude, longitude], { icon: markerIcon })
             .addTo(map)
             .bindPopup(`<b>${marker.name}</b>`);
-            const allmarker = markers.marker;
+             allmarker = markers.marker;
+             console.log
         });
         
 

@@ -134,6 +134,30 @@ async getMatch(matchId) {
       this.startPoint = startPoint
     },
 
+    async deleteGame(matchId) {
+      const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwNzk5MDE5NSwibmJmIjoxNzA3OTkwMTk1LCJleHAiOjE3MDg1OTQ5OTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.fgYfqHYmhNdFnW0xOoL2pY1HBsBCgThfi-6sy2ti-FQ";
+      try {
+        const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`, // Replace with your actual authorization token
+          },
+        });
+
+        if (response.ok) {
+          console.log('Game deleted successfully.');
+          // Add any additional logic after successfully deleting the game
+        } else {
+          console.error('Error deleting game:', response.status);
+          // Add error handling logic if needed
+        }
+      } catch (error) {
+        console.error('Error deleting game:', error);
+        // Add error handling logic if needed
+      }
+    },
+
     deleteMarker(marker) {
       this.markers = this.markers.filter((m) => m.name !== marker.name)
       // Mettez à jour le store après la suppression du marqueur

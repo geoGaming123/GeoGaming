@@ -9,7 +9,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
       <nav class="test">
         <RouterLink to="/">Login</RouterLink>
-        <RouterLink to="/home">Home</RouterLink>
+        <RouterLink to="/home">Home</RouterLink>git me
         <RouterLink to="/gameform">MapForm</RouterLink>
         <RouterLink to="/gameformmodif">MapFormmodif</RouterLink>
       </nav>
