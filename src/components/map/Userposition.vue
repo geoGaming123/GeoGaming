@@ -93,7 +93,6 @@ export function userposition(map) {
 // Mettre à jour les marqueurs capturés lorsque l'utilisateur est à moins de 10 mètres
 markers.forEach((marker) => {
   const distance = calculateDistance({ latitude, longitude }, marker.position);
-  console.log(  marker.position);
   if (distance <= 10 && !marker.isCaptured) {
     marker.isCaptured = true;
     marker.leafletMarker.setOpacity(0.4);
