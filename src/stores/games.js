@@ -1,6 +1,5 @@
-// stores/games.js
-import { defineStore } from 'pinia'
-import { reactive } from 'vue'
+import { defineStore } from 'pinia';
+import { reactive } from 'vue';
 
 export const useGamesStore = defineStore('games', {
   id: 'test',
@@ -15,30 +14,65 @@ export const useGamesStore = defineStore('games', {
     startPoint: null,
     userPosition: {},
     userMarker: null,
-    match:{},
-
-
+    match: {},
+    matches: [],
   }),
-
 
   getters: {
     oneMatch: (state) => {
-      return state.match
-    }
+      return state.match;
+    },
+
+    allMatches: (state) => {
+      return state.matches;
+    },
   },
   actions: {
+    async getMatches() {
+      try {
+        const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/?per_page=100`);
+        const data = await response.json();
 
+        console.log(data);
 
-async getMatch(matchId) {
-  await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`)
+        // Set the matches in the store
+        this.matches = data;
+      } catch (err) {
+        console.error('Error fetching matches:', err);
+      }
+    },
 
-            .then(resp => resp.json())
-            .then(resp => {
-                console.log(resp)
-                this.match = resp
-            })
-            .catch (err => console.log(err))
-},
+    async getMatch(matchId) {
+
+      const allMatches = this.allMatches;
+    
+      // Find the match in the already fetched matches
+      const match = allMatches.find((m) => Number(m.id) === Number(matchId));
+    
+      if (match) {
+        // If the match is found in the stored matches, set it in the store
+        this.match = match;
+        console.log("success")
+      } else {
+        // If the match is not found, you can still make an API request if needed
+        try {
+          console.log('donnée non disponible dans le store ');
+          const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`);
+          const data = await response.json();
+    
+          console.log(data);
+    
+          // Set the match in the store
+          this.match = data;
+        } catch (error) {
+          console.error('Error fetching match:', error);
+        }
+      }
+    },
+    
+    
+  
+
 
  
     postMatchData() {

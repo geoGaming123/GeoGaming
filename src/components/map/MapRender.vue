@@ -5,12 +5,13 @@
     <p>End Date: {{ match.acf.end_date }}</p>
 
     <div id="map"></div>
-<div v-if="timer === true">
+
   <Timer></Timer>
-</div>
-<div v-if="timer === true">
-    <Gamedelete :id="matchId"></Gamedelete>
-</div>
+
+
+    <ButtonDelete :id="matchId"></ButtonDelete>
+    <ButtonJoin :id="matchId"></ButtonJoin>
+
 
 </template>
 
@@ -19,7 +20,8 @@ import { useGamesStore } from '@/stores/games'
 import { onMounted, computed, ref } from 'vue'
 import * as L from 'leaflet'
 import Timer from '@/components/map/Timer.vue'
-import Gamedelete from './Gamedelete.vue'
+import ButtonDelete from '@/components/map/ButtonDelete.vue'
+import ButtonJoin from './ButtonJoin.vue'
 
 const gamesStore = useGamesStore()
 const props = defineProps(['id']);
@@ -34,12 +36,6 @@ const match = ref(computed(() => {
   return gamesStore.oneMatch
 }))
  onMounted(()=> {
-  
- })
-
-setTimeout(() => {
-
-
   const startPoint = match.value.acf.start_point;
     const markers = match.value.acf.markers;
   
@@ -77,7 +73,13 @@ setTimeout(() => {
           .addTo(map)
           .bindPopup('<b>Start Point</b>');
       });
-},1000)
+ })
+
+
+
+
+
+
 
     
   

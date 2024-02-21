@@ -1,4 +1,4 @@
-<!-- Gamedelete.vue -->
+
 
 <template>
     <div>
@@ -21,4 +21,4 @@
     }
   };
   </script>
-  
+  g
