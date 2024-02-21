@@ -8,6 +8,7 @@ import NextGameView from '../views/NextGameView.vue'
 import GameFormView from '@/views/GameFormView.vue'
 import GameFormModifView from '@/views/GameFormModifView.vue'
 import Helpview from '../views/Helpview.vue'
+import DashView from '@/views/DashView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +57,11 @@ const router = createRouter({
       path: '/help',
       name: 'Help',
       component: Helpview
+    },
+    {
+      path: '/dash',
+      name: 'Dashboard',
+      component: DashView
     }
   ]
 })

@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const props = defineProps({
@@ -56,11 +56,5 @@ const sendTo = (txt, id) => {
   .gamelist-item th {
     padding-top: .4rem;
     font-size: .9rem;
-  }
-  tr {
-    position: relative;
-  }
-  tr::nth(1) {
-    background-color: blue;
   }
 </style>
