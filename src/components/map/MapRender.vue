@@ -21,7 +21,7 @@ import Timer from '@/components/map/Timer.vue'
 import { userposition } from './Userposition.vue';
 
 const gamesStore = useGamesStore()
-const matchId = 341
+const matchId = 364
 
 gamesStore.getMatch(matchId)
 
