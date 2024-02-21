@@ -15,15 +15,6 @@ export function userposition(map) {
   const startPoint = match.value.acf.start_point.position
   const markers = match.value.acf.markers
 
-  // Créer un tableau pour stocker les positions des marqueurs
-  const markerPositions = [];
-
-  // Parcourir chaque marqueur pour extraire sa position
-  markers.forEach(marker => {
-    const position = marker.position;
-    markerPositions.push(position);
-  });
-
   console.log("START : ", startPoint);
 
   // Fonction pour calculer la distance entre deux points en coordonnées géographiques
@@ -102,7 +93,7 @@ export function userposition(map) {
 // Mettre à jour les marqueurs capturés lorsque l'utilisateur est à moins de 10 mètres
 markers.forEach((marker) => {
   const distance = calculateDistance({ latitude, longitude }, marker.position);
-  console.log(marker.position);
+  console.log(  marker.position);
   if (distance <= 10 && !marker.isCaptured) {
     marker.isCaptured = true;
     marker.leafletMarker.setOpacity(0.4);
