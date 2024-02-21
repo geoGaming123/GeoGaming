@@ -7,9 +7,6 @@
 
     <div id="map"></div>
     <Timer></Timer>
-    
-
-
   </div>
 </template>
 
@@ -18,7 +15,7 @@ import { useGamesStore } from '@/stores/games'
 import { onMounted, computed } from 'vue'
 import * as L from 'leaflet'
 import Timer from '@/components/map/Timer.vue'
-import { userposition } from './Userposition.vue';
+import { userposition } from './Userposition.vue'
 
 const gamesStore = useGamesStore()
 const matchId = 364
@@ -29,15 +26,13 @@ const match = computed(() => {
   return gamesStore.oneMatch
 })
 
-
-setTimeout(()=>{
-
+setTimeout(() => {
   const startPoint = match.value.acf.start_point
   const markers = match.value.acf.markers
   console.log(startPoint)
 
-const latitude = startPoint.position.latitude
-const longitude = startPoint.position.longitude
+  const latitude = startPoint.position.latitude
+  const longitude = startPoint.position.longitude
 
   const map = L.map('map', {
     center: [latitude, longitude],
@@ -46,40 +41,37 @@ const longitude = startPoint.position.longitude
   })
 
   map.whenReady(() => {
-
     markers.forEach((marker) => {
-          const { latitude, longitude } = marker.position
-          const markerIcon = L.icon({
-            iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
-            iconSize: [50, 50],
-            iconAnchor: [12, 41],
-            popupAnchor: [0, -30]
-          })
-          L.marker([latitude, longitude], { icon: markerIcon })
-            .addTo(map)
-            .bindPopup(`<b>${marker.name}</b>`)
-        })
-       
-        const startPointIcon = L.icon({
-          iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
-          iconSize: [50, 50],
-          iconAnchor: [12, 41],
-          popupAnchor: [0, -30]
-        })
-        L.marker([latitude, longitude], { icon: startPointIcon })
-          .addTo(map)
-          .bindPopup('<b>Start Point</b>')
-
-          userposition(map);
+      const { latitude, longitude } = marker.position
+      const markerIcon = L.icon({
+        iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
+        iconSize: [50, 50],
+        iconAnchor: [12, 41],
+        popupAnchor: [0, -30]
       })
-    
-      ////USER POSITION
-        // Appel de la fonction userposition pour afficher la position de l'utilisateur
-      // const { position, position2 } = userposition(map.value);
+      const leaflermarker = L.marker([latitude, longitude], { icon: markerIcon })
+        .addTo(map)
+        .bindPopup(`<b>${marker.name}</b>`)
 
-},1000)
-  
+      // Assurez-vous que le marqueur a une référence à leafletMarker
+      marker.leafletMarker = leaflermarker
+    })
 
+    const startPointIcon = L.icon({
+      iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
+      iconSize: [50, 50],
+      iconAnchor: [12, 41],
+      popupAnchor: [0, -30]
+    })
+    L.marker([latitude, longitude], { icon: startPointIcon })
+      .addTo(map)
+      .bindPopup('<b>Start Point</b>')
+
+    userposition(map)
+  })
+
+  ////USER POSITION
+  // Appel de la fonction userposition pour afficher la position de l'utilisateur
+  // const { position, position2 } = userposition(map.value);
+}, 1000)
 </script>
-
-
