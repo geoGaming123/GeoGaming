@@ -15,7 +15,7 @@ export function userposition(map) {
   const startPoint = match.value.acf.start_point.position
   const markers = match.value.acf.markers
 
-  console.log("START : ", startPoint);
+  console.log('START : ', startPoint)
 
   // Fonction pour calculer la distance entre deux points en coordonnées géographiques
   const calculateDistance = (pointA, pointB) => {
@@ -78,10 +78,7 @@ export function userposition(map) {
         }
 
         // Vérifier la distance par rapport au point de départ
-        const distanceToStart = calculateDistance(
-          { latitude, longitude },
-          startPoint
-        )
+        const distanceToStart = calculateDistance({ latitude, longitude }, startPoint)
 
         // Mettre à jour l'affichage du bouton "Start" en fonction de la distance
         if (distanceToStart <= 10) {
@@ -90,21 +87,20 @@ export function userposition(map) {
           showStartButton.value = false
         }
 
-// Mettre à jour les marqueurs capturés lorsque l'utilisateur est à moins de 10 mètres
-markers.forEach((marker) => {
-  const distance = calculateDistance({ latitude, longitude }, marker.position);
-  if (distance <= 10 && !marker.isCaptured) {
-    marker.isCaptured = true;
-    marker.leafletMarker.setOpacity(0.4);
-    const totalBalises = markers.length;
-    const balisesRestantes = markers.filter((m) => !m.isCaptured).length;
-    const balisesPrises = totalBalises - balisesRestantes;
-    const message = `Vous avez récupéré ${balisesPrises}/${totalBalises} balise(s). ${balisesRestantes} balise(s) restante(s).`;
-    alert(message);
-    updateMarkerCaptured(marker); // Mettre à jour l'état de capture du marqueur
-  }
-});
-
+        // Mettre à jour les marqueurs capturés lorsque l'utilisateur est à moins de 10 mètres
+        markers.forEach((marker) => {
+          const distance = calculateDistance({ latitude, longitude }, marker.position)
+          if (distance <= 10 && !marker.isCaptured) {
+            marker.isCaptured = true
+            marker.leafletMarker.setOpacity(0.4)
+            const totalBalises = markers.length
+            const balisesRestantes = markers.filter((m) => !m.isCaptured).length
+            const balisesPrises = totalBalises - balisesRestantes
+            const message = `Vous avez récupéré ${balisesPrises}/${totalBalises} balise(s). ${balisesRestantes} balise(s) restante(s).`
+            alert(message)
+            updateMarkerCaptured(marker) // Mettre à jour l'état de capture du marqueur
+          }
+        })
       },
       (error) => {
         console.error('Erreur de géolocalisation :', error.message)
@@ -117,6 +113,6 @@ markers.forEach((marker) => {
   } else {
     console.error("La géolocalisation n'est pas prise en charge par ce navigateur.")
   }
-  return { showStartButton };
+  return { showStartButton }
 }
 </script>

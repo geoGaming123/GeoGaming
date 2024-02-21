@@ -70,11 +70,11 @@ const longitude = startPoint.position.longitude
           .addTo(map)
           .bindPopup('<b>Start Point</b>')
 
+          userposition(map);
       })
     
       ////USER POSITION
         // Appel de la fonction userposition pour afficher la position de l'utilisateur
-  userposition(map);
       // const { position, position2 } = userposition(map.value);
 
 },1000)
