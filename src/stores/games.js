@@ -191,10 +191,10 @@ export const useGamesStore = defineStore('games', {
                 endGame: false
               }
             : null,
-          masteruid: '2', // Modifié en brut
+          masteruid: '1', // Modifié en brut
           players: [
             {
-              userId: '5',
+              userId: '2',
               time: '10',
               markers: [
                 {

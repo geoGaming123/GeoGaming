@@ -21,7 +21,7 @@
         const id = pathComponents[pathComponents.length - 1];
         return id;
       }
-const myID = 1
+const myID = 9
 const monStore = useCounterStore()
 monStore.getAMatch(getIdFromUrl()) // Va chercher le match correspondant à l'id de l'url
 

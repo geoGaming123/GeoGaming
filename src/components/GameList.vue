@@ -62,7 +62,7 @@ watch(() => props.menu, (newMenu) => { // Récupère le menu actif pour l'affich
   activeMenu.value = newMenu;
 });
 
-const myID = 1
+const myID = 9
 const myMatches = computed(()=>(props.MatchesData.filter(match => match.acf.masteruid == myID)))
 const joinedMatches = computed(()=>(props.MatchesData.filter(match => match.acf.players.some(player => player.userId == myID))))
 const otherMatches = computed(()=>(props.MatchesData.filter(match => {return match.acf.masteruid != myID && !match.acf.players.some(player => player.userId == myID)})))
