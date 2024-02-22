@@ -26,6 +26,7 @@
   import { onMounted, ref, computed } from 'vue';
   import * as L from 'leaflet';
   import { useGamesStore } from '@/stores/games';
+import { userposition } from './Userposition.vue';
   import * as GeoSearch from 'leaflet-geosearch';
 
 const props = defineProps('id')
@@ -90,21 +91,10 @@ setTimeout(() => {
         //   .addTo(map)
         //   .bindPopup('<b>Start Point</b>');
 
-  // ADD SEARCH BAR
-    const searchControl = new GeoSearch.GeoSearchControl({
-    provider: new GeoSearch.OpenStreetMapProvider(),
-    style: 'bar',
-    showMarker: false,
+      // ADD SEARCH BAR
+      const { position } = userposition;
+
   });
-
-  map.addControl(searchControl);
-      });
-
-      
-},1000)
-
-
-
   </script>
   
   <style>

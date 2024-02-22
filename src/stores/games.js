@@ -149,10 +149,11 @@ export const useGamesStore = defineStore('games', {
 
  
     postMatchData() {
-      const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwNzk5MDE5NSwibmJmIjoxNzA3OTkwMTk1LCJleHAiOjE3MDg1OTQ5OTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.fgYfqHYmhNdFnW0xOoL2pY1HBsBCgThfi-6sy2ti-FQ";
-    
+      const token =
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwNzk5MDE5NSwibmJmIjoxNzA3OTkwMTk1LCJleHAiOjE3MDg1OTQ5OTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.fgYfqHYmhNdFnW0xOoL2pY1HBsBCgThfi-6sy2ti-FQ'
+
       const matchData = {
-        status: "publish",
+        status: 'publish',
         title: this.formData.title,
         fields: {
           title: this.formData.title,
@@ -162,14 +163,15 @@ export const useGamesStore = defineStore('games', {
           markers: this.markers.map((marker) => ({
             name: marker.name,
             position: { ...marker.position },
-            penality: "20",
+            penality: '20',
+            isCaptured: false
           })),
           start_point: this.startPoint
             ? {
                 name: this.startPoint.name,
                 position: { ...this.startPoint.position },
                 startGame: false,
-                endGame: false,
+                endGame: false
               }
             : null,
           masteruid: '2', // Modifié en brut
@@ -210,21 +212,21 @@ export const useGamesStore = defineStore('games', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(matchData),
+        body: JSON.stringify(matchData)
       })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Réponse de l\'API :', data);
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Réponse de l'API :", data)
           // Ajoutez ici toute logique de gestion de la réponse de l'API
         })
-        .catch(error => {
-          console.error('Erreur lors de la requête POST :', error);
+        .catch((error) => {
+          console.error('Erreur lors de la requête POST :', error)
           // Ajoutez ici toute logique de gestion des erreurs
-        });
+        })
     },
-    
+
     updateMarkers(markers) {
       this.markers = reactive(
         markers.map((marker) => ({
@@ -281,14 +283,13 @@ export const useGamesStore = defineStore('games', {
       // Mettre à jour la position du joueur dans le store
       this.userPosition = position
       // Sauvegarder la position du joueur dans le localStorage
-      this.saveDataToLocalStorage()
+      // this.saveDataToLocalStorage()
     },
 
     updateUserMarker(marker) {
       // Mettre à jour la référence du marqueur de l'utilisateur dans le store
       this.userMarker = marker
-      this.saveDataToLocalStorage()
+      // this.saveDataToLocalStorage()
     }
   }
 })
-
