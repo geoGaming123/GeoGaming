@@ -16,6 +16,7 @@ export const useGamesStore = defineStore('games', {
     userMarker: null,
     match: {},
     matches: [],
+    players: [],
   }),
 
   getters: {
@@ -48,6 +49,7 @@ export const useGamesStore = defineStore('games', {
     
       // Find the match in the already fetched matches
       const match = allMatches.find((m) => Number(m.id) === Number(matchId));
+
     
       if (match) {
         // If the match is found in the stored matches, set it in the store
@@ -70,7 +72,78 @@ export const useGamesStore = defineStore('games', {
       }
     },
     
+
+
+    async joinGame(matchId, userId, position) {
+      try {
+        const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwNzk5MDE5NSwibmJmIjoxNzA3OTkwMTk1LCJleHAiOjE3MDg1OTQ5OTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.fgYfqHYmhNdFnW0xOoL2pY1HBsBCgThfi-6sy2ti-FQ";
     
+        const matchData = {
+          fields: {
+
+            players: [
+              {
+                userId: String(userId),
+                position: {
+                  latitude: position.latitude || "",
+                  longitude: position.longitude || "",
+                },
+                marker: []  // Laissez le tableau de marqueurs vide pour le moment
+              },
+            ],
+          },
+        };
+    
+        const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify(matchData),
+        });
+    
+        if (response.ok) {
+          console.log(this.oneMatch.acf.players)
+          console.log('Game joined successfully.');
+    
+          // Après avoir rejoint le jeu avec succès, récupérer les marqueurs du acf
+
+          const oneMatch =this.oneMatch;
+    
+          // Extraire les informations des marqueurs du champ acf
+          const markers = [];
+          oneMatch.acf.markers.forEach((marker, index) => {
+            markers.push({
+              id: index, // Utilisez l'index comme identifiant
+              name: marker.name,
+              check: false // Vous pouvez initialiser check à false ici
+            });
+          });
+    
+          // Mettre les informations des marqueurs dans le joueur qui vient de rejoindre
+          matchData.fields.players[0].marker = markers;
+    
+          // Utilisez la variable "matchData" selon vos besoins
+          console.log(matchData);
+    
+          // Ajouter toute logique supplémentaire après avoir rejoint le jeu avec succès
+        } else {
+          console.error('Error joining game:', response.status);
+          // Ajouter une logique de gestion des erreurs si nécessaire
+        }
+      } catch (error) {
+        console.error('Error joining game:', error);
+        // Ajouter une logique de gestion des erreurs si nécessaire
+      }
+    },
+    
+
+
+  
+
+
+
   
 
 
@@ -90,7 +163,6 @@ export const useGamesStore = defineStore('games', {
             name: marker.name,
             position: { ...marker.position },
             penality: "20",
-            isCaptured: false
           })),
           start_point: this.startPoint
             ? {
@@ -108,11 +180,11 @@ export const useGamesStore = defineStore('games', {
               markers: [
                 {
                   marker_id: '1',
-                  check: 'false',
+                  isCaptured: false
                 },
                 {
                   marker_id: '3',
-                  check: 'false',
+                  isCaptured: false
                 },
               ],
             },
@@ -122,11 +194,11 @@ export const useGamesStore = defineStore('games', {
               markers: [
                 {
                   marker_id: '1',
-                  check: 'false',
+                  isCaptured: false
                 },
                 {
                   marker_id: '3',
-                  check: 'false',
+                  isCaptured: false
                 },
               ],
             },

@@ -1,8 +1,6 @@
-<!-- Gamedelete.vue -->
-
 <template>
     <div>
-      <button @click="joinGame">rejoindre</button>
+      <button @click="joinGame">Rejoindre</button>
     </div>
   </template>
   
@@ -14,11 +12,16 @@
   
   const joinGame = async () => {
     try {
-      await gamesStore.joinGame(id, userId);
-      // Ajoutez toute logique supplémentaire ou navigation après avoir rejoint le jeu avec succès
+      const position = {
+        latitude: "", // Replace with actual latitude
+        longitude: "", // Replace with actual longitude
+      };
+  
+      await gamesStore.joinGame(id, userId, position);
+      console.log("envoi au store ");
     } catch (error) {
       console.error('Error joining game:', error);
-      // Ajoutez une logique de gestion des erreurs si nécessaire
+      // Add error handling logic if needed
     }
   };
   </script>

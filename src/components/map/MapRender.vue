@@ -26,9 +26,8 @@ import ButtonJoin from './ButtonJoin.vue'
 const gamesStore = useGamesStore()
 const props = defineProps(['id']);
 const matchId = props.id
+console.log('matchId' + matchId)
 
-
-console.log(matchId)
 
 gamesStore.getMatch(matchId)
 
@@ -74,15 +73,6 @@ const match = ref(computed(() => {
           .bindPopup('<b>Start Point</b>');
       });
  })
-
-
-
-
-
-
-
-    
-  
 
 </script>
 
