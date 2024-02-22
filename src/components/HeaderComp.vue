@@ -1,13 +1,13 @@
 <template>
   <section class="header">
     <div class="header_logo" :class="{ hidden : showLogo }">
-      Logo
+      <img src="../assets/Icons/Logo-texte-blanc.png" alt="Logo*">
     </div>
     <div class="header_return" :class="{ hidden : !showLogo}">
       <button @click="lastPage">Return</button>
     </div>
     <div class="header_profile" :class="{ hidden : showProfileBtn}">
-      <button @click="showProfileWindow">Mon Profil</button>
+      <img src="../assets/Icons/Profile-pic.png" alt="" @click="showProfileWindow">
       <div id="profileWindow" class="header_myprofile hidden">
         <img src="" alt="Photo"><br>
         <router-link to="/profile">Modifier le profil</router-link><br>
@@ -20,7 +20,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   data: String,
@@ -37,7 +37,6 @@ const showProfileBtn = computed(() => {
 })
 
 const lastPage = () => {
-  console.log("Page précédente")
   router.go(-1);
 }
 

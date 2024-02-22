@@ -1,40 +1,33 @@
-<script setup>
-import HeaderComp from '@/components/HeaderComp.vue';
-import MyRank from '@/components/MyRank.vue';
-</script>
 
 <template>
   <main>
     <HeaderComp></HeaderComp>
-    <MyRank></MyRank>
+    <MyRank v-for="(rank, index) in myRank" :key="index" :rank="rank"></MyRank>
     <ul class="rankList">
-      <li class="rankList_El rankList_first">
-        <span>1</span>
-        <img class="rankList_El_center" src="" alt=" ">
-        <span>monsuper.pseudo</span>
-        <span class="rankList_El_right">3m 57s</span>
-      </li>
-      <li class="rankList_El">
-        <span>2</span>
-        <img class="rankList_El_center" src="" alt=" ">
-        <span>jean</span>
-        <span class="rankList_El_right">4m 02s</span>
-      </li>
-      <li class="rankList_El">
-        <span>3</span>
-        <img class="rankList_El_center" src="" alt=" ">
-        <span>monsuper.pseudotropcool</span>
-        <span class="rankList_El_right">5m 42s</span>
-      </li>
-      <li class="rankList_El">
-        <span>36</span>
-        <img class="rankList_El_center" src="" alt=" ">
-        <span>mamy.hugette</span>
-        <span class="rankList_El_right">22m 10s</span>
-      </li>
+      <RankEl v-for="(player, index) in playersToRank" :key="index" :aPlayer="player" :index="index"></RankEl>
     </ul>
   </main>
 </template>
+
+<script setup>
+  import HeaderComp from '@/components/HeaderComp.vue';
+  import MyRank from '@/components/MyRank.vue';
+  import RankEl from '@/components/RankEl.vue';
+  import { computed } from 'vue';
+  import { useCounterStore } from '@/stores/counter'
+
+  const getIdFromUrl = () => { // Récupère l'id de l'url
+        const pathComponents = window.location.href.split('/');
+        const id = pathComponents[pathComponents.length - 1];
+        return id;
+      }
+const myID = 1
+const monStore = useCounterStore()
+monStore.getAMatch(getIdFromUrl()) // Va chercher le match correspondant à l'id de l'url
+
+const playersToRank = computed(() =>monStore.getMatchToRank)
+const myRank = computed(() =>playersToRank.value.filter(player => player.userId == myID))
+</script>
 
 <style scoped>
 

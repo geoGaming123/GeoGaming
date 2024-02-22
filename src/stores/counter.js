@@ -1,4 +1,3 @@
-import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useCounterStore = defineStore('counter', {
@@ -7,6 +6,7 @@ export const useCounterStore = defineStore('counter', {
     matchesPast : [],
     matchesPresent : [],
     matchesFuture : [],
+    matchToRank: [],
     dateNow : new Date()
   }),
   getters: {
@@ -14,6 +14,7 @@ export const useCounterStore = defineStore('counter', {
     getMatchesPast: (state) => state.matchesPast,
     getMatchesPresent: (state) => state.matchesPresent,
     getMatchesFuture: (state) => state.matchesFuture,
+    getMatchToRank: (state) => state.matchToRank
   },
   actions: {
     
@@ -26,6 +27,17 @@ export const useCounterStore = defineStore('counter', {
         this.matchesFuture = res.filter(matches => new Date(matches.acf.start_date) > this.dateNow)
         this.matchesPast = res.filter(matches => new Date(matches.acf.end_date) < this.dateNow)
         this.matchesPresent = res.filter(matches => new Date(matches.acf.end_date) > this.dateNow && this.dateNow > new Date(matches.acf.start_date))
+      })
+      .catch(error => console.error('Erreur :', error));
+    },
+    getAMatch(id) {
+      fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/' + id)
+      .then(res => res.json())
+      .then(res => {
+        console.log(res)
+        const playersData = res.acf.players
+        console.log(playersData)
+        this.matchToRank = playersData
       })
       .catch(error => console.error('Erreur :', error));
     }
