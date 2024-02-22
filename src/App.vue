@@ -31,7 +31,6 @@ onMounted(() => {
       <nav class="test">
         <RouterLink to="/">Login</RouterLink> || 
         <RouterLink to="/dash">Dashboard</RouterLink> || 
-        <RouterLink to="/home">Home</RouterLink> || 
         <RouterLink to="/gameformmodif">MapFormmodif</RouterLink>
       </nav>
     </div>
