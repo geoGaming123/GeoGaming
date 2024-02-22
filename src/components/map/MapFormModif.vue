@@ -44,7 +44,7 @@ const match = ref(computed(() => {
   
  })
 
-setTimeout(() => {
+
 
 
   const startPoint = match.value.acf.start_point;

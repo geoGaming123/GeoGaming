@@ -77,11 +77,7 @@ const match = ref(computed(() => {
 
     userposition(map)
   })
-
-  ////USER POSITION
-  // Appel de la fonction userposition pour afficher la position de l'utilisateur
-  // const { position, position2 } = userposition(map.value);
-}, 1000)
+})
 </script>
 
 

@@ -29,6 +29,23 @@ export const useGamesStore = defineStore('games', {
     },
   },
   actions: {
+
+    loadFromLocalStorage() {
+      const storedData = localStorage.getItem('testData')
+
+      if (storedData) {
+        const parsedData = JSON.parse(storedData)
+
+        this.title = parsedData.title || this.title
+        this.description = parsedData.description || this.description
+        this.startDate = parsedData.startDate || this.startDate
+        this.endDate = parsedData.endDate || this.endDate
+        this.markers = reactive(parsedData.markers || [])
+        this.start_point = reactive(parsedData.start_point || null)
+        this.userPosition = reactive(parsedData.userPosition || null)
+      }
+    },
+
     async getMatches() {
       try {
         const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/?per_page=100`);
