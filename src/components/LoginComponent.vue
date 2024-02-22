@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router';
 </script>
 
 <template>
@@ -10,7 +11,7 @@
       <input type="text" name="email" id="email" class="loginInput" placeholder="exemple@email.com">
       <label for="password">Mot de passe :</label>
       <input type="password" name="password" id="password" class="loginInput" placeholder="******">
-      <button class="loginBtn">Connexion</button>
+      <RouterLink to="/dash"><button class="loginBtn">Connexion</button></RouterLink>
     </form>
     <p>Vous n'avez pas de compte?<a class="createAccount">Créez en un</a></p>
   </div>
