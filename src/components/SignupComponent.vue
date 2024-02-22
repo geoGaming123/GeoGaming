@@ -6,6 +6,7 @@ import { ref } from 'vue';
 
 const userStore = useUserStore()
 
+/*
 const formData = new FormData(userInfo)
       // Make your API request to create a new user
 const response = await fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/utilisateur', {
@@ -18,6 +19,7 @@ const response = await fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/
       })
       // Example: await fetch('/api/users', { method: 'POST', body: userData });
       console.log(await response.json());
+*/
 </script>
 
 <template>

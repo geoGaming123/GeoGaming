@@ -9,14 +9,14 @@ export const useUserStore = defineStore({
     email: ref(''),
     mdp: ref(''),
     pseudo: ref(''),
-    avatar: ref(''),
+    avatar: ref(null),
     uid: ref('')
   }),
   actions: {
     // Methods to interact with user data
     async createUser(userData) {
       // Make your API request to create a new user
-      const userSignUp = await fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/utilisateur', {
+      const userSignUp = await fetch('utilisateur', {
         method: 'POST',
         headers: {
           'Content-Type' : 'application/json',
@@ -30,3 +30,16 @@ export const useUserStore = defineStore({
     // Add other methods as needed
   },
 });
+
+/*{
+	"username":"userone",
+	"email":"userone@gmail.com",
+	"password":"userone",
+	"acf":{
+		"email":"userone@gmail.com",
+		"mot_de_passe":"userone",
+		"pseudo":"userone",
+		"uid":"userone"
+	}
+}
+*/
