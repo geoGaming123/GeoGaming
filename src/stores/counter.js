@@ -7,14 +7,16 @@ export const useCounterStore = defineStore('counter', {
     matchesPresent : [],
     matchesFuture : [],
     matchToRank: [],
-    dateNow : new Date()
+    dateNow : new Date(),
+    myUser : {},
   }),
   getters: {
     getMatches: (state) => state.matches,
     getMatchesPast: (state) => state.matchesPast,
     getMatchesPresent: (state) => state.matchesPresent,
     getMatchesFuture: (state) => state.matchesFuture,
-    getMatchToRank: (state) => state.matchToRank
+    getMatchToRank: (state) => state.matchToRank,
+    getMyUser: (state) => state.myUser,
   },
   actions: {
     
@@ -36,8 +38,22 @@ export const useCounterStore = defineStore('counter', {
       .then(res => {
         console.log(res)
         const playersData = res.acf.players
-        console.log(playersData)
         this.matchToRank = playersData
+      })
+      .catch(error => console.error('Erreur :', error));
+    },
+    getUser(id) {
+      fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/users/' + id, {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwODUyMzAwNiwibmJmIjoxNzA4NTIzMDA2LCJleHAiOjE3MDkxMjc4MDYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.LhbBJ6Rb6xC5sEI7FVRNSRHCZ9f-TtvLvG6sukoFkLE'
+        }
+      })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res)
+        this.myUser = res
+        console.log(this.myUser)
       })
       .catch(error => console.error('Erreur :', error));
     }
