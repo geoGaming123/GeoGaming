@@ -93,7 +93,7 @@ export const useGamesStore = defineStore('games', {
 
     async joinGame(matchId, userId, position) {
       try {
-        const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwNzk5MDE5NSwibmJmIjoxNzA3OTkwMTk1LCJleHAiOjE3MDg1OTQ5OTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.fgYfqHYmhNdFnW0xOoL2pY1HBsBCgThfi-6sy2ti-FQ";
+        const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwODUyMzAwNiwibmJmIjoxNzA4NTIzMDA2LCJleHAiOjE3MDkxMjc4MDYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.LhbBJ6Rb6xC5sEI7FVRNSRHCZ9f-TtvLvG6sukoFkLE";
     
         const matchData = {
           fields: {
@@ -167,7 +167,7 @@ export const useGamesStore = defineStore('games', {
  
     postMatchData() {
       const token =
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwNzk5MDE5NSwibmJmIjoxNzA3OTkwMTk1LCJleHAiOjE3MDg1OTQ5OTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.fgYfqHYmhNdFnW0xOoL2pY1HBsBCgThfi-6sy2ti-FQ'
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwODUyMzAwNiwibmJmIjoxNzA4NTIzMDA2LCJleHAiOjE3MDkxMjc4MDYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.LhbBJ6Rb6xC5sEI7FVRNSRHCZ9f-TtvLvG6sukoFkLE'
 
       const matchData = {
         status: 'publish',
@@ -260,7 +260,7 @@ export const useGamesStore = defineStore('games', {
     },
 
     async deleteGame(matchId) {
-      const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwNzk5MDE5NSwibmJmIjoxNzA3OTkwMTk1LCJleHAiOjE3MDg1OTQ5OTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.fgYfqHYmhNdFnW0xOoL2pY1HBsBCgThfi-6sy2ti-FQ";
+      const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwODUyMzAwNiwibmJmIjoxNzA4NTIzMDA2LCJleHAiOjE3MDkxMjc4MDYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.LhbBJ6Rb6xC5sEI7FVRNSRHCZ9f-TtvLvG6sukoFkLE";
       try {
         const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`, {
           method: 'DELETE',
