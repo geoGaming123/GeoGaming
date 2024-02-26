@@ -1,12 +1,15 @@
 <template>
     <div>
       <div class="map-container" id="map"></div>
+      <h2>ajouter:</h2>
+      <div class="controls">
       <div v-if="markersVisible">
         <MapAddMarkers :map="map"></MapAddMarkers>
       </div>
       <div v-if="startPointVisible">
         <MapAddStartPoint :map="map"></MapAddStartPoint>
       </div>
+    </div>
     </div>
   </template>
   
@@ -41,9 +44,15 @@
   </script>
   
   <style>
-  #map {
-    width: 100vw;
-    height: 45vh;
-  }
+.map-container{
+  width: 100%
+}
+.controls{
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin: 0 0 10px;
+  justify-content: space-between;
+}
   </style>
   

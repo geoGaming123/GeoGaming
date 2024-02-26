@@ -18,6 +18,7 @@ import { RouterLink } from 'vue-router';
 </template>
 
 <style scoped>
+
 .loginForm {
   display: flex;
   flex-direction: column;

@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div class='gameform'>
+      <h1> Crée une partie</h1>
       <form @submit.prevent="submitForm">
         <label for="title">Title:</label>
         <input type="text" id="title" v-model="gamesStore.formData.title">
@@ -16,7 +17,7 @@
         <label>Location:</label>
         <MapForm :searchBarVisible="true" :startPointVisible="true" :markersVisible="true"></MapForm>
   
-        <button type="submit">Submit</button>
+        <button type="submit" class="submit">Submit</button>
       </form>  
     </div>
   
@@ -50,8 +51,42 @@ import MapForm from '@/components/map/MapForm.vue';
   </script>
   
   <style>
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  </style>
+
+.gameform{
+  margin: 20px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0.4em;
+}
+
+ button{
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: #00D1C5;
+  color: white;
+  cursor: pointer;
+}
+button:hover{
+  opacity: 0.7;
+}
+
+input , textarea{
+  background-color: #FAFAFA; 
+  border: #EEEEEE solid 1px;
+  border-radius: 8px;
+  padding: 0.4em 1.2em;
+}
+
+#map{
+  width: 100%;
+}
+.submit{
+  background-color: #43BE6E;
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <button class="btn" @click.prevent="addNewStartPoint" :disabled="startPointsExist">Ajouter un point de départ</button>
+  <button class="btn" @click.prevent="addNewStartPoint" :disabled="startPointsExist">Point de départ</button>
 </template>
 
 <script setup>
@@ -69,3 +69,6 @@ const addNewStartPoint = () => {
 };
 
 </script>
+<style>:disabled{
+  background-color: grey;
+}</style>

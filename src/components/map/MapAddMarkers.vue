@@ -1,6 +1,6 @@
 <!-- Votre composant Vue -->
 <template>
-    <button class="btn" @click.prevent="addNewMarker">Add Marker</button>  
+    <button class="btn" @click.prevent="addNewMarker">Balises</button>  
 </template>
 
 <script setup>
