@@ -1,24 +1,31 @@
-
-
 <template>
-    <div>
-      <button @click="deleteGame">supprimer</button>
-    </div>
-  </template>
-  
-  <script setup>
-  import { useGamesStore } from '@/stores/games';
-  const { id } = defineProps(['id']);
-  const gamesStore = useGamesStore();
-  
-  const deleteGame = async () => {
+  <div>
+    <button @click="confirmDelete">supprimer</button>
+  </div>
+</template>
+
+<script setup>
+import { useGamesStore } from '@/stores/games';
+import { useRouter } from 'vue-router'
+
+
+const { id } = defineProps(['id']);
+const gamesStore = useGamesStore();
+const router = useRouter()
+
+const confirmDelete = async () => {
+  const userConfirmed = window.confirm('Êtes-vous sûr de vouloir supprimer cette partie ?');
+
+  if (userConfirmed) {
     try {
       await gamesStore.deleteGame(id);
-      // Add any additional logic or navigation after successfully deleting the game
+      // Ajoutez toute logique ou navigation supplémentaire après la suppression réussie du jeu
+      // Naviguer en arrière dans l'historique du routeur
+      router.go(-1);
     } catch (error) {
-      console.error('Error deleting game:', error);
-      // Add error handling logic if needed
+      console.error('Erreur lors de la suppression du jeu :', error);
+      // Ajoutez une logique de gestion des erreurs si nécessaire
     }
-  };
-  </script>
-  g
+  }
+};
+</script>

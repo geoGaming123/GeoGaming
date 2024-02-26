@@ -17,7 +17,7 @@
         <label>Location:</label>
         <MapForm :searchBarVisible="true" :startPointVisible="true" :markersVisible="true"></MapForm>
   
-        <button type="submit" class="submit">Submit</button>
+        <button type="submit" class="btn submit">Submit</button>
       </form>  
     </div>
   
@@ -62,7 +62,7 @@ form {
   gap: 0.4em;
 }
 
- button{
+ .btn{
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -72,7 +72,7 @@ form {
   color: white;
   cursor: pointer;
 }
-button:hover{
+.btn:hover{
   opacity: 0.7;
 }
 
