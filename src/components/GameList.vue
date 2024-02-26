@@ -2,36 +2,52 @@
   <section class="gamelist-content">
     <section class="gamelist">
       <table>
-        <thead v-if="title === 'past'">
+
+        <!--   ********************   Parties passées   ********************   -->
+
+        <thead v-if="title === 'past' && activeTab === 'created'">
           <tr class="gamelist-title">
-            <th>Lieu</th>
-            <th>Joueurs</th>
+            <th>Lieu<br>Joueurs</th>
+            <th>Gagnant<br>Temps</th>
             <th>Date de fin</th>
           </tr>
         </thead>
+        <thead v-if="title === 'past' && activeTab === 'joined'">
+          <tr class="gamelist-title">
+            <th>Lieu<br>Date de fin</th>
+            <th>Gagnant<br>Temps</th>
+            <th>Votre classement<br>Votre temps</th>
+          </tr>
+        </thead>
+
+        <!--   ********************   Parties En cours   ********************   -->
+        
         <thead v-if="title === 'present'">
           <tr class="gamelist-title">
-            <th>Lieu</th>
-            <th>Joueurs</th>
+            <th>Lieu<br>Joueurs</th>
             <th>Temps restant</th>
           </tr>
         </thead>
+
+        <!--   ********************   Parties Futures   ********************   -->
+
         <thead v-if="title === 'futur'">
           <tr class="gamelist-title">
-            <th>Lieu</th>
-            <th>Joueurs</th>
+            <th>Lieu<br>Joueurs</th>
             <th>Date - Heure de début</th>
           </tr>
         </thead>
-        <GameListID :Matches="myMatches" :title="title" v-show="activeTab === 'created'"></GameListID>
-        <GameListID :Matches="otherMatches" :title="title" v-show="activeTab === 'available'"></GameListID>
-        <GameListID :Matches="joinedMatches" :title="title" v-show="activeTab === 'joined'"></GameListID>
+
+
+        <GameListID :Matches="myMatches" :title="title" :tab="activeTab" v-show="activeTab === 'created'"></GameListID>
+        <GameListID :Matches="otherMatches" :title="title" :tab="activeTab" v-show="activeTab === 'available'"></GameListID>
+        <GameListID :Matches="joinedMatches" :title="title" :tab="activeTab" v-show="activeTab === 'joined'"></GameListID>
       </table>
     </section>
     <section class="onglets">
       <div class="onglets-btns"> 
         <button @click="activateTab('created')" :class="{ activebtn: activeTab === 'created' }">Créées</button>
-        <button @click="activateTab('available')" :class="{ activebtn: activeTab === 'available' , hidden: activeMenu != 'futur' }">Disponibles</button>
+        <button @click="activateTab('available')" :class="{ activebtn: activeTab === 'available' , hidden: activeMenu == 'past' }">Disponibles</button>
         <button @click="activateTab('joined')" :class="{ activebtn: activeTab === 'joined' }">Rejointes</button>
       </div>
     </section>

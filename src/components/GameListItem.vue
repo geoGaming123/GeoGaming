@@ -1,36 +1,45 @@
 <template>
   
-  <tr class="gamelist-item" v-if="title === 'past'" @click="sendTo('rank', props.aMatch.id)">
-    <th>{{ props.aMatch.acf.title }}</th>
-    <th>{{ props.aMatch.acf.players.length }}</th>
+  <tr class="gamelist-item" v-if="title === 'past' && tab === 'created'" @click="sendTo('rank', props.aMatch.id)">
+    <th>#{{ props.aMatch.id }} - {{ props.aMatch.acf.title }}<br>{{ props.aMatch.acf.players.length }}</th>
+    <th>{{ bestUser.name }}<br>{{ bestTime.time }} s</th>
     <th>{{ formatDate(props.aMatch.acf.end_date) }}</th>
+</tr>
+  <tr class="gamelist-item" v-if="title === 'past' && tab === 'joined'" @click="sendTo('rank', props.aMatch.id)">
+    <th>#{{ props.aMatch.id }} - {{ props.aMatch.acf.title }}<br>{{ formatDate(props.aMatch.acf.end_date) }}</th>
+    <th>{{ bestUser.name }}<br>{{ bestTime.time }} s</th>
+    <th>{{ playerIndex + 1 }}/{{ ranking.length }}<br><span v-if="theMatch && myTime.length > 0">{{ myTime[0].time }}s</span></th>
   </tr>
   <tr class="gamelist-item" v-if="title === 'present'" @click="sendTo('game', props.aMatch.id)">
-    <th>{{ props.aMatch.acf.title }}</th>
-    <th>{{ props.aMatch.acf.players.length }}</th>
+    <th>#{{ props.aMatch.id }} - {{ props.aMatch.acf.title }}<br>{{ props.aMatch.acf.players.length }}</th>
     <th>{{ dayRemaining }} jours {{ hourRemaining }} heures</th>
   </tr>
   <tr class="gamelist-item" v-if="title === 'futur'"  @click="sendTo('nextgame', props.aMatch.id)">
-    <th>{{ props.aMatch.acf.title }}</th>
-    <th>{{ props.aMatch.acf.players.length }}</th>
+    <th>#{{ props.aMatch.id }} - {{ props.aMatch.acf.title }}<br>{{ props.aMatch.acf.players.length }}</th>
     <th>{{ formatDate(props.aMatch.acf.start_date) }} - {{ formattedStartTime }}</th>
   </tr>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router'
+import { useCounterStore } from '@/stores/counter'
+import { computed } from 'vue';
 const router = useRouter()
+const monStore = useCounterStore()
 
 const props = defineProps({
   aMatch : Object,
   index: Number,
-  title: String
+  title: String,
+  tab: String
 })
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   return date.toLocaleDateString('fr-FR'); // Changez 'fr-FR' par le code de la locale souhaitée
 };
+
+const myID = 9
 
 const startDateTime = props.aMatch.acf.start_date; // Obtenez la date de fin complète
 const startDate = new Date(startDateTime); // Convertissez la chaîne en objet Date
@@ -44,9 +53,23 @@ var timeDiff = futureDate.getTime() - now.getTime();
 var dayRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24));
 var hourRemaining = Math.floor((timeDiff / (1000 * 3600)) % 24); // Utilisation de Math.floor au lieu de Math.ceil et correction de la formule
 
+const theMatch = props.aMatch
+const theMatchPlayers = theMatch.acf.players
+const myTime = theMatchPlayers.filter(player => player.userId == myID)
+const bestTime = theMatchPlayers.reduce((minPlayer, currentPlayer) => {
+    if (!minPlayer || currentPlayer.time < minPlayer.time) {return currentPlayer;}
+    return minPlayer;
+}, null);
+const ranking = theMatchPlayers.sort((a, b) => {
+  return parseInt(a.time) - parseInt(b.time);
+})
+const playerIndex = ranking.findIndex(player => player.userId == myID);
+
+//const rankingFirst = ranking[0]
+monStore.getUser(9) //rankingFirst.userId
+const bestUser = computed(()=>monStore.getMyUser)
 
 const sendTo = (txt, id) => {
-  console.log(txt + id)
   router.push(`/${txt}/${id}`);
 }
 
@@ -56,5 +79,8 @@ const sendTo = (txt, id) => {
   .gamelist-item th {
     padding-top: .4rem;
     font-size: .9rem;
+  }
+  .gamelist-item {
+    border-bottom: 1px solid #00000030;
   }
 </style>
