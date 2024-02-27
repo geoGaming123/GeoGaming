@@ -14,7 +14,7 @@
 
 <script setup>
 import { useGamesStore } from '@/stores/games'
-import { onMounted, computed, ref } from 'vue'
+import { onMounted, computed, ref, watch } from 'vue';
 import * as L from 'leaflet'
 import Timer from '@/components/map/Timer.vue'
 import { userposition } from './Userposition.vue'
@@ -53,25 +53,30 @@ onMounted(() => {
   })
 
   map.whenReady(() => {
-    if (showMarkers.value) {
-      console.log('showMarkers est sur true')
-      markers.forEach((marker) => {
-        const { latitude, longitude } = marker.position
-        const markerIcon = L.icon({
-          iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
-          iconSize: [50, 50],
-          iconAnchor: [12, 41],
-          popupAnchor: [0, -30]
-        })
-        const leafletMarker = L.marker([latitude, longitude], { icon: markerIcon }).bindPopup(
-          `<b>${marker.name}</b>`
-        )
+  watch(showMarkers, (newValue) => {
+  if (newValue) {
+    // Afficher les marqueurs sur la carte
+    markers.forEach((marker) => {
+      const { latitude, longitude } = marker.position;
+      const markerIcon = L.icon({
+        iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
+        iconSize: [50, 50],
+        iconAnchor: [12, 41],
+        popupAnchor: [0, -30]
+      });
+      const leafletMarker = L.marker([latitude, longitude], { icon: markerIcon }).bindPopup(
+        `<b>${marker.name}</b>`
+      );
 
-        marker.leafletMarker = leafletMarker.addTo(map)
-      })
-    } else {
-      console.log('showMarkers est sur false')
-    }
+      marker.leafletMarker = leafletMarker.addTo(map);
+    });
+  } else {
+    // Masquer les marqueurs de la carte
+    markers.forEach((marker) => {
+      map.removeLayer(marker.leafletMarker);
+    });
+  }
+});
 
     const startPointIcon = L.icon({
       iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
@@ -84,6 +89,9 @@ onMounted(() => {
       .bindPopup('<b>Start Point</b>')
 
     userposition(map)
-  })
+
 })
+})
+
+
 </script>
