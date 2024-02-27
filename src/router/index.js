@@ -49,7 +49,7 @@ const router = createRouter({
       component: GameFormView
     },
     {
-      path: '/gameformmodif',
+      path: '/gameformmodif/:id',
       name: 'GameFormModif',
       component: GameFormModifView
     },

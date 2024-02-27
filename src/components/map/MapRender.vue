@@ -5,12 +5,21 @@
     <p>End Date: {{ match.acf.end_date }}</p>
 
     <div id="map"></div>
-
+<div v-if="props.timer">
   <Timer></Timer>
+</div>
 
-
+  <div v-if="props.delete">
     <ButtonDelete :id="matchId"></ButtonDelete>
-    <ButtonJoin :id="matchId"></ButtonJoin>
+  </div>
+<div v-if="props.join">
+  <ButtonJoin :id="matchId"></ButtonJoin>
+</div>
+<div v-if="props.leave">
+<ButtonLeaveGame :id="matchId"></ButtonLeaveGame>
+</div>
+
+<ButtonModified :id="matchId"></ButtonModified>
 
 
 </template>
@@ -19,13 +28,19 @@
 import { useGamesStore } from '@/stores/games'
 import { onMounted, computed, ref } from 'vue'
 import * as L from 'leaflet'
-import Timer from '@/components/map/Timer.vue'
-import { userposition } from './Userposition.vue'
+
+
+
 import ButtonDelete from '@/components/map/ButtonDelete.vue'
 import ButtonJoin from './ButtonJoin.vue'
+import ButtonModified from './ButtonModified.vue'
+import ButtonLeaveGame from './ButtonLeaveGame.vue'
+import Timer from '@/components/map/Timer.vue'
+import { userposition } from './Userposition.vue'
+
 
 const gamesStore = useGamesStore()
-const props = defineProps(['id']);
+const props = defineProps(['id', 'delete', "join", "modified", "startpoint", "markers", "timer", "position", "leave"]);
 const matchId = props.id
 console.log('matchId' + matchId)
 
@@ -49,7 +64,8 @@ const match = ref(computed(() => {
       });
 
   map.whenReady(() => {
-    markers.forEach((marker) => {
+    if(props.markers){
+      markers.forEach((marker) => {
       const { latitude, longitude } = marker.position
       const markerIcon = L.icon({
         iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
@@ -64,7 +80,8 @@ const match = ref(computed(() => {
       // Assurez-vous que le marqueur a une référence à leafletMarker
       marker.leafletMarker = leaflermarker
     })
-
+    }
+   if(props.startpoint){
     const startPointIcon = L.icon({
       iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
       iconSize: [50, 50],
@@ -74,8 +91,13 @@ const match = ref(computed(() => {
     L.marker([latitude, longitude], { icon: startPointIcon })
       .addTo(map)
       .bindPopup('<b>Start Point</b>')
+   }
 
-    userposition(map)
+    
+if(props.position){
+  userposition(map)
+}
+
   })
 })
 </script>

@@ -91,19 +91,18 @@ export const useGamesStore = defineStore('games', {
     
 
 
-    async joinGame(matchId, userId, position) {
+    async joinGame(matchId, userId) {
       try {
         const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwODUyMzAwNiwibmJmIjoxNzA4NTIzMDA2LCJleHAiOjE3MDkxMjc4MDYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.LhbBJ6Rb6xC5sEI7FVRNSRHCZ9f-TtvLvG6sukoFkLE";
-    
+        
         const matchData = {
           fields: {
-
             players: [
               {
                 userId: String(userId),
                 position: {
-                  latitude: position.latitude || "",
-                  longitude: position.longitude || "",
+                  latitude: "",
+                  longitude: "",
                 },
                 marker: []  // Laissez le tableau de marqueurs vide pour le moment
               },
@@ -111,39 +110,57 @@ export const useGamesStore = defineStore('games', {
           },
         };
     
+        // Récupérer les informations des joueurs du champ acf
+        const oneMatch = this.oneMatch;
+        const existingPlayers = oneMatch.acf.players || [];
+        
+        // Vérifier si l'ID du joueur n'est pas déjà présent dans la liste
+        const playerExists = existingPlayers.some(player => player.userId === String(userId));
+    
+        if (playerExists) {
+          console.log('Le joueur est déjà dans la liste.');
+          return; // Arrêter la fonction si le joueur existe déjà
+        }
+    
+        // Récupérer les informations des marqueurs du champ acf
+        const markers = [];
+        oneMatch.acf.markers.forEach((marker, index) => {
+          markers.push({
+            id: index, // Utilisez l'index comme identifiant
+            name: marker.name,
+            isCaptured: false // Vous pouvez initialiser isCaptured à false ici
+          });
+        });
+    
+        // Mettre les informations des marqueurs dans le joueur qui vient de rejoindre
+        matchData.fields.players[0].marker = markers;
+    
+        // Ajouter le nouveau joueur à la liste existante
+        existingPlayers.push({
+          userId: String(userId),
+          position: {
+            latitude: "",
+            longitude: "",
+          },
+          marker: markers
+        });
+    
+        // Envoyer la requête PATCH avec les données mises à jour
         const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
           },
-          body: JSON.stringify(matchData),
+          body: JSON.stringify({
+            fields: {
+              players: existingPlayers
+            }
+          }),
         });
     
         if (response.ok) {
-          console.log(this.oneMatch.acf.players)
           console.log('Game joined successfully.');
-    
-          // Après avoir rejoint le jeu avec succès, récupérer les marqueurs du acf
-
-          const oneMatch =this.oneMatch;
-    
-          // Extraire les informations des marqueurs du champ acf
-          const markers = [];
-          oneMatch.acf.markers.forEach((marker, index) => {
-            markers.push({
-              id: index, // Utilisez l'index comme identifiant
-              name: marker.name,
-              check: false // Vous pouvez initialiser check à false ici
-            });
-          });
-    
-          // Mettre les informations des marqueurs dans le joueur qui vient de rejoindre
-          matchData.fields.players[0].marker = markers;
-    
-          // Utilisez la variable "matchData" selon vos besoins
-          console.log(matchData);
-    
           // Ajouter toute logique supplémentaire après avoir rejoint le jeu avec succès
         } else {
           console.error('Error joining game:', response.status);
@@ -154,6 +171,53 @@ export const useGamesStore = defineStore('games', {
         // Ajouter une logique de gestion des erreurs si nécessaire
       }
     },
+    
+    async leaveGame(matchId, userId) {
+      try {
+        const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwODUyMzAwNiwibmJmIjoxNzA4NTIzMDA2LCJleHAiOjE3MDkxMjc4MDYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.LhbBJ6Rb6xC5sEI7FVRNSRHCZ9f-TtvLvG6sukoFkLE";
+        
+        // Récupérer les informations des joueurs du champ acf
+        const oneMatch = this.oneMatch;
+        const existingPlayers = oneMatch.acf.players || [];
+        
+        // Vérifier si l'ID du joueur est présent dans la liste
+        const playerIndex = existingPlayers.findIndex(player => player.userId === String(userId));
+    
+        if (playerIndex === -1) {
+          console.log("Le joueur n'est pas dans la liste.");
+          return; // Arrêter la fonction si le joueur n'est pas trouvé
+        }
+    
+        // Retirer le joueur de la liste existante
+        existingPlayers.splice(playerIndex, 1);
+    
+        // Envoyer la requête PATCH avec les données mises à jour
+        const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            fields: {
+              players: existingPlayers
+            }
+          }),
+        });
+    
+        if (response.ok) {
+          console.log('Game left successfully.');
+          // Ajouter toute logique supplémentaire après avoir quitté le jeu avec succès
+        } else {
+          console.error('Error leaving game:', response.status);
+          // Ajouter une logique de gestion des erreurs si nécessaire
+        }
+      } catch (error) {
+        console.error('Error leaving game:', error);
+        // Ajouter une logique de gestion des erreurs si nécessaire
+      }
+    },
+    
     
 
 
