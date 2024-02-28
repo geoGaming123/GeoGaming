@@ -20,8 +20,8 @@ import { useGamesStore } from '@/stores/games'
 const monStore = useCounterStore()
 monStore.getAllMatches(); // Charge les données des parties et distribue en 3 array selon la temporalité
 const gameStore = useGamesStore()
-const myID = computed(() => gameStore.sendUserId);
-
+const myID = computed(() => gameStore.sendUserId)
+setTimeout(()=>{console.log("HomeV - ID - " + myID.value)},3000)
 setTimeout(()=>{console.log(myID.value)}, 2000)
 
 const showMenuData = ref('present')

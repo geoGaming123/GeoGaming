@@ -39,9 +39,9 @@
         </thead>
 
 
-        <GameListID :Matches="myMatches" :title="title" :tab="activeTab" v-show="activeTab === 'created'"></GameListID>
-        <GameListID :Matches="otherMatches" :title="title" :tab="activeTab" v-show="activeTab === 'available'"></GameListID>
-        <GameListID :Matches="joinedMatches" :title="title" :tab="activeTab" v-show="activeTab === 'joined'"></GameListID>
+        <GameListID :Matches="myMatches" :title="title" :myID="myID" :tab="activeTab" v-show="activeTab === 'created'"></GameListID>
+        <GameListID :Matches="otherMatches" :title="title" :myID="myID" :tab="activeTab" v-show="activeTab === 'available'"></GameListID>
+        <GameListID :Matches="joinedMatches" :title="title" :myID="myID" :tab="activeTab" v-show="activeTab === 'joined'"></GameListID>
       </table>
     </section>
     <section class="gamelist-onglets">
@@ -65,7 +65,8 @@ const router = useRouter();
 const props = defineProps({
   menu: String,
   MatchesData: Array, // Tableau différent selon GameList actif
-  title: String
+  title: String,
+  myID: String
 });
 
 const activeTab = ref('created');
@@ -78,7 +79,7 @@ watch(() => props.menu, (newMenu) => { // Récupère le menu actif pour l'affich
   activeMenu.value = newMenu;
 });
 
-const myID = 9
+const myID = props.myID
 const myMatches = computed(()=>(props.MatchesData.filter(match => match.acf.masteruid == myID)))
 const joinedMatches = computed(()=>(props.MatchesData.filter(match => match.acf.players.some(player => player.userId == myID))))
 const otherMatches = computed(()=>(props.MatchesData.filter(match => {return match.acf.masteruid != myID && !match.acf.players.some(player => player.userId == myID)})))
