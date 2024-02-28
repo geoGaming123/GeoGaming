@@ -1,22 +1,22 @@
 <template>
   
   <tr class="gamelist-item" v-if="title === 'past' && tab === 'created'" @click="sendTo('rank', props.aMatch.id)">
-    <th>#{{ props.aMatch.id }} - {{ props.aMatch.acf.title }}<br>{{ props.aMatch.acf.players.length }}</th>
-    <th>{{ bestUser.name }}<br>{{ bestTime.time }} s</th>
-    <th>{{ formatDate(props.aMatch.acf.end_date) }}</th>
+    <td>{{ props.aMatch.acf.title }}<br>{{ props.aMatch.acf.players.length }} joueurs</td>
+    <td>{{ bestUser.name }}<br>{{ bestTime.time }} s</td>
+    <td>{{ formatDate(props.aMatch.acf.end_date) }}</td>
 </tr>
   <tr class="gamelist-item" v-if="title === 'past' && tab === 'joined'" @click="sendTo('rank', props.aMatch.id)">
-    <th>#{{ props.aMatch.id }} - {{ props.aMatch.acf.title }}<br>{{ formatDate(props.aMatch.acf.end_date) }}</th>
-    <th>{{ bestUser.name }}<br>{{ bestTime.time }} s</th>
-    <th>{{ playerIndex + 1 }}/{{ ranking.length }}<br><span v-if="theMatch && myTime.length > 0">{{ myTime[0].time }}s</span></th>
+    <td>{{ props.aMatch.acf.title }}<br>{{ formatDate(props.aMatch.acf.end_date) }}</td>
+    <td>{{ bestUser.name }}<br>{{ bestTime.time }} s</td>
+    <td>{{ playerIndex + 1 }}/{{ ranking.length }}<br><span v-if="theMatch && myTime.length > 0">{{ myTime[0].time }}s</span></td>
   </tr>
   <tr class="gamelist-item" v-if="title === 'present'" @click="sendTo('game', props.aMatch.id)">
-    <th>#{{ props.aMatch.id }} - {{ props.aMatch.acf.title }}<br>{{ props.aMatch.acf.players.length }}</th>
-    <th>{{ dayRemaining }} jours {{ hourRemaining }} heures</th>
+    <td>#{{ props.aMatch.id }} - {{ props.aMatch.acf.title }}<br>{{ props.aMatch.acf.players.length }} joueurs</td>
+    <td>{{ dayRemaining }} jours {{ hourRemaining }} heures</td>
   </tr>
   <tr class="gamelist-item" v-if="title === 'futur'"  @click="sendTo('nextgame', props.aMatch.id)">
-    <th>#{{ props.aMatch.id }} - {{ props.aMatch.acf.title }}<br>{{ props.aMatch.acf.players.length }}</th>
-    <th>{{ formatDate(props.aMatch.acf.start_date) }} - {{ formattedStartTime }}</th>
+    <td>#{{ props.aMatch.id }} - {{ props.aMatch.acf.title }}<br>{{ props.aMatch.acf.players.length }} joueurs</td>
+    <td>{{ formatDate(props.aMatch.acf.start_date) }} - {{ formattedStartTime }}</td>
   </tr>
 </template>
 
@@ -76,11 +76,5 @@ const sendTo = (txt, id) => {
 </script>
 
 <style scoped>
-  .gamelist-item th {
-    padding-top: .4rem;
-    font-size: .9rem;
-  }
-  .gamelist-item {
-    border-bottom: 1px solid #00000030;
-  }
+
 </style>

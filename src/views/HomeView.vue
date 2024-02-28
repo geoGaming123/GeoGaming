@@ -1,6 +1,6 @@
 <template>
   <main>
-    <HeaderComp data="logo" profile="profile"></HeaderComp>
+    <HeaderComp data="logo" profile="profile" color="white"></HeaderComp>
     <NavComp @activateNav="showMenu"></NavComp>
     <GameList title="past" :MatchesData="PastMatchesData" v-show="showMenuData == 'past'" :menu="showMenuData"></GameList>
     <GameList title="present" :MatchesData="PresentMatchesData" v-show="showMenuData == 'present'" :menu="showMenuData"></GameList>

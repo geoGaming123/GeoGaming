@@ -1,22 +1,22 @@
 <template>
-  <section class="gamelist-content">
-    <section class="gamelist">
+  <section class="gamelist">
+    <section class="gamelist-content">
       <table>
 
         <!--   ********************   Parties passées   ********************   -->
 
         <thead v-if="title === 'past' && activeTab === 'created'">
           <tr class="gamelist-title">
-            <th>Lieu<br>Joueurs</th>
-            <th>Gagnant<br>Temps</th>
-            <th>Date de fin</th>
+            <td>Lieu<br>Joueurs</td>
+            <td>Gagnant<br>Temps</td>
+            <td>Date de fin</td>
           </tr>
         </thead>
         <thead v-if="title === 'past' && activeTab === 'joined'">
           <tr class="gamelist-title">
-            <th>Lieu<br>Date de fin</th>
-            <th>Gagnant<br>Temps</th>
-            <th>Votre classement<br>Votre temps</th>
+            <td>Lieu<br>Date de fin</td>
+            <td>Gagnant<br>Temps</td>
+            <td>Votre classement<br>Votre temps</td>
           </tr>
         </thead>
 
@@ -24,8 +24,8 @@
         
         <thead v-if="title === 'present'">
           <tr class="gamelist-title">
-            <th>Lieu<br>Joueurs</th>
-            <th>Temps restant</th>
+            <td>Lieu<br>Joueurs</td>
+            <td>Temps restant</td>
           </tr>
         </thead>
 
@@ -33,8 +33,8 @@
 
         <thead v-if="title === 'futur'">
           <tr class="gamelist-title">
-            <th>Lieu<br>Joueurs</th>
-            <th>Date - Heure de début</th>
+            <td>Lieu<br>Joueurs</td>
+            <td>Date - Heure de début</td>
           </tr>
         </thead>
 
@@ -44,14 +44,14 @@
         <GameListID :Matches="joinedMatches" :title="title" :tab="activeTab" v-show="activeTab === 'joined'"></GameListID>
       </table>
     </section>
-    <section class="onglets">
-      <div class="onglets-btns"> 
-        <button @click="activateTab('created')" :class="{ activebtn: activeTab === 'created' }">Créées</button>
-        <button @click="activateTab('available')" :class="{ activebtn: activeTab === 'available' , hidden: activeMenu == 'past' }">Disponibles</button>
-        <button @click="activateTab('joined')" :class="{ activebtn: activeTab === 'joined' }">Rejointes</button>
+    <section class="gamelist-onglets">
+      <div class="gamelist-onglets-btns"> 
+        <button @click="activateTab('created')" :class="{ 'gamelist-activebtn': activeTab === 'created' }">Créées</button>
+        <button @click="activateTab('available')" :class="{ 'gamelist-activebtn': activeTab === 'available' , hidden: activeMenu == 'past' }">Disponibles</button>
+        <button @click="activateTab('joined')" :class="{ 'gamelist-activebtn': activeTab === 'joined' }">Rejointes</button>
       </div>
     </section>
-    <button @click="addGame()" class="addgame" :class="{hidden: activeMenu == 'past'}" >+</button>
+    <button @click="addGame()" class="gamelist-addgame" :class="{hidden: activeMenu == 'past'}" >+</button>
   </section>
 </template>
 
@@ -90,73 +90,5 @@ const addGame = () => { // Fonction du bouton "+"
 </script>
 
 <style scoped>
-  .gamelist-content {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    align-items: start;
-  }
-  .onglets {
-    width: 100%;
-    justify-content: space-between;
-  }
-  .onglets-btns {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-  }
-  .onglets-btns button {
-    width: 30%;
-    height: 25px;
-    padding-block: .2rem;
-    margin-inline-end: .2rem;
-    margin-block-start: .2rem;
-    margin-block-end: .2rem;
-    border: 1px solid #f1f1f190;
-    background-color: #f1f1f1;
-    font-weight: bold;
-  }
-  .activebtn {
-    background-color: #00D1C5 !important;
-    border: #00D1C5 !important;
-    margin-block-end: 0 !important;
-    color: white;
-    position: relative;
-    height: 32px !important;
-    
-  }
-  .gamelist-title {
-    border-bottom: 1px solid #00D1C5;
-    width: 100%;
-    font-size: .8rem;
-  }
-  .gamelist-title th {
-    padding-block: .5rem;
-  }
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  .gamelist {
-    display: flex;
-    width: 100%;
-    border: 1px solid #00D1C5;
-    height: calc(100vh - 120px - 59px);
-    align-items: start;
-  }
 
-  .addgame {
-    width: 3rem;
-    height: 3rem;
-    background-color: #00D1C5;
-    border: 1px solid #00D1C5;
-    border-radius: 50%;
-    font-size: 1.5rem;
-    position: absolute;
-    bottom: 5rem;
-    right: 1rem;
-  }
-  .hidden {
-    display: none;
-  }
 </style>
