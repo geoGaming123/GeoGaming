@@ -23,7 +23,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { useCounterStore } from '@/stores/counter'
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 const router = useRouter()
 const monStore = useCounterStore()
 
@@ -31,7 +31,8 @@ const props = defineProps({
   aMatch : Object,
   index: Number,
   title: String,
-  tab: String
+  tab: String,
+  myID: String
 })
 
 const formatDate = (dateString) => {
@@ -39,7 +40,7 @@ const formatDate = (dateString) => {
   return date.toLocaleDateString('fr-FR'); // Changez 'fr-FR' par le code de la locale souhaitée
 };
 
-const myID = 9
+const myID = ref(props.myID)
 
 const startDateTime = props.aMatch.acf.start_date; // Obtenez la date de fin complète
 const startDate = new Date(startDateTime); // Convertissez la chaîne en objet Date
@@ -55,7 +56,7 @@ var hourRemaining = Math.floor((timeDiff / (1000 * 3600)) % 24); // Utilisation 
 
 const theMatch = props.aMatch
 const theMatchPlayers = theMatch.acf.players
-const myTime = theMatchPlayers.filter(player => player.userId == myID)
+const myTime = theMatchPlayers.filter(player => player.userId == myID.value)
 const bestTime = theMatchPlayers.reduce((minPlayer, currentPlayer) => {
     if (!minPlayer || currentPlayer.time < minPlayer.time) {return currentPlayer;}
     return minPlayer;
@@ -63,10 +64,12 @@ const bestTime = theMatchPlayers.reduce((minPlayer, currentPlayer) => {
 const ranking = theMatchPlayers.sort((a, b) => {
   return parseInt(a.time) - parseInt(b.time);
 })
-const playerIndex = ranking.findIndex(player => player.userId == myID);
+const playerIndex = ranking.findIndex(player => player.userId == myID.value);
 
-//const rankingFirst = ranking[0]
-monStore.getUser(9) //rankingFirst.userId
+const rankingFirst = ranking[0]
+if(rankingFirst != null){
+  monStore.getUser(rankingFirst.userId)
+}
 const bestUser = computed(()=>monStore.getMyUser)
 
 const sendTo = (txt, id) => {
