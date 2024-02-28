@@ -5,7 +5,7 @@ import { useGamesStore } from '@/stores/games';
 
 const gamesStore = useGamesStore();
 
-const idList = ["1", "14", "13", "12", "11", "10", "9"];
+const idList = ["10"];
 const getRandomId = () => idList[Math.floor(Math.random() * idList.length)];
 let userId = ref(getRandomId());
 
