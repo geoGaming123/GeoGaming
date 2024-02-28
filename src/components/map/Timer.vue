@@ -7,9 +7,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, defineProps } from 'vue';
 import { userposition } from './Userposition.vue';
-
 const { showStartButton } = userposition();
 
 let timerRunning = ref(false)
@@ -17,10 +16,13 @@ let intervalId = null
 
 let minutes = ref(0)
 let secondes = ref(0)
-
+const props = defineProps({
+  updateShowMarkers: Function
+});
 function startTimer() {
   if (showStartButton.value) { // Vérifiez si le bouton Start peut être activé
     timerRunning.value = true
+    props.updateShowMarkers(true);
     minutes.value = 0
     secondes.value = 0
 

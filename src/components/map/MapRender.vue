@@ -1,9 +1,8 @@
 <template>
-  <div>
-    <h2>{{ match.acf.title }}</h2>
-    <p>{{ match.acf.description }}</p>
-    <p>Start Date: {{ match.acf.start_date }}</p>
-    <p>End Date: {{ match.acf.end_date }}</p>
+  <h2>{{ match.acf.title }}</h2>
+  <p>{{ match.acf.description }}</p>
+  <p>Start Date: {{ match.acf.start_date }}</p>
+  <p>End Date: {{ match.acf.end_date }}</p>
 
     <div id="map"></div>
     
@@ -41,6 +40,10 @@ import { userposition } from './Userposition.vue'
 const gamesStore = useGamesStore()
 const props = defineProps(['id', 'delete', 'join', 'leave', 'startpoint', 'position', 'markers', 'timer'])
 const matchId = props.id
+function updateShowMarkers(value) {
+  showMarkers.value = value
+  console.log(showMarkers)
+}
 
 gamesStore.getMatch(matchId)
 
@@ -63,38 +66,27 @@ onMounted(() => {
     layers: [L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')],
   })
 
-  const addMarkersToMap = () => {
-    markers.forEach((marker) => {
-      const { latitude, longitude } = marker.position
-      const markerIcon = L.icon({
-        iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
-        iconSize: [50, 50],
-        iconAnchor: [12, 41],
-        popupAnchor: [0, -30],
-      })
-      const leafletMarker = L.marker([latitude, longitude], { icon: markerIcon })
-        .addTo(map)
-        .bindPopup(`<b>${marker.name}</b>`)
-
-      marker.leafletMarker = leafletMarker
-    })
-  }
-
-  if (props.markers) {
-    addMarkersToMap()
-  }
-
-  watch(() => props.markers, (newValue) => {
-    if (newValue) {
-      addMarkersToMap()
-    } else {
+  map.whenReady(() => {
+    if (showMarkers.value) {
+      console.log('showMarkers est sur true')
       markers.forEach((marker) => {
-        map.removeLayer(marker.leafletMarker)
-      })
-    }
-  })
+        const { latitude, longitude } = marker.position
+        const markerIcon = L.icon({
+          iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
+          iconSize: [50, 50],
+          iconAnchor: [12, 41],
+          popupAnchor: [0, -30]
+        })
+        const leafletMarker = L.marker([latitude, longitude], { icon: markerIcon }).bindPopup(
+          `<b>${marker.name}</b>`
+        )
 
-  if (props.startpoint) {
+        marker.leafletMarker = leafletMarker.addTo(map)
+      })
+    } else {
+      console.log('showMarkers est sur false')
+    }
+
     const startPointIcon = L.icon({
       iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
       iconSize: [50, 50],
