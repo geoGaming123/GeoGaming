@@ -104,10 +104,8 @@ if(props.startpoint){
 }
     
 if(props.position){
-  userposition(map)
+    userposition(map)
 }
-
-
 })
 })
 
