@@ -5,31 +5,44 @@
   <p>End Date: {{ match.acf.end_date }}</p>
 
   <div id="map"></div>
+    
+    <div v-if="props.timer">
+      <Timer :updateShowMarkers="updateShowMarkers"></Timer>
+    </div>
 
-  <Timer :updateShowMarkers="updateShowMarkers"></Timer>
+    <div v-if="props.delete">
+      <ButtonDelete :id="matchId"></ButtonDelete>
+    </div>
 
-  <ButtonDelete :id="matchId"></ButtonDelete>
-  <ButtonJoin :id="matchId"></ButtonJoin>
+    <div v-if="props.join">
+      <ButtonJoin :id="matchId"></ButtonJoin>
+    </div>
+
+    <div v-if="props.leave">
+      <ButtonLeaveGame :id="matchId"></ButtonLeaveGame>
+    </div>
+
+    <ButtonModified :id="matchId"></ButtonModified>
+
 </template>
 
 <script setup>
 import { useGamesStore } from '@/stores/games'
-import { onMounted, computed, ref, watch } from 'vue';
+import { onMounted, computed, ref, watch } from 'vue'
 import * as L from 'leaflet'
-import Timer from '@/components/map/Timer.vue'
-import { userposition } from './Userposition.vue'
 import ButtonDelete from '@/components/map/ButtonDelete.vue'
 import ButtonJoin from './ButtonJoin.vue'
+import ButtonModified from './ButtonModified.vue'
+import ButtonLeaveGame from './ButtonLeaveGame.vue'
+import Timer from '@/components/map/Timer.vue'
+import { userposition } from './Userposition.vue'
 
 const gamesStore = useGamesStore()
-const props = defineProps(['id'])
+const props = defineProps(['id', 'delete', 'join', 'leave', 'startpoint', 'position', 'markers', 'timer'])
 const showMarkers = ref(false)
 const matchId = props.id
-console.log('matchId' + matchId)
-
 function updateShowMarkers(value) {
   showMarkers.value = value
-  console.log(showMarkers)
 }
 
 gamesStore.getMatch(matchId)
@@ -39,6 +52,7 @@ const match = ref(
     return gamesStore.oneMatch
   })
 )
+
 onMounted(() => {
   const startPoint = match.value.acf.start_point
   const markers = match.value.acf.markers
@@ -49,12 +63,12 @@ onMounted(() => {
   const map = L.map('map', {
     center: [latitude, longitude],
     zoom: 15,
-    layers: [L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')]
+    layers: [L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')],
   })
 
   map.whenReady(() => {
   watch(showMarkers, (newValue) => {
-  if (newValue) {
+  if (newValue || props.markers) {
     // Afficher les marqueurs sur la carte
     markers.forEach((marker) => {
       const { latitude, longitude } = marker.position;
@@ -77,8 +91,8 @@ onMounted(() => {
     });
   }
 });
-
-    const startPointIcon = L.icon({
+if(props.startpoint){
+  const startPointIcon = L.icon({
       iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
       iconSize: [50, 50],
       iconAnchor: [12, 41],
@@ -87,6 +101,8 @@ onMounted(() => {
     L.marker([latitude, longitude], { icon: startPointIcon })
       .addTo(map)
       .bindPopup('<b>Start Point</b>')
+}
+    
 
     userposition(map)
 
@@ -95,3 +111,8 @@ onMounted(() => {
 
 
 </script>
+
+
+
+
+

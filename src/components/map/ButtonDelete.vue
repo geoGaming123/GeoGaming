@@ -19,12 +19,10 @@ const confirmDelete = async () => {
   if (userConfirmed) {
     try {
       await gamesStore.deleteGame(id);
-      // Ajoutez toute logique ou navigation supplémentaire après la suppression réussie du jeu
-      // Naviguer en arrière dans l'historique du routeur
       router.go(-1);
+      alert('votre partie à été supprimé');
     } catch (error) {
       console.error('Erreur lors de la suppression du jeu :', error);
-      // Ajoutez une logique de gestion des erreurs si nécessaire
     }
   }
 };
