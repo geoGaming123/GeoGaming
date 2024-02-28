@@ -1,7 +1,8 @@
 <template>
-  <section class="header">
+  <section class="header" :class="{'header_white' : props.color == 'white'}">
     <div class="header_logo" :class="{ hidden : showLogo }">
-      <img src="../assets/Icons/Logo-texte-blanc.png" alt="Logo*">
+      <img v-if="props.color != 'white'" src="../assets/Icons/Logo-texte-blanc.png" alt="Logo*">
+      <img v-if="props.color == 'white'" src="../assets/Icons/Logo-texte-bleu.png" alt="Logo*">
     </div>
     <div class="header_return" :class="{ hidden : !showLogo}">
       <button @click="lastPage">Return</button>
@@ -9,8 +10,8 @@
     <div class="header_profile" :class="{ hidden : showProfileBtn}">
       <img src="../assets/Icons/Profile-pic.png" alt="" @click="showProfileWindow">
       <div id="profileWindow" class="header_myprofile hidden">
-        <img src="" alt="Photo"><br>
-        <router-link to="/profile">Modifier le profil</router-link><br>
+        <img src="" alt="Photo"> Pseudo<br>
+        <router-link to="/profile">Modifier le profil ?</router-link><br>
         <router-link to="/help">Besoin d'aide ?</router-link>
         <router-link to="/"><button @click="disconnect">Déconnexion</button></router-link>
       </div>
@@ -24,7 +25,8 @@ import { useRouter } from 'vue-router'
 
 const props = defineProps({
   data: String,
-  profile: String
+  profile: String,
+  color: String
 })
 
 const router = useRouter()

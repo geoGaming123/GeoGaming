@@ -1,10 +1,10 @@
 <template>
   <main>
-    <HeaderComp data="logo" profile="profile"></HeaderComp>
+    <HeaderComp data="logo" profile="profile" color="white"></HeaderComp>
     <NavComp @activateNav="showMenu"></NavComp>
-    <GameList @activateMenu="showMenu" title="past" :MatchesData="PastMatchesData" v-show="showMenuData == 'past'" :menu="showMenuData"></GameList>
-    <GameList @activateMenu="showMenu" title="present" :MatchesData="PresentMatchesData" v-show="showMenuData == 'present'" :menu="showMenuData"></GameList>
-    <GameList @activateMenu="showMenu" title="futur" :MatchesData="FutureMatchesData" v-show="showMenuData == 'futur'" :menu="showMenuData"></GameList>
+    <GameList title="past" :MatchesData="PastMatchesData" v-show="showMenuData == 'past'" :menu="showMenuData"></GameList>
+    <GameList title="present" :MatchesData="PresentMatchesData" v-show="showMenuData == 'present'" :menu="showMenuData"></GameList>
+    <GameList title="futur" :MatchesData="FutureMatchesData" v-show="showMenuData == 'futur'" :menu="showMenuData"></GameList>
     </main>
 </template>
 
