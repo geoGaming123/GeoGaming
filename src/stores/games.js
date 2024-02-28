@@ -60,7 +60,7 @@ export const useGamesStore = defineStore('games', {
       try {
         const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/?per_page=100`);
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         // Set the matches in the store
         this.matches = data;
@@ -72,7 +72,7 @@ export const useGamesStore = defineStore('games', {
     async getMatch(matchId) {
 
       const allMatches = this.allMatches;
-      console.log("recuperation userId" + "" + this.userId)
+      // console.log("recuperation userId" + "" + this.userId)
     
       // Find the match in the already fetched matches
       const match = allMatches.find((m) => Number(m.id) === Number(matchId));
@@ -81,7 +81,6 @@ export const useGamesStore = defineStore('games', {
       if (match) {
         // If the match is found in the stored matches, set it in the store
         this.match = match;
-        console.log("success")
       } else {
         // If the match is not found, you can still make an API request if needed
         try {
@@ -89,7 +88,7 @@ export const useGamesStore = defineStore('games', {
           const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`);
           const data = await response.json();
     
-          console.log(data);
+          // console.log(data);
     
           // Set the match in the store
           this.match = data;

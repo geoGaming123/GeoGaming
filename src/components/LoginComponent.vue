@@ -11,10 +11,8 @@ let userId = ref(getRandomId());
 
 const sendUserId = () => {
 
-  console.log(userId.value);
-
   gamesStore.addUserId(userId.value);
-  console.log("envoi au store réussi")
+
 };
 </script>
 

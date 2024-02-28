@@ -15,7 +15,7 @@ export function userposition(map) {
   const startPoint = match.value.acf.start_point.position
   const markers = match.value.acf.markers
 
-  // console.log('START : ', startPoint)
+  console.log('START : ', startPoint)
 
   // Fonction pour calculer la distance entre deux points en coordonnées géographiques
   const calculateDistance = (pointA, pointB) => {

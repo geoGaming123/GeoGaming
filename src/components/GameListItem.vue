@@ -46,7 +46,7 @@ var hourRemaining = Math.floor((timeDiff / (1000 * 3600)) % 24); // Utilisation 
 
 
 const sendTo = (txt, id) => {
-  console.log(txt + id)
+  // console.log(txt + id)
   router.push(`/${txt}/${id}`);
 }
 

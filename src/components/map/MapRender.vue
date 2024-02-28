@@ -43,7 +43,6 @@ const showMarkers = ref(false)
 const matchId = props.id
 function updateShowMarkers(value) {
   showMarkers.value = value
-  console.log(showMarkers)
 }
 
 gamesStore.getMatch(matchId)
@@ -92,7 +91,6 @@ onMounted(() => {
     });
   }
 });
-console.log(props.startpoint)
 if(props.startpoint){
   const startPointIcon = L.icon({
       iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
