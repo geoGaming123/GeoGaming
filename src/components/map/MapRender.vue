@@ -103,9 +103,9 @@ if(props.startpoint){
       .bindPopup('<b>Start Point</b>')
 }
     
-
+if(props.position){
     userposition(map)
-
+}
 })
 })
 
