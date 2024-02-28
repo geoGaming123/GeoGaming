@@ -10,7 +10,6 @@ import { ref, computed } from 'vue';
 
 const route = useRoute();
 const id = route.params.id;
-const idPlayer = 999;
 
 const gamesStore = useGamesStore();
 const matchId = id;
@@ -19,6 +18,12 @@ gamesStore.getMatch(matchId);
 const match = computed(() => {
   return gamesStore.oneMatch;
 });
+
+const userId = computed(() => {
+  return gamesStore.sendUserId;
+});
+
+
 
 const btndelete = ref(false);
 const btnleave = ref(false)
@@ -29,7 +34,7 @@ const markers = ref(false);
 const timer = ref(true);
 const position = ref(true)
 
-if (match.value.authors === idPlayer) {
+if (match.value.authors === userId.value) {
   startpoint.value = true;
   markers.value = true;
 }

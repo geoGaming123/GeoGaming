@@ -28,6 +28,10 @@ export const useGamesStore = defineStore('games', {
     allMatches: (state) => {
       return state.matches;
     },
+
+    sendUserId : (state) => {
+      return state.userId
+    }
   },
   actions: {
 
@@ -100,7 +104,8 @@ export const useGamesStore = defineStore('games', {
     
 
 
-    async joinGame(matchId, userId) {
+    async joinGame(matchId) {
+      const userId= this.userId
       try {
         const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwODUyMzAwNiwibmJmIjoxNzA4NTIzMDA2LCJleHAiOjE3MDkxMjc4MDYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.LhbBJ6Rb6xC5sEI7FVRNSRHCZ9f-TtvLvG6sukoFkLE";
         
@@ -181,7 +186,8 @@ export const useGamesStore = defineStore('games', {
       }
     },
     
-    async leaveGame(matchId, userId) {
+    async leaveGame(matchId, ) {
+      const userId= this.userId
       try {
         const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwODUyMzAwNiwibmJmIjoxNzA4NTIzMDA2LCJleHAiOjE3MDkxMjc4MDYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.LhbBJ6Rb6xC5sEI7FVRNSRHCZ9f-TtvLvG6sukoFkLE";
         
@@ -264,36 +270,8 @@ export const useGamesStore = defineStore('games', {
                 endGame: false
               }
             : null,
-          masteruid: '1', // Modifié en brut
+          masteruid: this.userId,
           players: [
-            {
-              userId: '2',
-              time: '10',
-              markers: [
-                {
-                  marker_id: '1',
-                  isCaptured: false
-                },
-                {
-                  marker_id: '3',
-                  isCaptured: false
-                },
-              ],
-            },
-            {
-              userId: '3',
-              time: '10',
-              markers: [
-                {
-                  marker_id: '1',
-                  isCaptured: false
-                },
-                {
-                  marker_id: '3',
-                  isCaptured: false
-                },
-              ],
-            },
           ],
         },
       };
