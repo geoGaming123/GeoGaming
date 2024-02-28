@@ -72,6 +72,7 @@ export const useGamesStore = defineStore('games', {
     async getMatch(matchId) {
 
       const allMatches = this.allMatches;
+      console.log("recuperation userId" + "" + this.userId)
     
       // Find the match in the already fetched matches
       const match = allMatches.find((m) => Number(m.id) === Number(matchId));
