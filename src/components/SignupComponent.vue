@@ -1,8 +1,5 @@
 <script setup>
-import { RouterLink } from 'vue-router';
 import { useUserStore } from '../stores/user'
-import { ref } from 'vue';
-
 
 const userStore = useUserStore()
 
@@ -26,13 +23,13 @@ const response = await fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/
   <h1>Créer un compte</h1>
 
   <div class="card">
-    <form action="" method="post" class="loginForm" @submit.prevent="handleSubmit">
+    <form action="" method="" class="loginForm" @submit.prevent="userStore.createUser">
       <label for="email">Email :</label>
-      <input v-model="email" type="text" name="email" id="email" class="loginInput" placeholder="exemple@email.com">
+      <input v-model="userStore.userData.email" type="text" name="email" id="email" class="loginInput" placeholder="exemple@email.com">
       <label for="password">Mot de passe :</label>
-      <input v-model="password" type="password" name="password" id="password" class="loginInput" placeholder="******">
+      <input v-model="userStore.userData.password" type="password" name="password" id="password" class="loginInput" placeholder="******">
       <label for="pseudoName">Pseudo :</label>
-      <input v-model="pseudoName" type="text" name="pseudoName" id="pseudoName" class="loginInput" placeholder="Username">
+      <input v-model="userStore.userData.username" type="text" name="pseudoName" id="pseudoName" class="loginInput" placeholder="Username">
       <label for="avatarFile">Avatar :</label>
       <input type="file" name="avatarFile" id="avatarFile" class="loginInput">
       <button class="loginBtn">Envoyer</button>
@@ -61,7 +58,7 @@ const response = await fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/
   cursor: pointer;
 }
 .createAccount {
-  color: #;
+  color: #00D1C5;
 }
 .loginInput {
   background-color: #FAFAFA; 
