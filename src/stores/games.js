@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia';
-import { reactive } from 'vue';
+import { defineStore } from 'pinia'
+import { reactive } from 'vue'
 
 export const useGamesStore = defineStore('games', {
   id: 'test',
@@ -17,33 +17,32 @@ export const useGamesStore = defineStore('games', {
     match: {},
     matches: [],
     players: [],
-    userId: '' 
+    userId: ''
   }),
 
   getters: {
     oneMatch: (state) => {
-      return state.match;
+      return state.match
     },
 
     allMatches: (state) => {
-      return state.matches;
+      return state.matches
     },
 
-    sendUserId : (state) => {
+    sendUserId: (state) => {
       return state.userId
     }
   },
   actions: {
-
     addUserId(userId) {
       if (userId) {
-        this.userId = userId;
-        console.log('userId ajouté au store:', userId);
+        this.userId = userId
+        console.log('userId ajouté au store:', userId)
       } else {
-        console.error('Invalid userId:', userId);
+        console.error('Invalid userId:', userId)
       }
     },
-    
+
     loadFromLocalStorage() {
       const storedData = localStorage.getItem('testData')
 
@@ -62,191 +61,188 @@ export const useGamesStore = defineStore('games', {
 
     async getMatches() {
       try {
-        const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/?per_page=100`);
-        const data = await response.json();
+        const response = await fetch(
+          `https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/?per_page=100`
+        )
+        const data = await response.json()
         // console.log(data);
 
         // Set the matches in the store
-        this.matches = data;
+        this.matches = data
       } catch (err) {
-        console.error('Error fetching matches:', err);
+        console.error('Error fetching matches:', err)
       }
     },
 
     async getMatch(matchId) {
-
-      const allMatches = this.allMatches;
+      const allMatches = this.allMatches
       // console.log("recuperation userId" + "" + this.userId)
-    
-      // Find the match in the already fetched matches
-      const match = allMatches.find((m) => Number(m.id) === Number(matchId));
 
-    
+      // Find the match in the already fetched matches
+      const match = allMatches.find((m) => Number(m.id) === Number(matchId))
+
       if (match) {
         // If the match is found in the stored matches, set it in the store
-        this.match = match;
+        this.match = match
       } else {
         // If the match is not found, you can still make an API request if needed
         try {
-          console.log('donnée non disponible dans le store ');
-          const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`);
-          const data = await response.json();
-    
+          console.log('donnée non disponible dans le store ')
+          const response = await fetch(
+            `https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`
+          )
+          const data = await response.json()
+
           // console.log(data);
-    
+
           // Set the match in the store
-          this.match = data;
+          this.match = data
         } catch (error) {
-          console.error('Error fetching match:', error);
+          console.error('Error fetching match:', error)
         }
       }
     },
-    
-
 
     async joinGame(matchId) {
-      const userId= this.userId
+      const userId = this.userId
       try {
-        const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwODUyMzAwNiwibmJmIjoxNzA4NTIzMDA2LCJleHAiOjE3MDkxMjc4MDYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.LhbBJ6Rb6xC5sEI7FVRNSRHCZ9f-TtvLvG6sukoFkLE";
-        
+        const token =
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwOTEyODE1MiwibmJmIjoxNzA5MTI4MTUyLCJleHAiOjE3MDk3MzI5NTIsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.WvWfzVTkalj9yAFVkbMrXREJKrwR61EWEU8xqYfHb7M'
+
         const matchData = {
           fields: {
             players: [
               {
                 userId: String(userId),
                 position: {
-                  latitude: "",
-                  longitude: "",
+                  latitude: '',
+                  longitude: ''
                 },
-                marker: []  // Laissez le tableau de marqueurs vide pour le moment
-              },
-            ],
-          },
-        };
-    
-        // Récupérer les informations des joueurs du champ acf
-        const oneMatch = this.oneMatch;
-        const existingPlayers = oneMatch.acf.players || [];
-        
-        // Vérifier si l'ID du joueur n'est pas déjà présent dans la liste
-        const playerExists = existingPlayers.some(player => player.userId === String(userId));
-    
-        if (playerExists) {
-          console.log('Le joueur est déjà dans la liste.');
-          return; // Arrêter la fonction si le joueur existe déjà
+                marker: [] // Laissez le tableau de marqueurs vide pour le moment
+              }
+            ]
+          }
         }
-    
+
+        // Récupérer les informations des joueurs du champ acf
+        const oneMatch = this.oneMatch
+        const existingPlayers = oneMatch.acf.players || []
+
+        // Vérifier si l'ID du joueur n'est pas déjà présent dans la liste
+        const playerExists = existingPlayers.some((player) => player.userId === String(userId))
+
+        if (playerExists) {
+          console.log('Le joueur est déjà dans la liste.')
+          return // Arrêter la fonction si le joueur existe déjà
+        }
+
         // Récupérer les informations des marqueurs du champ acf
-        const markers = [];
+        const markers = []
         oneMatch.acf.markers.forEach((marker, index) => {
           markers.push({
             id: index, // Utilisez l'index comme identifiant
             name: marker.name,
             isCaptured: false // Vous pouvez initialiser isCaptured à false ici
-          });
-        });
-    
+          })
+        })
+
         // Mettre les informations des marqueurs dans le joueur qui vient de rejoindre
-        matchData.fields.players[0].marker = markers;
-    
+        matchData.fields.players[0].marker = markers
+
         // Ajouter le nouveau joueur à la liste existante
         existingPlayers.push({
           userId: String(userId),
           position: {
-            latitude: "",
-            longitude: "",
+            latitude: '',
+            longitude: ''
           },
           marker: markers
-        });
-    
+        })
+
         // Envoyer la requête PATCH avec les données mises à jour
-        const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            fields: {
-              players: existingPlayers
-            }
-          }),
-        });
-    
+        const response = await fetch(
+          `https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`,
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              fields: {
+                players: existingPlayers
+              }
+            })
+          }
+        )
+
         if (response.ok) {
-          console.log('Game joined successfully.');
+          console.log('Game joined successfully.')
           // Ajouter toute logique supplémentaire après avoir rejoint le jeu avec succès
         } else {
-          console.error('Error joining game:', response.status);
+          console.error('Error joining game:', response.status)
           // Ajouter une logique de gestion des erreurs si nécessaire
         }
       } catch (error) {
-        console.error('Error joining game:', error);
+        console.error('Error joining game:', error)
         // Ajouter une logique de gestion des erreurs si nécessaire
       }
     },
-    
-    async leaveGame(matchId, ) {
-      const userId= this.userId
+
+    async leaveGame(matchId) {
+      const userId = this.userId
       try {
-        const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwODUyMzAwNiwibmJmIjoxNzA4NTIzMDA2LCJleHAiOjE3MDkxMjc4MDYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.LhbBJ6Rb6xC5sEI7FVRNSRHCZ9f-TtvLvG6sukoFkLE";
-        
+        const token =
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwOTEyODE1MiwibmJmIjoxNzA5MTI4MTUyLCJleHAiOjE3MDk3MzI5NTIsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.WvWfzVTkalj9yAFVkbMrXREJKrwR61EWEU8xqYfHb7M'
+
         // Récupérer les informations des joueurs du champ acf
-        const oneMatch = this.oneMatch;
-        const existingPlayers = oneMatch.acf.players || [];
-        
+        const oneMatch = this.oneMatch
+        const existingPlayers = oneMatch.acf.players || []
+
         // Vérifier si l'ID du joueur est présent dans la liste
-        const playerIndex = existingPlayers.findIndex(player => player.userId === String(userId));
-    
+        const playerIndex = existingPlayers.findIndex((player) => player.userId === String(userId))
+
         if (playerIndex === -1) {
-          console.log("Le joueur n'est pas dans la liste.");
-          return; // Arrêter la fonction si le joueur n'est pas trouvé
+          console.log("Le joueur n'est pas dans la liste.")
+          return // Arrêter la fonction si le joueur n'est pas trouvé
         }
-    
+
         // Retirer le joueur de la liste existante
-        existingPlayers.splice(playerIndex, 1);
-    
+        existingPlayers.splice(playerIndex, 1)
+
         // Envoyer la requête PATCH avec les données mises à jour
-        const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            fields: {
-              players: existingPlayers
-            }
-          }),
-        });
-    
+        const response = await fetch(
+          `https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`,
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              fields: {
+                players: existingPlayers
+              }
+            })
+          }
+        )
+
         if (response.ok) {
-          console.log('Game left successfully.');
+          console.log('Game left successfully.')
           // Ajouter toute logique supplémentaire après avoir quitté le jeu avec succès
         } else {
-          console.error('Error leaving game:', response.status);
+          console.error('Error leaving game:', response.status)
           // Ajouter une logique de gestion des erreurs si nécessaire
         }
       } catch (error) {
-        console.error('Error leaving game:', error);
+        console.error('Error leaving game:', error)
         // Ajouter une logique de gestion des erreurs si nécessaire
       }
     },
-    
-    
 
-
-  
-
-
-
-  
-
-
- 
     postMatchData() {
       const token =
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwODUyMzAwNiwibmJmIjoxNzA4NTIzMDA2LCJleHAiOjE3MDkxMjc4MDYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.LhbBJ6Rb6xC5sEI7FVRNSRHCZ9f-TtvLvG6sukoFkLE'
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwOTEyODE1MiwibmJmIjoxNzA5MTI4MTUyLCJleHAiOjE3MDk3MzI5NTIsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.WvWfzVTkalj9yAFVkbMrXREJKrwR61EWEU8xqYfHb7M'
 
       const matchData = {
         status: 'publish',
@@ -271,11 +267,10 @@ export const useGamesStore = defineStore('games', {
               }
             : null,
           masteruid: this.userId,
-          players: [
-          ],
-        },
-      };
-    
+          players: []
+        }
+      }
+
       fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match', {
         method: 'POST',
         headers: {
@@ -311,25 +306,29 @@ export const useGamesStore = defineStore('games', {
     },
 
     async deleteGame(matchId) {
-      const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwODUyMzAwNiwibmJmIjoxNzA4NTIzMDA2LCJleHAiOjE3MDkxMjc4MDYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.LhbBJ6Rb6xC5sEI7FVRNSRHCZ9f-TtvLvG6sukoFkLE";
+      const token =
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwOTEyODE1MiwibmJmIjoxNzA5MTI4MTUyLCJleHAiOjE3MDk3MzI5NTIsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.WvWfzVTkalj9yAFVkbMrXREJKrwR61EWEU8xqYfHb7M'
       try {
-        const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, // Replace with your actual authorization token
-          },
-        });
+        const response = await fetch(
+          `https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`,
+          {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}` // Replace with your actual authorization token
+            }
+          }
+        )
 
         if (response.ok) {
-          console.log('Game deleted successfully.');
+          console.log('Game deleted successfully.')
           // Add any additional logic after successfully deleting the game
         } else {
-          console.error('Error deleting game:', response.status);
+          console.error('Error deleting game:', response.status)
           // Add error handling logic if needed
         }
       } catch (error) {
-        console.error('Error deleting game:', error);
+        console.error('Error deleting game:', error)
         // Add error handling logic if needed
       }
     },
