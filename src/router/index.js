@@ -5,6 +5,10 @@ import RankView from '../views/RankView.vue'
 import GameView from '../views/GameView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import NextGameView from '../views/NextGameView.vue'
+import GameFormView from '@/views/GameFormView.vue'
+import GameFormModifView from '@/views/GameFormModifView.vue'
+import Helpview from '../views/Helpview.vue'
+import DashView from '@/views/DashView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,7 +24,7 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/rank',
+      path: '/rank/:id',
       name: 'Rank',
       component: RankView
     },
@@ -30,14 +34,34 @@ const router = createRouter({
       component: ProfileView
     },
     {
-      path: '/game',
+      path: '/game/:id',
       name: 'Game',
       component: GameView
     },
     {
-      path: '/nextgame',
+      path: '/nextgame/:id',
       name: 'NextGame',
       component: NextGameView
+    },
+    {
+      path: '/gameform',
+      name: 'GameForm',
+      component: GameFormView
+    },
+    {
+      path: '/modified/:id',
+      name: 'modified',
+      component: GameFormModifView
+    },
+    {
+      path: '/help',
+      name: 'Help',
+      component: Helpview
+    },
+    {
+      path: '/dash',
+      name: 'Dashboard',
+      component: DashView
     }
   ]
 })
