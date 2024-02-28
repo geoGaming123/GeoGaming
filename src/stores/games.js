@@ -100,7 +100,8 @@ export const useGamesStore = defineStore('games', {
     
 
 
-    async joinGame(matchId, userId) {
+    async joinGame(matchId) {
+      const userId= this.userId
       try {
         const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwODUyMzAwNiwibmJmIjoxNzA4NTIzMDA2LCJleHAiOjE3MDkxMjc4MDYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.LhbBJ6Rb6xC5sEI7FVRNSRHCZ9f-TtvLvG6sukoFkLE";
         
@@ -181,7 +182,8 @@ export const useGamesStore = defineStore('games', {
       }
     },
     
-    async leaveGame(matchId, userId) {
+    async leaveGame(matchId, ) {
+      const userId= this.userId
       try {
         const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwODUyMzAwNiwibmJmIjoxNzA4NTIzMDA2LCJleHAiOjE3MDkxMjc4MDYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.LhbBJ6Rb6xC5sEI7FVRNSRHCZ9f-TtvLvG6sukoFkLE";
         

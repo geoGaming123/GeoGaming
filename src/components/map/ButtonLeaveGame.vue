@@ -10,14 +10,13 @@
   
   const { id } = defineProps(['id']);
   const gamesStore = useGamesStore();
-  const userId = 999;
   const router = useRouter()
   
   const confirmJoinGame = async () => {
     const confirmed = confirm("Êtes-vous sûr de vouloir vous désincrire le jeu ?");
     if (confirmed) {
       try {
-        await gamesStore.leaveGame(id, userId);
+        await gamesStore.leaveGame(id);
         router.go(-1);
         alert('vous vous etes bien désincris de la partie');
       } catch (error) {
