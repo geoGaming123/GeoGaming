@@ -1,6 +1,6 @@
-
+<!-- Votre composant Vue -->
 <template>
-    <button class="btn" @click.prevent="addNewMarker">Add Marker</button>  
+    <button class="btn" @click.prevent="addNewMarker">Balises</button>  
 </template>
 
 <script setup>
@@ -18,7 +18,7 @@ const customIconMarkers = L.icon({
   iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
   iconSize: [50, 50],
   iconAnchor: [12, 41],
-  popupAnchor: [0, -30],
+  popupAnchor: [10, -30],
 });
 
 const addNewMarker = () => {
@@ -43,10 +43,10 @@ const addNewMarker = () => {
   newMarker.bindPopup(deleteButton);
 
   deleteButton.addEventListener('click', (e) => {
-      e.preventDefault()
-    map.value.removeLayer(newMarker);
-    gamesStore.markers = gamesStore.markers.filter((m) => m.marker !== newMarker);
-  });
+  e.preventDefault();
+  gamesStore.deleteMarker(markerData); // Utilisez markerData au lieu de newMarker
+  map.value.removeLayer(newMarker);
+});
 
   newMarker.on('dragend', () => {
     const newMarkerLatLng = newMarker.getLatLng();

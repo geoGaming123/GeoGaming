@@ -1,5 +1,26 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { useGamesStore } from './stores/games';
+import { computed, onMounted } from 'vue';
+
+const gamesStore = useGamesStore()
+
+
+const matches = (computed(() => {
+  return gamesStore.allMatches
+}))
+
+onMounted(() => {
+  gamesStore.getMatches()
+    .then(() => {
+      console.log(matches.value);
+    })
+    .catch(error => console.error('Error fetching matches:', error));
+});
+
+
+
+
 </script>
 
 <template>
@@ -8,13 +29,8 @@ import { RouterLink, RouterView } from 'vue-router'
     <div class="wrapper">
 
       <nav class="test">
-        <RouterLink to="/">Login</RouterLink>
-        <RouterLink to="/home">Home</RouterLink>
-        <RouterLink to="/rank">Rank</RouterLink>
-        <RouterLink to="/profile">Profile</RouterLink>
-        <RouterLink to="/game">Game</RouterLink>
-        <RouterLink to="/nextgame">NextGame</RouterLink>
-        <RouterLink to="/gameform">MapForm</RouterLink>
+        <RouterLink to="/">Login</RouterLink> || 
+        <RouterLink to="/dash">Dashboard</RouterLink> || 
       </nav>
     </div>
   </header>
