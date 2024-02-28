@@ -17,8 +17,6 @@ const userStore = useUserStore()
     </form>
     <p>Vous n'avez pas de compte?<a class="createAccount">Créez en un</a></p>
   </div>
-
-  <button class="loginBtn" @click="sendUserId">generate id</button>
 </template>
 
 <style scoped>

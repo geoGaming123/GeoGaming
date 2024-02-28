@@ -72,7 +72,7 @@ export const useUserStore = defineStore({
         })
         const myID = await userID.json()
         console.log(await myID.id)
-      return this.myID = myID.id, this.myToken = userToken
+      return this.myID = myID.id, this.myToken = userToken, window.location.href = "http"
       } catch (error) {
         console.error('Error while logging in:', error)
         throw error
