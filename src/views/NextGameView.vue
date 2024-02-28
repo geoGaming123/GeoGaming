@@ -10,7 +10,7 @@
   
   const route = useRoute();
   const id = route.params.id;
-  const idPlayer = 999;
+
   
   const gamesStore = useGamesStore();
   const matchId = id;
@@ -19,7 +19,10 @@
   const match = computed(() => {
     return gamesStore.oneMatch;
   });
-  
+  const userId = computed(() => {
+  return gamesStore.sendUserId;
+});
+
   const btndelete = ref(false);
   const btnleave = ref(false)
   const btnjoin = ref(true);
@@ -29,7 +32,7 @@
   const timer = ref(false);
   const position = ref(false)
   
-  if (match.value.authors === idPlayer) {
+  if (match.value.authors === userId.value) {
     btndelete.value = true;
     btnjoin.value = false;
     btnmodified.value = true;
@@ -37,7 +40,7 @@
     markers.value = true;
   }
 
-  if (match.value.acf.players.some(player => player.userId === String(idPlayer))) {
+  if (match.value.acf.players.some(player => player.userId === String(userId.value))) {
     console.log('user trouvé')
     btnleave.value = true;
     btnjoin.value = false;

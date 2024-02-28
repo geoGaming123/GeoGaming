@@ -52,7 +52,7 @@ const match = ref(
     return gamesStore.oneMatch
   })
 )
-
+console.log(props.startpoint)
 onMounted(() => {
   const startPoint = match.value.acf.start_point
   const markers = match.value.acf.markers
