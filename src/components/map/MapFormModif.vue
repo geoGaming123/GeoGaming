@@ -18,6 +18,7 @@
           <button type="submit">Submit</button>
         </form>  
       </div>
+      <MapAddStartPoint :map="map"></MapAddStartPoint>
   
     </template>
     

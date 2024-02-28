@@ -4,10 +4,10 @@
   <p>Start Date: {{ match.acf.start_date }}</p>
   <p>End Date: {{ match.acf.end_date }}</p>
 
-    <div id="map"></div>
+  <div id="map"></div>
     
     <div v-if="props.timer">
-      <Timer></Timer>
+      <Timer :updateShowMarkers="updateShowMarkers"></Timer>
     </div>
 
     <div v-if="props.delete">
@@ -23,7 +23,7 @@
     </div>
 
     <ButtonModified :id="matchId"></ButtonModified>
-  </div>
+
 </template>
 
 <script setup>
@@ -39,6 +39,7 @@ import { userposition } from './Userposition.vue'
 
 const gamesStore = useGamesStore()
 const props = defineProps(['id', 'delete', 'join', 'leave', 'startpoint', 'position', 'markers', 'timer'])
+const showMarkers = ref(false)
 const matchId = props.id
 function updateShowMarkers(value) {
   showMarkers.value = value
@@ -67,41 +68,50 @@ onMounted(() => {
   })
 
   map.whenReady(() => {
-    if (showMarkers.value) {
-      console.log('showMarkers est sur true')
-      markers.forEach((marker) => {
-        const { latitude, longitude } = marker.position
-        const markerIcon = L.icon({
-          iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
-          iconSize: [50, 50],
-          iconAnchor: [12, 41],
-          popupAnchor: [0, -30]
-        })
-        const leafletMarker = L.marker([latitude, longitude], { icon: markerIcon }).bindPopup(
-          `<b>${marker.name}</b>`
-        )
+  watch(showMarkers, (newValue) => {
+  if (newValue || props.markers) {
+    // Afficher les marqueurs sur la carte
+    markers.forEach((marker) => {
+      const { latitude, longitude } = marker.position;
+      const markerIcon = L.icon({
+        iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
+        iconSize: [50, 50],
+        iconAnchor: [12, 41],
+        popupAnchor: [0, -30]
+      });
+      const leafletMarker = L.marker([latitude, longitude], { icon: markerIcon }).bindPopup(
+        `<b>${marker.name}</b>`
+      );
 
-        marker.leafletMarker = leafletMarker.addTo(map)
-      })
-    } else {
-      console.log('showMarkers est sur false')
-    }
-
-    const startPointIcon = L.icon({
+      marker.leafletMarker = leafletMarker.addTo(map);
+    });
+  } else {
+    // Masquer les marqueurs de la carte
+    markers.forEach((marker) => {
+      map.removeLayer(marker.leafletMarker);
+    });
+  }
+});
+console.log(props.startpoint)
+if(props.startpoint){
+  const startPointIcon = L.icon({
       iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
       iconSize: [50, 50],
       iconAnchor: [12, 41],
-      popupAnchor: [0, -30],
+      popupAnchor: [0, -30]
     })
     L.marker([latitude, longitude], { icon: startPointIcon })
       .addTo(map)
       .bindPopup('<b>Start Point</b>')
-  }
+}
+    
 
-  if (props.position) {
     userposition(map)
-  }
+
 })
+})
+
+
 </script>
 
 
