@@ -6,9 +6,10 @@ export const useUserStore = defineStore({
   state: () => ({
     // Define state properties here if needed
     loggedin: true,
-    admintoken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwODUyMzAwNiwibmJmIjoxNzA4NTIzMDA2LCJleHAiOjE3MDkxMjc4MDYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.LhbBJ6Rb6xC5sEI7FVRNSRHCZ9f-TtvLvG6sukoFkLE',
+    admintoken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwOTEyODE1MiwibmJmIjoxNzA5MTI4MTUyLCJleHAiOjE3MDk3MzI5NTIsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.WvWfzVTkalj9yAFVkbMrXREJKrwR61EWEU8xqYfHb7M',
     myID: ref(''),
     myToken: ref(''),
+    pageBool: ref(false),
     userData: {
       username: ref(''),
 	    email:ref(''),
@@ -24,11 +25,15 @@ export const useUserStore = defineStore({
     }
   }),
   getters: {
+
     username() {
       return this.userData.acf.pseudo = this.userData.username
     }
   },
   actions: {
+    rerout() {
+      this.$router.push({ path: '/dash' })
+    },
     // Methods to interact with user data
     async createUser() {
       // Make your API request to create a new user
@@ -72,7 +77,9 @@ export const useUserStore = defineStore({
         })
         const myID = await userID.json()
         console.log(await myID.id)
-      return this.myID = myID.id, this.myToken = userToken, window.location.href = "http"
+        this.myID = myID.id 
+        this.myToken = userToken
+      return this.rerout()
       } catch (error) {
         console.error('Error while logging in:', error)
         throw error

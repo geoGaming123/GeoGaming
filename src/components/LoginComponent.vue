@@ -15,7 +15,7 @@ const userStore = useUserStore()
       <input v-model="userStore.userLogin.password" type="password" name="password" id="password" class="loginInput" placeholder="******">
       <button class="loginBtn">Connexion</button>
     </form>
-    <p>Vous n'avez pas de compte?<a class="createAccount">Créez en un</a></p>
+    <p>Vous n'avez pas de compte?<a href="#" @click.prevent="userStore.pageBool = !userStore.pageBool" class="createAccount">Créez en un</a></p>
   </div>
 </template>
 

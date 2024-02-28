@@ -34,7 +34,7 @@ const response = await fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/
       <input type="file" name="avatarFile" id="avatarFile" class="loginInput">
       <button class="loginBtn">Envoyer</button>
     </form>
-    <a to="#" class="createAccount">Déjà un compte ?</a>
+    <a @click.prevent="userStore.pageBool = !userStore.pageBool" class="createAccount">Déjà un compte ?</a>
   </div>
 </template>
 
