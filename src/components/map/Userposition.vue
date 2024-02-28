@@ -1,5 +1,5 @@
 <script>
-import { ref, computed } from 'vue'
+import { ref, computed, onBeforeUnmount } from 'vue'
 import { useGamesStore } from '@/stores/games'
 import * as L from 'leaflet'
 
@@ -42,6 +42,8 @@ export function userposition(map) {
     }
   }
 
+  let watchUserPosition // Déclarer en dehors de la condition pour le garder accessible à onBeforeUnmount
+
   // Obtenir la position de l'utilisateur
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -61,7 +63,7 @@ export function userposition(map) {
     )
 
     // Ajouter la fonctionnalité de suivi en temps réel de la position de l'utilisateur
-    const watchUserPosition = navigator.geolocation.watchPosition(
+     watchUserPosition = navigator.geolocation.watchPosition(
       (position) => {
         const { latitude, longitude } = position.coords
         // Mettre à jour la position du joueur dans le store
@@ -113,6 +115,13 @@ export function userposition(map) {
   } else {
     console.error("La géolocalisation n'est pas prise en charge par ce navigateur.")
   }
+
+  onBeforeUnmount(() => {
+    if (watchUserPosition) {
+      navigator.geolocation.clearWatch(watchUserPosition)
+    }
+  })
+
   return { showStartButton }
 }
 </script>
