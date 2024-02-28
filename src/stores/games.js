@@ -265,36 +265,8 @@ export const useGamesStore = defineStore('games', {
                 endGame: false
               }
             : null,
-          masteruid: '1', // Modifié en brut
+          masteruid: this.userId,
           players: [
-            {
-              userId: '2',
-              time: '10',
-              markers: [
-                {
-                  marker_id: '1',
-                  isCaptured: false
-                },
-                {
-                  marker_id: '3',
-                  isCaptured: false
-                },
-              ],
-            },
-            {
-              userId: '3',
-              time: '10',
-              markers: [
-                {
-                  marker_id: '1',
-                  isCaptured: false
-                },
-                {
-                  marker_id: '3',
-                  isCaptured: false
-                },
-              ],
-            },
           ],
         },
       };
