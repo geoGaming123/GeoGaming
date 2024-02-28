@@ -41,6 +41,7 @@ export function userposition(map) {
 
   let watchUserPosition // Déclarer en dehors de la condition pour le garder accessible à onBeforeUnmount
 
+  // Obtenir la position de l'utilisateur
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -56,7 +57,8 @@ export function userposition(map) {
       }
     )
 
-    watchUserPosition = navigator.geolocation.watchPosition(
+    // Ajouter la fonctionnalité de suivi en temps réel de la position de l'utilisateur
+     watchUserPosition = navigator.geolocation.watchPosition(
       (position) => {
         const { latitude, longitude } = position.coords
         gamesStore.updateUserPosition({ latitude, longitude })
