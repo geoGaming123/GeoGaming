@@ -2,7 +2,8 @@
   <main class="dashboard">
     <HeaderComp data="logo"></HeaderComp>
     <div class="dashboard-content">
-      <div class="dashboard-content-circle">{{ myInfo.acf.pseudo }}</div>
+      <p>{{ myInfo.acf.pseudo }}</p>
+      <div class="dashboard-content-circle"><img src="" alt="ProfilePic"></div>
       <button class="dashboard-content-btn" @click="sendToHome">
         <img src="../assets/Icons/Logo-perso-blanc.png" alt="BTN" height="40px" width="40px">
       </button>
