@@ -1,5 +1,21 @@
 <script setup>
+import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
+import { useGamesStore } from '@/stores/games';
+
+const gamesStore = useGamesStore();
+
+const idList = ["1", "2", "3", "999"];
+const getRandomId = () => idList[Math.floor(Math.random() * idList.length)];
+let userId = ref(getRandomId());
+
+const sendUserId = () => {
+
+  console.log(userId.value);
+
+  gamesStore.addUserId(userId.value);
+  console.log("envoi au store réussi")
+};
 </script>
 
 <template>
@@ -15,6 +31,8 @@ import { RouterLink } from 'vue-router';
     </form>
     <p>Vous n'avez pas de compte?<a class="createAccount">Créez en un</a></p>
   </div>
+
+  <button class="loginBtn" @click="sendUserId">generate id</button>
 </template>
 
 <style scoped>

@@ -17,6 +17,7 @@ export const useGamesStore = defineStore('games', {
     match: {},
     matches: [],
     players: [],
+    userId: '' 
   }),
 
   getters: {
@@ -30,6 +31,15 @@ export const useGamesStore = defineStore('games', {
   },
   actions: {
 
+    addUserId(userId) {
+      if (userId) {
+        this.userId = userId;
+        console.log('userId ajouté au store:', userId);
+      } else {
+        console.error('Invalid userId:', userId);
+      }
+    },
+    
     loadFromLocalStorage() {
       const storedData = localStorage.getItem('testData')
 
@@ -50,7 +60,6 @@ export const useGamesStore = defineStore('games', {
       try {
         const response = await fetch(`https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/?per_page=100`);
         const data = await response.json();
-
         console.log(data);
 
         // Set the matches in the store
