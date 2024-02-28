@@ -28,6 +28,10 @@ export const useGamesStore = defineStore('games', {
     allMatches: (state) => {
       return state.matches;
     },
+
+    sendUserId : (state) => {
+      return state.userId
+    }
   },
   actions: {
 
