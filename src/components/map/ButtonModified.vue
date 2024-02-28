@@ -1,6 +1,6 @@
 <template>
     <div>
-      <button @click="redirectToGameFormModif">Modifier</button>
+      <button @click="redirectToModified">Modifier</button>
     </div>
   </template>
   
@@ -11,8 +11,8 @@
   const props = defineProps(['id']);
   const router = useRouter();
     
-  const redirectToGameFormModif = () => {
-    router.push({ name: 'GameFormModif', params: { id: props.id } });
+  const redirectToModified = () => {
+    router.push({ name: 'modified', params: { id: props.id } });
   };
   </script>
   
