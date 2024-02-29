@@ -1,15 +1,14 @@
 <script setup>
 import LoginComponent from '@/components/LoginComponent.vue';
 import SignupComponent from '@/components/SignupComponent.vue';
-import { ref } from 'vue'
+import { useUserStore } from '@/stores/user';
 
-let loggedin = ref(false)
+const userStore = useUserStore()
 </script>
 
 <template>
   <main>
-    <button @click="loggedin = !loggedin">Logged in</button>
-    <LoginComponent v-if="loggedin == false"/>
-    <SignupComponent v-if="loggedin == true"/>
+    <LoginComponent v-if="userStore.pageBool == false"/>
+    <SignupComponent v-if="userStore.pageBool == true"/>
   </main>
 </template>
