@@ -1,38 +1,29 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import { useGamesStore } from './stores/games';
-import { computed, onMounted } from 'vue';
+import { useGamesStore } from './stores/games'
+import { computed, onMounted } from 'vue'
 
 const gamesStore = useGamesStore()
 
-
-const matches = (computed(() => {
+const matches = computed(() => {
   return gamesStore.allMatches
-}))
-
-
+})
 
 onMounted(() => {
-  gamesStore.getMatches()
+  gamesStore
+    .getMatches()
     .then(() => {
-      console.log(matches.value);
+      console.log(matches.value)
     })
-    .catch(error => console.error('Error fetching matches:', error));
-});
-
-
-
-
+    .catch((error) => console.error('Error fetching matches:', error))
+})
 </script>
 
 <template>
   <header>
-
     <div class="wrapper">
-
       <nav class="test">
-        <RouterLink to="/">Login</RouterLink> || 
-        <RouterLink to="/dash">Dashboard</RouterLink> || 
+        <RouterLink to="/">Login</RouterLink> || <RouterLink to="/dash">Dashboard</RouterLink> ||
       </nav>
     </div>
   </header>
@@ -40,6 +31,4 @@ onMounted(() => {
   <RouterView />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

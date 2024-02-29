@@ -3,10 +3,6 @@
   <!-- Pseudo / MDP / Email / Avatar / Inscription / Déjà un compte ? -->
 </template>
 
-<script setup>
+<script setup></script>
 
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,6 +1,6 @@
 <script setup>
-import LoginComponent from '@/components/LoginComponent.vue';
-import SignupComponent from '@/components/SignupComponent.vue';
+import LoginComponent from '@/components/LoginComponent.vue'
+import SignupComponent from '@/components/SignupComponent.vue'
 import { ref } from 'vue'
 
 let loggedin = ref(false)
@@ -9,7 +9,7 @@ let loggedin = ref(false)
 <template>
   <main>
     <button @click="loggedin = !loggedin">Logged in</button>
-    <LoginComponent v-if="loggedin == false"/>
-    <SignupComponent v-if="loggedin == true"/>
+    <LoginComponent v-if="loggedin == false" />
+    <SignupComponent v-if="loggedin == true" />
   </main>
 </template>

@@ -158,8 +158,8 @@ export const useGamesStore = defineStore('games', {
             longitude: ''
           },
           marker: markers,
-          time:"",
-          score: "",
+          time: '',
+          score: ''
         })
 
         // Envoyer la requête PATCH avec les données mises à jour

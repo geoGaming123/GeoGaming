@@ -3,10 +3,6 @@
   <!-- Avatar / Pseudo / Modifier profil / Déconnexion -->
 </template>
 
-<script setup>
+<script setup></script>
 
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>

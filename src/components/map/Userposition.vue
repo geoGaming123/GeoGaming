@@ -58,7 +58,7 @@ export function userposition(map) {
     )
 
     // Ajouter la fonctionnalité de suivi en temps réel de la position de l'utilisateur
-     watchUserPosition = navigator.geolocation.watchPosition(
+    watchUserPosition = navigator.geolocation.watchPosition(
       (position) => {
         const { latitude, longitude } = position.coords
         gamesStore.updateUserPosition({ latitude, longitude })

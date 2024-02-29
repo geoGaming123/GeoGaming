@@ -1,7 +1,5 @@
 <script setup>
-import HeaderComp from '@/components/HeaderComp.vue';
-
-
+import HeaderComp from '@/components/HeaderComp.vue'
 </script>
 
 <template>
@@ -12,7 +10,7 @@ import HeaderComp from '@/components/HeaderComp.vue';
         <h1>Edition du profil</h1>
         <p>Modifier votre avatar ou votre nom d'utilisateur</p>
       </section>
-      <hr>
+      <hr />
       <div class="profile_form">
         <form>
           <section class="profile_form_Picture">
@@ -22,12 +20,12 @@ import HeaderComp from '@/components/HeaderComp.vue';
               <button>Changer</button>
             </div>
             <div class="profile_form_Picture_Img">
-              <img src="" alt="Ma photo">
+              <img src="" alt="Ma photo" />
             </div>
           </section>
           <section class="profile_form_Pseudo">
-            <label for="pseudo">Pseudo</label><br>
-            <input id="pseudo" type="text"> 
+            <label for="pseudo">Pseudo</label><br />
+            <input id="pseudo" type="text" />
           </section>
           <section class="profile_form_Save">
             <button class="profile_form_Save_btn">Sauvegarder</button>
@@ -38,6 +36,4 @@ import HeaderComp from '@/components/HeaderComp.vue';
   </main>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

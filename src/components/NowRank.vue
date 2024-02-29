@@ -3,10 +3,6 @@
   <!-- Liste rank / 5 devant / Mon rank / 5 derrière -->
 </template>
 
-<script setup>
+<script setup></script>
 
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>

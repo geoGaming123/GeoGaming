@@ -1,21 +1,15 @@
 <script>
-import * as GeoSearch from 'leaflet-geosearch';
+import * as GeoSearch from 'leaflet-geosearch'
 
 export function useGeoSearchControl(map) {
   const searchControl = new GeoSearch.GeoSearchControl({
     provider: new GeoSearch.OpenStreetMapProvider(),
     style: 'bar',
-    showMarker: false,
-  });
+    showMarker: false
+  })
 
-  map.addControl(searchControl);
+  map.addControl(searchControl)
 
-  return { searchControl };
+  return { searchControl }
 }
-
-  </script>
-
-  
-  
-  
-  
+</script>
