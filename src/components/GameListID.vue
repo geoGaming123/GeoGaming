@@ -18,7 +18,7 @@ const props = defineProps({
   Matches: Array,
   title: String,
   tab: String,
-  myID: String
+  myID: Number
 })
 </script>
 

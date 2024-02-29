@@ -33,11 +33,13 @@ import GameList from '@/components/GameList.vue'
 import { ref, computed } from 'vue'
 import { useCounterStore } from '@/stores/counter'
 import { useGamesStore } from '@/stores/games'
+import { useUserStore } from '@/stores/user'
 
 const monStore = useCounterStore()
 monStore.getAllMatches() // Charge les données des parties et distribue en 3 array selon la temporalité
 const gameStore = useGamesStore()
-const myID = computed(() => gameStore.sendUserId)
+const userStore = useUserStore()
+const myID = computed(() => userStore.myID)
 setTimeout(() => {
   console.log('HomeV - ID - ' + myID.value)
 }, 3000)

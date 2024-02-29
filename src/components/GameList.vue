@@ -99,7 +99,7 @@ const props = defineProps({
   menu: String,
   MatchesData: Array, // Tableau différent selon GameList actif
   title: String,
-  myID: String
+  myID: Number
 })
 
 const activeTab = ref('created')

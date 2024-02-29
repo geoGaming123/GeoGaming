@@ -32,7 +32,7 @@ const props = defineProps({
   index: Number,
   title: String,
   tab: String,
-  myID: String
+  myID: Number
 })
 
 const formatDate = (dateString) => {
