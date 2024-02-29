@@ -142,7 +142,8 @@ export const useGamesStore = defineStore('games', {
           markers.push({
             id: index, // Utilisez l'index comme identifiant
             name: marker.name,
-            isCaptured: false // Vous pouvez initialiser isCaptured à false ici
+            isCaptured: false,
+            penality: marker.penality
           })
         })
 
@@ -156,7 +157,9 @@ export const useGamesStore = defineStore('games', {
             latitude: '',
             longitude: ''
           },
-          marker: markers
+          marker: markers,
+          time:"",
+          score: "",
         })
 
         // Envoyer la requête PATCH avec les données mises à jour
