@@ -2,13 +2,13 @@
   
   <tr class="gamelist-item" v-if="title === 'past' && tab === 'created'" @click="sendTo('rank', props.aMatch.id)">
     <td>{{ props.aMatch.acf.title }}<br>{{ props.aMatch.acf.players.length }} joueurs</td>
-    <td>{{ rankingFirst.name }}<br>{{ ranking[0].time }} s</td>
+    <td>{{ rankingFirst.name }}<br>{{ ranking[0].score }} s</td>
     <td>{{ formatDate(props.aMatch.acf.end_date) }}</td>
 </tr>
   <tr class="gamelist-item" v-if="title === 'past' && tab === 'joined'" @click="sendTo('rank', props.aMatch.id)">
     <td>{{ props.aMatch.acf.title }}<br>{{ formatDate(props.aMatch.acf.end_date) }}</td>
-    <td>{{ rankingFirst.name }}<br>{{ ranking[0].time }} s</td>
-    <td>{{ myRank + 1 }}/{{ theMatchPlayers.length }}<br><span v-if="theMatch && myTime.length > 0">{{ myTime[0].time }}s</span></td>
+    <td>{{ rankingFirst.name }}<br>{{ ranking[0].score }} s</td>
+    <td>{{ myRank + 1 }}/{{ theMatchPlayers.length }}<br><span v-if="theMatch && myTime.length > 0">{{ myTime[0].score }}s</span></td>
   </tr>
   <tr class="gamelist-item" v-if="title === 'present'" @click="sendTo('game', props.aMatch.id)">
     <td>#{{ props.aMatch.id }} - {{ props.aMatch.acf.title }}<br>{{ props.aMatch.acf.players.length }} joueurs</td>
@@ -56,7 +56,7 @@ const hourRemaining = Math.floor((timeDiff / (1000 * 3600)) % 24); // Heures res
 
 const theMatch = props.aMatch // Données de la partie
 const theMatchPlayers = theMatch.acf.players // Joueurs de la partie
-const ranking = theMatchPlayers.slice().sort((a, b) => a.time - b.time) // Trié dans l'ordre de leur temps
+const ranking = theMatchPlayers.slice().sort((a, b) => a.score - b.score) // Trié dans l'ordre de leur temps
 const myTime = theMatchPlayers.filter(player => player.userId == myID) // Récupére score id connecté
 const myRank = theMatchPlayers.findIndex(i => i.userId == myID) // Position dans le tableau 
 

@@ -3,7 +3,7 @@
     <span>{{ props.index + 1 }}</span>
     <img class="rankList_El_center" src="" alt=" " />
     <span>{{ props.aPlayer.name }}</span>
-    <span class="rankList_El_right">{{ props.aPlayer.time }}</span>
+    <span class="rankList_El_right">{{ props.aPlayer.score }}</span>
   </li>
 </template>
 
