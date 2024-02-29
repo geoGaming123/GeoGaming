@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, defineProps } from 'vue'
+import { onMounted, ref } from 'vue'
 import * as L from 'leaflet'
 import { useGeoSearchControl } from './MapSearchControl.vue'
 import MapAddMarkers from './MapAddMarkers.vue'

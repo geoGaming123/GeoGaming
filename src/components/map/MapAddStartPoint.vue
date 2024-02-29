@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, toRefs, defineProps, computed } from 'vue'
+import { ref, reactive, toRefs, computed } from 'vue'
 import * as L from 'leaflet'
 import { useGamesStore } from '@/stores/games'
 

@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue'
+import { ref } from 'vue'
 import { userposition } from './Userposition.vue'
 const { showStartButton } = userposition()
 
