@@ -34,8 +34,8 @@ import { ref, computed } from 'vue'
 import { useDataStore } from '@/stores/data'
 import { useUserStore } from '@/stores/user'
 
-const monStore = useDataStore()
-monStore.getAllMatches() // Charge les données des parties et distribue en 3 array selon la temporalité
+const dataStore = useDataStore()
+dataStore.getAllMatches() // Charge les données des parties et distribue en 3 array selon la temporalité
 const userStore = useUserStore()
 const myID = computed(() => userStore.myID)  // Récupère l'id de l'user connecté
 
@@ -49,13 +49,13 @@ const showMenu = (tab) => { //Recois "tab" du footer pour savoir le menu actif
   showMenuData.value = tab
 }
 const FutureMatchesData = computed(() => { // Récupère le tableau des parties futures
-  return monStore.getMatchesFuture
+  return dataStore.getMatchesFuture
 })
 const PastMatchesData = computed(() => { // Récupère le tableau des parties passées
-  return monStore.getMatchesPast
+  return dataStore.getMatchesPast
 })
 const PresentMatchesData = computed(() => { // Récupère le tableau des parties en cours
-  return monStore.getMatchesPresent
+  return dataStore.getMatchesPresent
 })
 </script>
 

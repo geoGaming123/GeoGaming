@@ -27,12 +27,12 @@ const getIdFromUrl = () => {
   const id = pathComponents[pathComponents.length - 1]
   return id
 }
-const monStore = useDataStore()
+const dataStore = useDataStore()
 const userStore = useUserStore()
-monStore.getAMatch(getIdFromUrl()) // Va chercher le match correspondant à l'id de l'url
+dataStore.getAMatch(getIdFromUrl()) // Va chercher le match correspondant à l'id de l'url
 
 const myID = computed(() => userStore.myID) // Récupère l'id de l'user connecté
-const playersToRank = computed(() => monStore.getMatchToRank)  // Récupère la liste des joueurs de la partie
+const playersToRank = computed(() => dataStore.getMatchToRank)  // Récupère la liste des joueurs de la partie
 const ranking = computed(()=>playersToRank.value.slice().sort((a, b) => a.score - b.score))  // Trie les joueurs selon leur score
 const totalPlayers = computed(()=>playersToRank.value.length)  // Nombre de joueurs total
 const myRank = computed(() => playersToRank.value.filter(i => i.userId == myID.value))  // Score de l'user connecté@/stores/data

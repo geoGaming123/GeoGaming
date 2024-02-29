@@ -25,7 +25,7 @@ import { useRouter } from 'vue-router'
 import { useDataStore } from '@/stores/data'
 import { computed, ref } from 'vue';
 const router = useRouter()
-const monStore = useDataStore()
+const dataStore = useDataStore()
 
 const props = defineProps({
   aMatch : Object,
