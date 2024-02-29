@@ -22,10 +22,10 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-//import { useCounterStore } from '@/stores/counter'
-//import { computed, ref } from 'vue';
+import { useCounterStore } from '@/stores/counter'
+import { computed, ref } from 'vue';
 const router = useRouter()
-//const monStore = useCounterStore()
+const monStore = useCounterStore()
 
 const props = defineProps({
   aMatch : Object,
@@ -60,7 +60,11 @@ const ranking = theMatchPlayers.slice().sort((a, b) => a.time - b.time) // Trié
 const myTime = theMatchPlayers.filter(player => player.userId == myID) // Récupére score id connecté
 const myRank = theMatchPlayers.findIndex(i => i.userId == myID) // Position dans le tableau 
 
-const rankingFirst = {name : 'Tibo', time : '222'} // Data Brut
+monStore.getUser(12)
+const firstUser = ref(monStore.getMyUser)
+
+
+const rankingFirst = {name : 'Tibo'} // Data Brut
 
 const sendTo = (txt, id) => {
   router.push(`/${txt}/${id}`);
