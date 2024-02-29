@@ -13,14 +13,9 @@
 
 <script setup>
 import HeaderComp from '@/components/HeaderComp.vue'
-import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { useCounterStore } from '@/stores/counter'
 import { useGamesStore } from '@/stores/games';
-import { computed } from 'vue'
 
-
-const monStore = useCounterStore()
 const gamesStore = useGamesStore()
 
 const router = useRouter()
