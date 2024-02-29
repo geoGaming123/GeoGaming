@@ -7,7 +7,7 @@ const userStore = useUserStore()
 </script>
 
 <template>
-  <main>
+  <main class="login">
     <LoginComponent v-if="userStore.pageBool == false"/>
     <SignupComponent v-if="userStore.pageBool == true"/>
   </main>

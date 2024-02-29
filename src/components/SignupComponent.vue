@@ -19,36 +19,10 @@ const userStore = useUserStore()
       <input type="file" name="avatarFile" id="avatarFile" class="loginInput" />
       <button class="loginBtn">Envoyer</button>
     </form>
-    <a @click.prevent="userStore.pageBool = !userStore.pageBool" class="createAccount">Déjà un compte ?</a>
+    <p>Vous avez déjà un compte ?<br><a @click.prevent="userStore.pageBool = !userStore.pageBool" class="createAccount">Se connecter</a></p>
   </div>
 </template>
 
 <style scoped>
-.loginForm {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  gap: 0.6em;
-}
 
-.loginBtn {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #00d1c5;
-  color: white;
-  cursor: pointer;
-}
-.createAccount {
-  color: #00D1C5;
-}
-.loginInput {
-  background-color: #fafafa;
-  border: #eeeeee solid 1px;
-  border-radius: 8px;
-  padding: 0.4em 1.2em;
-}
 </style>
