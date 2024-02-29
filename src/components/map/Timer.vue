@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button @click="startTimer" :disabled="timerRunning || !showStartButton">Start</button>
-    <button @click="endTimer" :disabled="!timerRunning">End</button>
+    <button @click="startTimer" v-show="showStartButton" :disabled="startButtonClicked">Start</button>
+    <button @click="endTimer" v-show="showStartButton && timerRunning">End</button>
     <p v-if="timerRunning">Temps écoulé: {{ minutes }} minutes {{ secondes }} secondes</p>
   </div>
 </template>
@@ -10,10 +10,9 @@
 import { ref, defineProps } from 'vue'
 import { userposition } from './Userposition.vue'
 const { showStartButton } = userposition()
-
 let timerRunning = ref(false)
 let intervalId = null
-
+let startButtonClicked = ref(false)
 let minutes = ref(0)
 let secondes = ref(0)
 const props = defineProps({
@@ -21,12 +20,12 @@ const props = defineProps({
 })
 function startTimer() {
   if (showStartButton.value) {
+    startButtonClicked.value = true
     // Vérifiez si le bouton Start peut être activé
     timerRunning.value = true
     props.updateShowMarkers(true)
     minutes.value = 0
     secondes.value = 0
-
     // Mettre à jour les valeurs de minutes et secondes chaque seconde
     intervalId = setInterval(() => {
       if (secondes.value < 59) {

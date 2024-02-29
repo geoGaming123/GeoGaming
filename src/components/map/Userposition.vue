@@ -1,9 +1,9 @@
 <script>
-import { ref, computed, onBeforeUnmount } from 'vue'
+import { ref, computed, onBeforeUnmount} from 'vue'
 import { useGamesStore } from '@/stores/games'
 import * as L from 'leaflet'
 
-export function userposition(map) {
+export function userposition(map, matchId) {
   const gamesStore = useGamesStore()
 
   const match = computed(() => {
@@ -12,9 +12,9 @@ export function userposition(map) {
 
   const showStartButton = ref(false)
   const startPoint = match.value.acf.start_point.position
-  const markers = match.value.acf.markers
+  console.log("START: ", startPoint);
+  console.log("MARKER: " , match.value.acf.markers);
 
-  console.log('START : ', startPoint)
 
   const calculateDistance = (pointA, pointB) => {
     const earthRadius = 6371e3
@@ -33,15 +33,18 @@ export function userposition(map) {
   }
 
   const updateMarkerCaptured = (marker) => {
-    const index = markers.findIndex((m) => m.name === marker.name)
-    if (index !== -1) {
-      markers[index].isCaptured = true
-    }
+  const playerMarkers = gamesStore.oneMatch.acf.players
+    .find(player => player.userId === gamesStore.userId)?.marker || [];
+  
+  const foundMarker = playerMarkers.find((m) => m.name === marker.name);
+  if (foundMarker) {
+    foundMarker.isCaptured = true;
   }
+}
 
-  let watchUserPosition // Déclarer en dehors de la condition pour le garder accessible à onBeforeUnmount
 
-  // Obtenir la position de l'utilisateur
+  let watchUserPosition 
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -57,7 +60,6 @@ export function userposition(map) {
       }
     )
 
-    // Ajouter la fonctionnalité de suivi en temps réel de la position de l'utilisateur
     watchUserPosition = navigator.geolocation.watchPosition(
       (position) => {
         const { latitude, longitude } = position.coords
@@ -81,17 +83,29 @@ export function userposition(map) {
           showStartButton.value = false
         }
 
-        markers.forEach((marker) => {
+        const player = gamesStore.oneMatch.acf.players.find(player => player.userId === gamesStore.userId);
+
+if (player) {
+    const playerMarkers = player.marker;
+    console.log("Player Markers:", playerMarkers);
+} else {
+    console.log("Joueur non trouvé ou joueur sans marqueurs");
+}
+
+const playerMarkers = player ? player.marker : [];
+        playerMarkers.forEach((marker) => {
           const distance = calculateDistance({ latitude, longitude }, marker.position)
           if (distance <= 10 && !marker.isCaptured) {
+            console.log("CAPUTRERRR");
             marker.isCaptured = true
             marker.leafletMarker.setOpacity(0.4)
-            const totalBalises = markers.length
-            const balisesRestantes = markers.filter((m) => !m.isCaptured).length
+            const totalBalises = playerMarkers.length
+            const balisesRestantes = playerMarkers.filter((m) => !m.isCaptured).length
             const balisesPrises = totalBalises - balisesRestantes
             const message = `Vous avez récupéré ${balisesPrises}/${totalBalises} balise(s). ${balisesRestantes} balise(s) restante(s).`
             alert(message)
             updateMarkerCaptured(marker)
+            gamesStore.updatePlayerMarkers(matchId)
           }
         })
       },

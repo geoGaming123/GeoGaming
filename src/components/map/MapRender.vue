@@ -82,7 +82,7 @@ onMounted(() => {
     zoom: 15,
     layers: [L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')]
   })
-console.log('test' + props.markers)
+
   map.whenReady(() => {
     if(props.markers){
   
@@ -101,13 +101,7 @@ console.log('test' + props.markers)
 
           marker.leafletMarker = leafletMarker.addTo(map)
         })
-      } else {
-        // Masquer les marqueurs de la carte
-        markers.forEach((marker) => {
-          map.removeLayer(marker.leafletMarker)
-        })
-    
-    }
+      }
     watch(showMarkers, (newValue) => {
       if (newValue || props.markers) {
         // Afficher les marqueurs sur la carte
@@ -145,7 +139,7 @@ console.log('test' + props.markers)
     }
 
     if (props.position) {
-      userposition(map)
+      userposition(map, matchId)
     }
   })
 })
