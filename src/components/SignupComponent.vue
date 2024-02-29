@@ -2,21 +2,6 @@
 import { useUserStore } from '../stores/user'
 
 const userStore = useUserStore()
-
-/*
-const formData = new FormData(userInfo)
-      // Make your API request to create a new user
-const response = await fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/utilisateur', {
-        method: 'POST',
-        headers: {
-          'Content-Type' : 'application/json',
-          'Authorization': 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwNzk5MDE5NSwibmJmIjoxNzA3OTkwMTk1LCJleHAiOjE3MDg1OTQ5OTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.fgYfqHYmhNdFnW0xOoL2pY1HBsBCgThfi-6sy2ti-FQ'
-        },
-        body: formData
-      })
-      // Example: await fetch('/api/users', { method: 'POST', body: userData });
-      console.log(await response.json());
-*/
 </script>
 
 <template>

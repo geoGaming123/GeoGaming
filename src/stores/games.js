@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { reactive } from 'vue';
+import { useUserStore } from './user';
 
 export const useGamesStore = defineStore('games', {
   id: 'test',
@@ -21,6 +22,10 @@ export const useGamesStore = defineStore('games', {
   }),
 
   getters: {
+    getuserId: (state) => {
+      const userStore = useUserStore()
+      return state.userId = userStore.myID
+    },
     oneMatch: (state) => {
       return state.match;
     },
