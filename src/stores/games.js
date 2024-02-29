@@ -153,6 +153,7 @@ export const useGamesStore = defineStore('games', {
         // Ajouter le nouveau joueur à la liste existante
         existingPlayers.push({
           userId: String(userId),
+          name:"",
           position: {
             latitude: '',
             longitude: ''

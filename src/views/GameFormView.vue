@@ -1,4 +1,5 @@
 <template>
+      <HeaderComp  profile="profile" color="white"></HeaderComp>
   <div class='gameform'>
     <h1>Créer une partie</h1>
     <form @submit.prevent="submitForm">
@@ -25,6 +26,7 @@
 <script setup>
 import { useGamesStore } from '@/stores/games';
 import MapForm from '@/components/map/MapForm.vue';
+import HeaderComp from '@/components/HeaderComp.vue';
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
