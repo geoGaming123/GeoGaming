@@ -23,20 +23,22 @@ const userId = computed(() => {
   return gamesStore.sendUserId;
 });
 
-console.log( 'test' +userId.value)
 
 const btndelete = ref(false);
 const btnleave = ref(false)
 const btnjoin = ref(true);
 const btnmodified = ref(false);
 const startpoint = ref(true);
-const markers = ref(false);
+const markers = ref(true);
 const timer = ref(false);
 const position = ref(true)
 
-if (match.value.authors === userId.value) {
+if (match.value.acf.masteruid === userId.value) {
   startpoint.value = true;
   markers.value = true;
+  position.value= false;
+  btnjoin.value= false
+  console.log("test game")
 }
 
 if (match.value.acf.players.some(player => player.userId === String(userId.value))) {
