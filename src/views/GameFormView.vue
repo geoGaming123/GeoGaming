@@ -27,23 +27,33 @@
 import { useGamesStore } from '@/stores/games';
 import MapForm from '@/components/map/MapForm.vue';
 import HeaderComp from '@/components/HeaderComp.vue';
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
 
-const router = useRouter()
-const gamesStore = useGamesStore()
+const router = useRouter();
+const gamesStore = useGamesStore();
+
 const submitForm = () => {
   // Vérifier si une balise et un startPoint sont présents
   if (!gamesStore.startPoint || !gamesStore.markers) {
-    alert('Veuillez sélectionner une balise et un startPoint.')
-    return
+    alert('Veuillez sélectionner une balise et un startPoint.');
+    return;
+  }
+
+  // Vérifier si la date de début est avant la date de fin
+  const startDate = new Date(gamesStore.formData.startDate);
+  const endDate = new Date(gamesStore.formData.endDate);
+
+  if (startDate >= endDate) {
+    alert('La date de début doit être avant la date de fin.');
+    return;
   }
 
   // Sauvegarder les données dans le localStorage
-  gamesStore.postMatchData()
+  gamesStore.postMatchData();
 
   // Afficher une alerte
-  alert('votre partie à été enregistré')
-  router.go(-1)
+  alert('Votre partie a été enregistrée.');
+  router.go(-1);
 
   // Réinitialiser le formulaire
   gamesStore.formData = {
@@ -52,8 +62,8 @@ const submitForm = () => {
     startDate: '',
     endDate: '',
     startPoint: gamesStore.formData.startPoint
-  }
-}
+  };
+};
 </script>
 
 <style>

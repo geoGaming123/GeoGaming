@@ -79,7 +79,7 @@ export const useUserStore = defineStore({
         console.log(await myID)
         this.myID = myID.id 
         this.myToken = userToken
-      return this.rerout()
+        return this.userData.acf.pseudo = userLoginInfo.user_nicename ,this.rerout()
       } catch (error) {
         console.error('Error while logging in:', error)
         throw error

@@ -29,7 +29,7 @@ const match = computed(() => {
   return gamesStore.oneMatch
 })
 const userId = computed(() => {
-  return gamesStore.sendUserId
+  return gamesStore.getuserId
 })
 
 const btndelete = ref(false)
@@ -41,7 +41,7 @@ const markers = ref(false)
 const timer = ref(false)
 const position = ref(false)
 
-if (match.value.authors === userId.value) {
+if (String(match.value.acf.masteruid) === String(userId.value)) {
   btndelete.value = true
   btnjoin.value = false
   btnmodified.value = true

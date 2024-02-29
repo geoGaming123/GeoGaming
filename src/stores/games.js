@@ -18,10 +18,26 @@ export const useGamesStore = defineStore('games', {
     match: {},
     matches: [],
     players: [],
-    userId: ''
+    userId: '',
+    userToken: '',
+    userName: '',
   }),
 
   getters: {
+    getuserId: (state) => {
+      const userStore = useUserStore()
+      return state.userId = userStore.myID
+    },
+
+    getUserToken: (state) => {
+      const userStore = useUserStore()
+      return state.userToken = userStore.myToken
+    },
+
+    getUserName: (state) => {
+      const userStore = useUserStore()
+      return state.userName = userStore.userData.acf.pseudo
+    },
 
     oneMatch: (state) => {
       return state.match
@@ -32,8 +48,7 @@ export const useGamesStore = defineStore('games', {
     },
 
     sendUserId: (state) => {
-      const userStore = useUserStore()
-      return state.userId = userStore.myID
+      return state.userId
     }
   },
   actions: {
@@ -109,8 +124,7 @@ export const useGamesStore = defineStore('games', {
     async joinGame(matchId) {
       const userId = this.userId
       try {
-        const token =
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwOTEyODE1MiwibmJmIjoxNzA5MTI4MTUyLCJleHAiOjE3MDk3MzI5NTIsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.WvWfzVTkalj9yAFVkbMrXREJKrwR61EWEU8xqYfHb7M'
+        const token = this.userToken
 
         const matchData = {
           fields: {
@@ -156,7 +170,7 @@ export const useGamesStore = defineStore('games', {
         // Ajouter le nouveau joueur à la liste existante
         existingPlayers.push({
           userId: String(userId),
-          name:"",
+          name:this.userName,
           position: {
             latitude: '',
             longitude: ''
@@ -199,8 +213,7 @@ export const useGamesStore = defineStore('games', {
     async leaveGame(matchId) {
       const userId = this.userId
       try {
-        const token =
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwOTEyODE1MiwibmJmIjoxNzA5MTI4MTUyLCJleHAiOjE3MDk3MzI5NTIsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.WvWfzVTkalj9yAFVkbMrXREJKrwR61EWEU8xqYfHb7M'
+        const token = this.userToken
 
         // Récupérer les informations des joueurs du champ acf
         const oneMatch = this.oneMatch
@@ -248,16 +261,9 @@ export const useGamesStore = defineStore('games', {
     },
 
     postMatchData() {
-      console.log(sendUserId.value)
-      // Vérifie si le masteruid est vide
-      const token =
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwOTEyODE1MiwibmJmIjoxNzA5MTI4MTUyLCJleHAiOjE3MDk3MzI5NTIsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.WvWfzVTkalj9yAFVkbMrXREJKrwR61EWEU8xqYfHb7M'
-      if (!this.userId) {
-        alert('Le masteruid est vide. Veuillez vous assurer de vous connecter.');
-        return;
-      }
-  
-      // Crée l'objet de données pour la requête POST
+      console.log(this.userId)
+      const token = this.userToken
+
       const matchData = {
         status: 'publish',
         title: this.formData.title,
@@ -283,9 +289,8 @@ export const useGamesStore = defineStore('games', {
           masteruid: this.userId,
           players: []
         }
-      };
+      }
 
-      // Effectue la requête POST
       fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match', {
         method: 'POST',
         headers: {
@@ -294,17 +299,15 @@ export const useGamesStore = defineStore('games', {
         },
         body: JSON.stringify(matchData)
       })
-      console.log(this.userId)
-
         .then((response) => response.json())
         .then((data) => {
-          console.log("Réponse de l'API :", data);
+          console.log("Réponse de l'API :", data)
           // Ajoutez ici toute logique de gestion de la réponse de l'API
         })
         .catch((error) => {
-          console.error('Erreur lors de la requête POST :', error);
-          alert('Erreur lors de l\'envoi du formulaire. Veuillez vérifier la console pour plus de détails.');
-        });
+          console.error('Erreur lors de la requête POST :', error)
+          // Ajoutez ici toute logique de gestion des erreurs
+        })
     },
 
     updateMarkers(markers) {
@@ -323,8 +326,7 @@ export const useGamesStore = defineStore('games', {
     },
 
     async deleteGame(matchId) {
-      const token =
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwOTEyODE1MiwibmJmIjoxNzA5MTI4MTUyLCJleHAiOjE3MDk3MzI5NTIsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.WvWfzVTkalj9yAFVkbMrXREJKrwR61EWEU8xqYfHb7M'
+      const token = this.userToken
       try {
         const response = await fetch(
           `https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`,
