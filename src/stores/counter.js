@@ -56,6 +56,7 @@ export const useCounterStore = defineStore('counter', {
       })
         .then((res) => res.json())
         .then((res) => {
+          console.log(res)
           this.myUser = res
         })
         .catch((error) => console.error('Erreur :', error))
