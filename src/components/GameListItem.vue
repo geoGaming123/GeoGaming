@@ -22,10 +22,10 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-//import { useCounterStore } from '@/stores/counter'
-//import { computed, ref } from 'vue';
+import { useCounterStore } from '@/stores/counter'
+import { computed, ref } from 'vue';
 const router = useRouter()
-//const monStore = useCounterStore()
+const monStore = useCounterStore()
 
 const props = defineProps({
   aMatch : Object,
@@ -48,20 +48,19 @@ const startHour = startDate.getHours()
 const startMin = startDate.getMinutes()
 const formattedStartTime = `${startHour}:${startMin < 10 ? '0' : ''}${startMin}`;
 
-const now = new Date();
-const futureDate = new Date(props.aMatch.acf.end_date);
-const timeDiff = futureDate.getTime() - now.getTime();
-const dayRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24));
-const hourRemaining = Math.floor((timeDiff / (1000 * 3600)) % 24); // Utilisation de Math.floor au lieu de Math.ceil et correction de la formule
+const now = new Date(); // Récupère la date du jour
+const futureDate = new Date(props.aMatch.acf.end_date); // Récupère la date de fin de partie
+const timeDiff = futureDate.getTime() - now.getTime(); // Calcule le temps restant
+const dayRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Jours restants
+const hourRemaining = Math.floor((timeDiff / (1000 * 3600)) % 24); // Heures restantes
 
-const theMatch = props.aMatch
-const theMatchPlayers = theMatch.acf.players
-const ranking = theMatchPlayers.slice().sort((a, b) => a.time - b.time)
-//const rankingFirst = ranking[0]
-const rankingFirst = {name : 'Tibo', time : '222'}
-const myTime = theMatchPlayers.filter(player => player.userId == myID)
-const myRank = theMatchPlayers.findIndex(i => i.userId == myID)
+const theMatch = props.aMatch // Données de la partie
+const theMatchPlayers = theMatch.acf.players // Joueurs de la partie
+const ranking = theMatchPlayers.slice().sort((a, b) => a.time - b.time) // Trié dans l'ordre de leur temps
+const myTime = theMatchPlayers.filter(player => player.userId == myID) // Récupére score id connecté
+const myRank = theMatchPlayers.findIndex(i => i.userId == myID) // Position dans le tableau 
 
+const rankingFirst = ranking[0]
 
 const sendTo = (txt, id) => {
   router.push(`/${txt}/${id}`);
