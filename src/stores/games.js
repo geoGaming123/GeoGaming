@@ -20,23 +20,23 @@ export const useGamesStore = defineStore('games', {
     players: [],
     userId: '',
     userToken: '',
-    userName: '',
+    userName: ''
   }),
 
   getters: {
     getuserId: (state) => {
       const userStore = useUserStore()
-      return state.userId = userStore.myID
+      return (state.userId = userStore.myID)
     },
 
     getUserToken: (state) => {
       const userStore = useUserStore()
-      return state.userToken = userStore.myToken
+      return (state.userToken = userStore.myToken)
     },
 
     getUserName: (state) => {
       const userStore = useUserStore()
-      return state.userName = userStore.userData.acf.pseudo
+      return (state.userName = userStore.userData.acf.pseudo)
     },
 
     oneMatch: (state) => {
@@ -170,7 +170,7 @@ export const useGamesStore = defineStore('games', {
         // Ajouter le nouveau joueur à la liste existante
         existingPlayers.push({
           userId: String(userId),
-          name:this.userName,
+          name: this.userName,
           position: {
             latitude: '',
             longitude: ''
@@ -373,56 +373,56 @@ export const useGamesStore = defineStore('games', {
     updateUserMarker(marker) {
       // Mettre à jour la référence du marqueur de l'utilisateur dans le store
       this.userMarker = marker
-    },
-    async updatePlayerMarkers({ markerId, matchId }) {
-      try {
-        // Accéder à la liste des joueurs dans l'état
-        const players = this.match.acf.players
-        console.log('Liste des joueurs avant la mise à jour :', players)
-
-        // Identifier le joueur à mettre à jour
-        const playerToUpdate = players.find((player) => player.userId === this.userId)
-
-        if (playerToUpdate) {
-          // Mettre à jour l'état de capture du marqueur dans les données du joueur
-          playerToUpdate.marker.forEach((marker) => {
-            if (marker.name === ) {
-              marker.isCaptured = true // Marqueur capturé
-            }
-          })
-
-          // Envoyer une requête PATCH pour mettre à jour les données du joueur dans la base de données
-          const token =
-            'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwOTEyODE1MiwibmJmIjoxNzA5MTI4MTUyLCJleHAiOjE3MDk3MzI5NTIsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.WvWfzVTkalj9yAFVkbMrXREJKrwR61EWEU8xqYfHb7M'
-
-          const response = await fetch(
-            `https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`,
-            {
-              method: 'PATCH',
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
-              },
-              body: JSON.stringify({
-                fields: {
-                  // Mise à jour des données du joueur dans le corps de la requête PATCH
-                  players: players
-                }
-              })
-            }
-          )
-
-          if (response.ok) {
-            console.log('Données du joueur mises à jour avec succès.')
-          } else {
-            console.error('Erreur lors de la mise à jour des données du joueur:', response.status)
-          }
-        } else {
-          console.error('Joueur non trouvé pour mettre à jour les marqueurs capturés.')
-        }
-      } catch (error) {
-        console.error('Erreur lors de la mise à jour des marqueurs du joueur :', error)
-      }
     }
+    // async updatePlayerMarkers({ markerId, matchId }) {
+    //   try {
+    //     // Accéder à la liste des joueurs dans l'état
+    //     const players = this.match.acf.players
+    //     console.log('Liste des joueurs avant la mise à jour :', players)
+
+    //     // Identifier le joueur à mettre à jour
+    //     const playerToUpdate = players.find((player) => player.userId === this.userId)
+
+    //     if (playerToUpdate) {
+    //       // Mettre à jour l'état de capture du marqueur dans les données du joueur
+    //       playerToUpdate.marker.forEach((marker) => {
+    //         if (marker.name === ) {
+    //           marker.isCaptured = true // Marqueur capturé
+    //         }
+    //       })
+
+    //       // Envoyer une requête PATCH pour mettre à jour les données du joueur dans la base de données
+    //       const token =
+    //         'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwOTEyODE1MiwibmJmIjoxNzA5MTI4MTUyLCJleHAiOjE3MDk3MzI5NTIsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.WvWfzVTkalj9yAFVkbMrXREJKrwR61EWEU8xqYfHb7M'
+
+    //       const response = await fetch(
+    //         `https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`,
+    //         {
+    //           method: 'PATCH',
+    //           headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization: `Bearer ${token}`
+    //           },
+    //           body: JSON.stringify({
+    //             fields: {
+    //               // Mise à jour des données du joueur dans le corps de la requête PATCH
+    //               players: players
+    //             }
+    //           })
+    //         }
+    //       )
+
+    //       if (response.ok) {
+    //         console.log('Données du joueur mises à jour avec succès.')
+    //       } else {
+    //         console.error('Erreur lors de la mise à jour des données du joueur:', response.status)
+    //       }
+    //     } else {
+    //       console.error('Joueur non trouvé pour mettre à jour les marqueurs capturés.')
+    //     }
+    //   } catch (error) {
+    //     console.error('Erreur lors de la mise à jour des marqueurs du joueur :', error)
+    //   }
+    // }
   }
 })
