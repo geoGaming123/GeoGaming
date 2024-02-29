@@ -14,7 +14,7 @@ export function userposition(map) {
   const startPoint = match.value.acf.start_point.position
   const markers = match.value.acf.markers
 
-  // console.log('START : ', startPoint)
+  console.log('START : ', startPoint)
 
   const calculateDistance = (pointA, pointB) => {
     const earthRadius = 6371e3

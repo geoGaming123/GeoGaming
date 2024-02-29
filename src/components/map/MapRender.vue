@@ -82,8 +82,32 @@ onMounted(() => {
     zoom: 15,
     layers: [L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')]
   })
-
+console.log('test' + props.markers)
   map.whenReady(() => {
+    if(props.markers){
+  
+        // Afficher les marqueurs sur la carte
+        markers.forEach((marker) => {
+          const { latitude, longitude } = marker.position
+          const markerIcon = L.icon({
+            iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
+            iconSize: [50, 50],
+            iconAnchor: [12, 41],
+            popupAnchor: [0, -30]
+          })
+          const leafletMarker = L.marker([latitude, longitude], { icon: markerIcon }).bindPopup(
+            `<b>${marker.name}</b>`
+          )
+
+          marker.leafletMarker = leafletMarker.addTo(map)
+        })
+      } else {
+        // Masquer les marqueurs de la carte
+        markers.forEach((marker) => {
+          map.removeLayer(marker.leafletMarker)
+        })
+    
+    }
     watch(showMarkers, (newValue) => {
       if (newValue || props.markers) {
         // Afficher les marqueurs sur la carte
