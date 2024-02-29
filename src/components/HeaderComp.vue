@@ -10,7 +10,7 @@
     <div class="header_profile" :class="{ hidden: showProfileBtn }">
       <img src="../assets/Icons/Profile-pic.png" alt="" @click="showProfileWindow" />
       <div id="profileWindow" class="header_myprofile hidden">
-        <img src="" alt="Photo" /> Pseudo<br />
+        <img src="" alt="Photo" /> {{ myInfo }}<br />
         <router-link to="/profile">Modifier le profil ?</router-link><br />
         <router-link to="/help">Besoin d'aide ?</router-link>
         <router-link to="/"><button @click="disconnect">Déconnexion</button></router-link>
@@ -22,6 +22,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user';
 
 const props = defineProps({
   data: String,
@@ -29,6 +30,8 @@ const props = defineProps({
   color: String
 })
 
+const userStore = useUserStore()
+const myInfo = computed(() => userStore.userData.acf.pseudo)
 const router = useRouter()
 
 const showLogo = computed(() => {

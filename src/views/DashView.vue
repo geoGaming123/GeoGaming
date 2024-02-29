@@ -13,15 +13,13 @@
 
 <script setup>
 import HeaderComp from '@/components/HeaderComp.vue'
-import { useRouter } from 'vue-router'
-import { useCounterStore } from '@/stores/counter'
-import { useUserStore } from '@/stores/user';
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user';
 
-const monStore = useCounterStore()
 const userStore = useUserStore()
-const router = useRouter()
 const myInfo = computed(() => userStore.userData.acf.pseudo)
+const router = useRouter()
 const sendToHome = () => {
   router.push(`/home`)
 }
