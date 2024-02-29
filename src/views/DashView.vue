@@ -15,12 +15,21 @@
 import HeaderComp from '@/components/HeaderComp.vue'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '@/stores/user';
+import { useCounterStore } from '@/stores/counter'
+import { useGamesStore } from '@/stores/games';
+import { computed } from 'vue'
 
-const userStore = useUserStore()
-const myInfo = computed(() => userStore.userData.acf.pseudo)
+
+const monStore = useCounterStore()
+const gamesStore = useGamesStore()
+
 const router = useRouter()
 const sendToHome = () => {
   router.push(`/home`)
 }
+   gamesStore.getuserId
+   gamesStore.getUserName
+   gamesStore.getUserToken
+
+
 </script>

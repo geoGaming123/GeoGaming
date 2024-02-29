@@ -38,16 +38,23 @@ const btnleave = ref(false)
 const btnjoin = ref(true)
 const btnmodified = ref(false)
 const startpoint = ref(true)
-const markers = ref(true)
-const timer = ref(false)
+const markers = ref(false)
+const timer = ref(true)
 const position = ref(true)
 
-if (match.value.acf.masteruid === userId.value) {
+console.log(String(match.value.acf.masteruid))
+console.log(String(userId.value))
+console.log("test")
+
+if (String(match.value.acf.masteruid) === String(userId.value)) {
   startpoint.value = true
   markers.value = true
   position.value = false
   btnjoin.value = false
-  console.log('test game')
+  btnleave.value = false
+  timer.value = false
+  console.log('test game') 
+
 }
 
 if (match.value.acf.players.some((player) => player.userId === String(userId.value))) {
