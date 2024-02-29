@@ -23,9 +23,11 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { useCounterStore } from '@/stores/counter'
+import { useUserStore } from '@/stores/user'
 import { computed } from 'vue';
 const router = useRouter()
 const monStore = useCounterStore()
+const userStore = useUserStore()
 
 const props = defineProps({
   aMatch : Object,
@@ -39,7 +41,7 @@ const formatDate = (dateString) => {
   return date.toLocaleDateString('fr-FR'); // Changez 'fr-FR' par le code de la locale souhaitée
 };
 
-const myID = 9
+const myID = userStore.myID
 
 const startDateTime = props.aMatch.acf.start_date; // Obtenez la date de fin complète
 const startDate = new Date(startDateTime); // Convertissez la chaîne en objet Date
@@ -66,7 +68,7 @@ const ranking = theMatchPlayers.sort((a, b) => {
 const playerIndex = ranking.findIndex(player => player.userId == myID);
 
 //const rankingFirst = ranking[0]
-monStore.getUser(9) //rankingFirst.userId
+monStore.getUser(myID) //rankingFirst.userId
 const bestUser = computed(()=>monStore.getMyUser)
 
 const sendTo = (txt, id) => {

@@ -76,7 +76,7 @@ export const useUserStore = defineStore({
           }
         })
         const myID = await userID.json()
-        console.log(await myID.id)
+        console.log(await myID)
         this.myID = myID.id 
         this.myToken = userToken
       return this.rerout()
