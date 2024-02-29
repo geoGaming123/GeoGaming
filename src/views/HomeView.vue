@@ -31,10 +31,10 @@ import HeaderComp from '@/components/HeaderComp.vue'
 import NavComp from '@/components/NavComp.vue'
 import GameList from '@/components/GameList.vue'
 import { ref, computed } from 'vue'
-import { useCounterStore } from '@/stores/counter'
+import { useDataStore } from '@/stores/data'
 import { useUserStore } from '@/stores/user'
 
-const monStore = useCounterStore()
+const monStore = useDataStore()
 monStore.getAllMatches() // Charge les données des parties et distribue en 3 array selon la temporalité
 const userStore = useUserStore()
 const myID = computed(() => userStore.myID)  // Récupère l'id de l'user connecté
@@ -60,3 +60,4 @@ const PresentMatchesData = computed(() => { // Récupère le tableau des parties
 </script>
 
 <style scoped></style>
+@/stores/data

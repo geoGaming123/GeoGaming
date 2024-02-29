@@ -18,7 +18,7 @@ import HeaderComp from '@/components/HeaderComp.vue'
 import MyRank from '@/components/MyRank.vue'
 import RankEl from '@/components/RankEl.vue'
 import { computed, ref } from 'vue'
-import { useCounterStore } from '@/stores/counter'
+import { useDataStore } from '@/stores/data'
 import { useUserStore } from '@/stores/user'
 
 const getIdFromUrl = () => {
@@ -27,7 +27,7 @@ const getIdFromUrl = () => {
   const id = pathComponents[pathComponents.length - 1]
   return id
 }
-const monStore = useCounterStore()
+const monStore = useDataStore()
 const userStore = useUserStore()
 monStore.getAMatch(getIdFromUrl()) // Va chercher le match correspondant à l'id de l'url
 
@@ -35,7 +35,7 @@ const myID = computed(() => userStore.myID) // Récupère l'id de l'user connect
 const playersToRank = computed(() => monStore.getMatchToRank)  // Récupère la liste des joueurs de la partie
 const ranking = computed(()=>playersToRank.value.slice().sort((a, b) => a.score - b.score))  // Trie les joueurs selon leur score
 const totalPlayers = computed(()=>playersToRank.value.length)  // Nombre de joueurs total
-const myRank = computed(() => playersToRank.value.filter(i => i.userId == myID.value))  // Score de l'user connecté
+const myRank = computed(() => playersToRank.value.filter(i => i.userId == myID.value))  // Score de l'user connecté@/stores/data
 const myRankNumber = computed(()=>ranking.value.findIndex(i => i.userId == myID.value) + 1)  // Classement de l'user connecté
 
 </script>

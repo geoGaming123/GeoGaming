@@ -22,10 +22,10 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-import { useCounterStore } from '@/stores/counter'
+import { useDataStore } from '@/stores/data'
 import { computed, ref } from 'vue';
 const router = useRouter()
-const monStore = useCounterStore()
+const monStore = useDataStore()
 
 const props = defineProps({
   aMatch : Object,
@@ -68,4 +68,4 @@ const sendTo = (txt, id) => {
 
 
 
-</script>
+</script>@/stores/data
