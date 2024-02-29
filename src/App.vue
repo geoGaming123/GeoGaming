@@ -20,14 +20,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <nav class="test">
-        <RouterLink to="/">Login</RouterLink> || <RouterLink to="/dash">Dashboard</RouterLink> ||
-      </nav>
-    </div>
-  </header>
-
   <RouterView />
 </template>
 
