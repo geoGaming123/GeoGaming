@@ -31,16 +31,13 @@ const monStore = useCounterStore()
 const userStore = useUserStore()
 monStore.getAMatch(getIdFromUrl()) // Va chercher le match correspondant à l'id de l'url
 
-const myID = computed(() => userStore.myID)
-const playersToRank = computed(() => monStore.getMatchToRank)
-const ranking = computed(()=>playersToRank.value.slice().sort((a, b) => a.score - b.score))
-const totalPlayers = computed(()=>playersToRank.value.length)
-const myRank = computed(() => playersToRank.value.filter(i => i.userId == myID.value))
-const myRankNumber = computed(()=>ranking.value.findIndex(i => i.userId == myID.value) + 1)
-setTimeout(()=>{
-  console.log("myIDDD - " + myID.value)
-  console.log("myRANK - " + totalPlayers.value)
-},2000)
+const myID = computed(() => userStore.myID) // Récupère l'id de l'user connecté
+const playersToRank = computed(() => monStore.getMatchToRank)  // Récupère la liste des joueurs de la partie
+const ranking = computed(()=>playersToRank.value.slice().sort((a, b) => a.score - b.score))  // Trie les joueurs selon leur score
+const totalPlayers = computed(()=>playersToRank.value.length)  // Nombre de joueurs total
+const myRank = computed(() => playersToRank.value.filter(i => i.userId == myID.value))  // Score de l'user connecté
+const myRankNumber = computed(()=>ranking.value.findIndex(i => i.userId == myID.value) + 1)  // Classement de l'user connecté
+
 </script>
 
 <style scoped></style>

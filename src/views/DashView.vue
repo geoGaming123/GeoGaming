@@ -21,11 +21,14 @@ import { computed } from 'vue'
 const gamesStore = useGamesStore()
 const userStore = useUserStore()
 const router = useRouter()
-const myInfo = computed(() => userStore.userData.acf.pseudo)
-const sendToHome = () => {
+const myInfo = computed(() => userStore.userData.acf.pseudo) // Récupère le pseudo de l'user connecté
+
+const sendToHome = () => {  // Envoie l'user vers HomeView
   router.push(`/home`)
 }
-    gamesStore.getuserId
-   gamesStore.getUserName
-   gamesStore.getUserToken
+
+gamesStore.getuserId // Envoie les données de l'user vers gamesStore
+gamesStore.getUserName
+gamesStore.getUserToken
+
 </script>
