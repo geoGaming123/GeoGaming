@@ -49,6 +49,8 @@ if (String(match.value.acf.masteruid) === String(userId.value)) {
   markers.value = true
   position.value = false
   btnjoin.value = false
+  btnleave.value = false
+  timer.value = false
   console.log('test game') 
 
 }

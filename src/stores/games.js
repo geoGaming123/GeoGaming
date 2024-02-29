@@ -248,10 +248,16 @@ export const useGamesStore = defineStore('games', {
     },
 
     postMatchData() {
-      console.log(this.userId)
+      console.log(sendUserId.value)
+      // Vérifie si le masteruid est vide
       const token =
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwOTEyODE1MiwibmJmIjoxNzA5MTI4MTUyLCJleHAiOjE3MDk3MzI5NTIsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.WvWfzVTkalj9yAFVkbMrXREJKrwR61EWEU8xqYfHb7M'
-
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwOTEyODE1MiwibmJmIjoxNzA5MTI4MTUyLCJleHAiOjE3MDk3MzI5NTIsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.WvWfzVTkalj9yAFVkbMrXREJKrwR61EWEU8xqYfHb7M'
+      if (!this.userId) {
+        alert('Le masteruid est vide. Veuillez vous assurer de vous connecter.');
+        return;
+      }
+  
+      // Crée l'objet de données pour la requête POST
       const matchData = {
         status: 'publish',
         title: this.formData.title,
@@ -277,8 +283,9 @@ export const useGamesStore = defineStore('games', {
           masteruid: this.userId,
           players: []
         }
-      }
+      };
 
+      // Effectue la requête POST
       fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match', {
         method: 'POST',
         headers: {
@@ -287,15 +294,17 @@ export const useGamesStore = defineStore('games', {
         },
         body: JSON.stringify(matchData)
       })
+      console.log(this.userId)
+
         .then((response) => response.json())
         .then((data) => {
-          console.log("Réponse de l'API :", data)
+          console.log("Réponse de l'API :", data);
           // Ajoutez ici toute logique de gestion de la réponse de l'API
         })
         .catch((error) => {
-          console.error('Erreur lors de la requête POST :', error)
-          // Ajoutez ici toute logique de gestion des erreurs
-        })
+          console.error('Erreur lors de la requête POST :', error);
+          alert('Erreur lors de l\'envoi du formulaire. Veuillez vérifier la console pour plus de détails.');
+        });
     },
 
     updateMarkers(markers) {

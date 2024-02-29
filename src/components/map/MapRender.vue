@@ -101,13 +101,10 @@ console.log('test' + props.markers)
 
           marker.leafletMarker = leafletMarker.addTo(map)
         })
-      } else {
-        // Masquer les marqueurs de la carte
-        markers.forEach((marker) => {
-          map.removeLayer(marker.leafletMarker)
-        })
+        
+      } 
+
     
-    }
     watch(showMarkers, (newValue) => {
       if (newValue || props.markers) {
         // Afficher les marqueurs sur la carte
@@ -132,6 +129,9 @@ console.log('test' + props.markers)
         })
       }
     })
+
+
+
     if (props.startpoint) {
       const startPointIcon = L.icon({
         iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',
