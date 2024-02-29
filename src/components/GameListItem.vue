@@ -60,11 +60,7 @@ const ranking = theMatchPlayers.slice().sort((a, b) => a.time - b.time) // Trié
 const myTime = theMatchPlayers.filter(player => player.userId == myID) // Récupére score id connecté
 const myRank = theMatchPlayers.findIndex(i => i.userId == myID) // Position dans le tableau 
 
-monStore.getUser(12)
-const firstUser = ref(monStore.getMyUser)
-
-
-const rankingFirst = {name : 'Tibo'} // Data Brut
+const rankingFirst = ranking[0]
 
 const sendTo = (txt, id) => {
   router.push(`/${txt}/${id}`);
