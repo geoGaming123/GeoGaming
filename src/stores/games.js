@@ -22,10 +22,7 @@ export const useGamesStore = defineStore('games', {
   }),
 
   getters: {
-    getuserId: (state) => {
-      const userStore = useUserStore()
-      return state.userId = userStore.myID
-    },
+
     oneMatch: (state) => {
       return state.match
     },
@@ -35,7 +32,8 @@ export const useGamesStore = defineStore('games', {
     },
 
     sendUserId: (state) => {
-      return state.userId
+      const userStore = useUserStore()
+      return state.userId = userStore.myID
     }
   },
   actions: {
@@ -250,6 +248,7 @@ export const useGamesStore = defineStore('games', {
     },
 
     postMatchData() {
+      console.log(this.userId)
       const token =
         'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwOTEyODE1MiwibmJmIjoxNzA5MTI4MTUyLCJleHAiOjE3MDk3MzI5NTIsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.WvWfzVTkalj9yAFVkbMrXREJKrwR61EWEU8xqYfHb7M'
 
