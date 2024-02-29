@@ -41,7 +41,6 @@ export const useCounterStore = defineStore('counter', {
       fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/' + id)
         .then((res) => res.json())
         .then((res) => {
-          console.log(res)
           const playersData = res.acf.players
           this.matchToRank = playersData
         })
@@ -57,7 +56,6 @@ export const useCounterStore = defineStore('counter', {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log(res)
           this.myUser = res
         })
         .catch((error) => console.error('Erreur :', error))

@@ -42,13 +42,17 @@ const markers = ref(false)
 const timer = ref(true)
 const position = ref(true)
 
-
+console.log(String(match.value.acf.masteruid))
+console.log(String(userId.value))
+console.log("test")
 
 if (String(match.value.acf.masteruid) === String(userId.value)) {
   startpoint.value = true
   markers.value = true
   position.value = false
   btnjoin.value = false
+  btnleave.value = false
+  timer.value = false
   console.log('test game') 
 
 }

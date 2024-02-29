@@ -32,36 +32,29 @@ import NavComp from '@/components/NavComp.vue'
 import GameList from '@/components/GameList.vue'
 import { ref, computed } from 'vue'
 import { useCounterStore } from '@/stores/counter'
-import { useGamesStore } from '@/stores/games'
 import { useUserStore } from '@/stores/user'
 
 const monStore = useCounterStore()
 monStore.getAllMatches() // Charge les données des parties et distribue en 3 array selon la temporalité
-const gameStore = useGamesStore()
 const userStore = useUserStore()
-const myID = computed(() => userStore.myID)
-setTimeout(() => {
-  console.log('HomeV - ID - ' + myID.value)
-}, 3000)
-setTimeout(() => {
-  console.log(myID.value)
-}, 2000)
+const myID = computed(() => userStore.myID)  // Récupère l'id de l'user connecté
 
-const showMenuData = ref('present')
-const showMenu = (tab) => {
-  //Recois "tab" du footer pour savoir le menu actif
+setTimeout(() => {
+  console.log('HomeView - ID - ' + myID.value)
+}, 3000)
+
+const showMenuData = ref('present') // Nav à afficher par défaut
+
+const showMenu = (tab) => { //Recois "tab" du footer pour savoir le menu actif
   showMenuData.value = tab
 }
-const FutureMatchesData = computed(() => {
-  // Récupère le tableau des parties futures
+const FutureMatchesData = computed(() => { // Récupère le tableau des parties futures
   return monStore.getMatchesFuture
 })
-const PastMatchesData = computed(() => {
-  // Récupère le tableau des parties passées
+const PastMatchesData = computed(() => { // Récupère le tableau des parties passées
   return monStore.getMatchesPast
 })
-const PresentMatchesData = computed(() => {
-  // Récupère le tableau des parties en cours
+const PresentMatchesData = computed(() => { // Récupère le tableau des parties en cours
   return monStore.getMatchesPresent
 })
 </script>

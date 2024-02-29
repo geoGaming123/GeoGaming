@@ -101,7 +101,10 @@ onMounted(() => {
 
           marker.leafletMarker = leafletMarker.addTo(map)
         })
-      }
+        
+      } 
+
+    
     watch(showMarkers, (newValue) => {
       if (newValue || props.markers) {
         // Afficher les marqueurs sur la carte
@@ -126,6 +129,9 @@ onMounted(() => {
         })
       }
     })
+
+
+
     if (props.startpoint) {
       const startPointIcon = L.icon({
         iconUrl: 'https://static.thenounproject.com/png/4418877-200.png',

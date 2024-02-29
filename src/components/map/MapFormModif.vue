@@ -29,16 +29,18 @@ import * as GeoSearch from 'leaflet-geosearch'
 const props = defineProps('id')
 const gamesStore = useGamesStore()
 const matchId = props.id
-console.log(matchId)
-const allMarkers = ref([])
+
 
 gamesStore.getMatch(matchId)
+
 
 const match = ref(
   computed(() => {
     return gamesStore.oneMatch
   })
 )
+
+console.log(matchId)
 onMounted(() => {})
 
 setTimeout(() => {
