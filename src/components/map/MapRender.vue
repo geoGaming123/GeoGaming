@@ -3,6 +3,15 @@
   <p>{{ match.acf.description }}</p>
   <p>Start Date: {{ match.acf.start_date }}</p>
   <p>End Date: {{ match.acf.end_date }}</p>
+  <p>balise: {{ match.acf.markers.length }}</p>
+  <div v-if="match.acf.players.length > 1">
+  <p>players: {{ match.acf.players.length }}</p>
+</div>
+<div v-else>
+  <p>players: 0</p>
+</div>
+
+
 
   <div id="map"></div>
 
