@@ -16,7 +16,7 @@ import HeaderComp from '@/components/HeaderComp.vue'
 import { useRouter } from 'vue-router'
 import { useGamesStore } from '@/stores/games'
 import { useUserStore } from '@/stores/user';
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 
 const gamesStore = useGamesStore()
 const userStore = useUserStore()
@@ -24,11 +24,23 @@ const router = useRouter()
 const myInfo = computed(() => userStore.userData.acf.pseudo) // Récupère le pseudo de l'user connecté
 
 const sendToHome = () => {  // Envoie l'user vers HomeView
-  router.push(`/home`)
+router.push(`/home`)
 }
 
+const matches = computed(() => {
+  return gamesStore.allMatches
+})
 gamesStore.getuserId // Envoie les données de l'user vers gamesStore
 gamesStore.getUserName
 gamesStore.getUserToken
+
+onMounted(() => {
+  gamesStore
+  .getMatches()
+  .then(() => {
+    console.log(matches.value)
+  })
+  .catch((error) => console.error('Error fetching matches:', error))
+})
 
 </script>
