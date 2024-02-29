@@ -10,7 +10,7 @@ const userStore = useUserStore()
   <div class="card">
     <form action="" method="post" class="loginForm" @submit.prevent="userStore.loginUser">
       <label for="username">Username :</label>
-      <input v-model="userStore.userLogin.username" type="text" name="username" id="username" class="loginInput" placeholder="exemple@email.com">
+      <input v-model="userStore.userLogin.username" type="text" name="username" id="username" class="loginInput" placeholder="exemple">
       <label for="password">Mot de passe :</label>
       <input v-model="userStore.userLogin.password" type="password" name="password" id="password" class="loginInput" placeholder="******">
       <button class="loginBtn">Connexion</button>
