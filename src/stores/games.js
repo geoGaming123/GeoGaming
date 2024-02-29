@@ -349,14 +349,11 @@ export const useGamesStore = defineStore('games', {
     updateUserPosition(position) {
       // Mettre à jour la position du joueur dans le store
       this.userPosition = position
-      // Sauvegarder la position du joueur dans le localStorage
-      // this.saveDataToLocalStorage()
     },
 
     updateUserMarker(marker) {
       // Mettre à jour la référence du marqueur de l'utilisateur dans le store
       this.userMarker = marker
-      // this.saveDataToLocalStorage()
     }
   }
 })
