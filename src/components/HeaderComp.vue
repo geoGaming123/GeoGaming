@@ -13,7 +13,7 @@
         <img src="" alt="Photo" /> {{ myInfo }}<br />
         <router-link to="/profile">Modifier le profil ?</router-link><br />
         <router-link to="/help">Besoin d'aide ?</router-link>
-        <router-link to="/"><button @click="disconnect">Déconnexion</button></router-link>
+        <button @click="disconnect">Déconnexion</button>
       </div>
     </div>
   </section>
@@ -50,7 +50,10 @@ const showProfileWindow = () => {
 }
 
 const disconnect = () => {
-  console.log('Déconnecté')
+  if(confirm('Voulez-vous vraiment vous déconnecter ?')){
+    console.log('Déconnecté')
+    router.push('/')
+  }
 }
 </script>
 
