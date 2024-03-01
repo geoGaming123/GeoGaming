@@ -174,6 +174,37 @@
 }
 
 // ********************************* //
+// *********** HELP-VIEW *********** //
+// ********************************* //
+
+.rules {
+  padding-inline: 1rem;
+  & h1 {
+    text-align: center;
+    margin-block: .5rem;
+  }
+  & details {
+    padding-block: 0.5rem;
+    text-align: left;
+    & summary {
+      font-size: 1rem;
+      font-style: italic;
+      & span {
+        font-weight: 500;
+        text-decoration: underline;
+        font-style: normal;
+      }
+    }
+    & div {
+      padding: .5rem;
+    }
+  }
+  &-end {
+    margin: .8rem;
+  }
+}
+
+// ********************************* //
 // *********** RANK-VIEW *********** //
 // ********************************* //
 
