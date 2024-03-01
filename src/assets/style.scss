@@ -228,7 +228,7 @@
       text-align: center;
     }
   }
-  &_first {
+  &_me {
     color: $theme-color;
   }
 }
@@ -247,6 +247,7 @@
   color: white;
   &_pseudo {
     margin-inline-start: 1rem;
+    color: darken($color: $theme-color, $amount: 15);
   }
   &_Stat {
     width: 100%;

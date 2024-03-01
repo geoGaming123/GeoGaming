@@ -4,7 +4,8 @@
     <MyRank v-for="(rank, index) in myRank" :key="index" :rank="rank" :myRankNumber="myRankNumber" :players="totalPlayers"></MyRank>
     <ul class="rankList">
       <RankEl
-        v-for="(player, index) in playersToRank"
+        v-for="(player, index) in ranking"
+        :myID="myID" 
         :key="index"
         :aPlayer="player"
         :index="index"
@@ -17,7 +18,7 @@
 import HeaderComp from '@/components/HeaderComp.vue'
 import MyRank from '@/components/MyRank.vue'
 import RankEl from '@/components/RankEl.vue'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useDataStore } from '@/stores/data'
 import { useUserStore } from '@/stores/user'
 

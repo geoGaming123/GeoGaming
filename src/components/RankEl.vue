@@ -1,5 +1,5 @@
 <template>
-  <li class="rankList_El" :class="{ rankList_first: props.index === 0 }">
+  <li class="rankList_El" :class="{ rankList_me: props.aPlayer.userId == props.myID }">
     <span>{{ props.index + 1 }}</span>
     <img class="rankList_El_center" src="" alt=" " />
     <span>{{ props.aPlayer.name }}</span>
@@ -10,7 +10,8 @@
 <script setup>
 const props = defineProps({
   aPlayer: Object,
-  index: Number
+  index: Number,
+  myID: Number
 })
 </script>
 
