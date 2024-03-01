@@ -9,9 +9,11 @@
 <script setup>
 import { ref } from 'vue'
 import { userposition } from './Userposition.vue'
+import { useGamesStore } from '@/stores/games';
 const { showStartButton } = userposition()
 let timerRunning = ref(false)
 let intervalId = null
+let startButtonClicked = ref(false)
 let startButtonClicked = ref(false)
 let minutes = ref(0)
 let secondes = ref(0)
@@ -50,6 +52,8 @@ function endTimer() {
     console.log(`Le temps total écoulé est de ${minutes.value} minutes ${secondes.value} secondes.`)
   }
 }
+
+
 </script>
 <style>
   .disabled {

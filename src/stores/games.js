@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia';
-import { reactive } from 'vue';
-import { useUserStore } from './user';
+import { defineStore } from 'pinia'
+import { reactive } from 'vue'
+import { useUserStore } from './user'
 
 export const useGamesStore = defineStore('games', {
   id: 'test',
@@ -20,23 +20,23 @@ export const useGamesStore = defineStore('games', {
     players: [],
     userId: '',
     userToken: '',
-    userName: '',
+    userName: ''
   }),
 
   getters: {
     getuserId: (state) => {
       const userStore = useUserStore()
-      return state.userId = userStore.myID
+      return (state.userId = userStore.myID)
     },
 
     getUserToken: (state) => {
       const userStore = useUserStore()
-      return state.userToken = userStore.myToken
+      return (state.userToken = userStore.myToken)
     },
 
     getUserName: (state) => {
       const userStore = useUserStore()
-      return state.userName = userStore.userData.acf.pseudo
+      return (state.userName = userStore.userData.acf.pseudo)
     },
 
     oneMatch: (state) => {
@@ -179,6 +179,7 @@ export const useGamesStore = defineStore('games', {
           markers.push({
             id: index, // Utilisez l'index comme identifiant
             name: marker.name,
+            position: marker.position,
             isCaptured: false,
             penality: marker.penality
           })
@@ -190,14 +191,15 @@ export const useGamesStore = defineStore('games', {
         // Ajouter le nouveau joueur à la liste existante
         existingPlayers.push({
           userId: String(userId),
-          name:this.userName,
+          name: this.userName,
           position: {
             latitude: '',
             longitude: ''
           },
           marker: markers,
           time: '',
-          score: ''
+          score: '',
+          start_Game: false
         })
 
         // Envoyer la requête PATCH avec les données mises à jour

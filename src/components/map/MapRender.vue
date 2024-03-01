@@ -87,7 +87,7 @@ onMounted(() => {
     zoom: 15,
     layers: [L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')]
   })
-console.log('test' + props.markers)
+
   map.whenReady(() => {
     if(props.markers){
   
@@ -110,30 +110,35 @@ console.log('test' + props.markers)
       } 
 
     
-    watch(showMarkers, (newValue) => {
-      if (newValue || props.markers) {
+      watch(showMarkers, (newValue) => {
+    if (newValue || props.markers) {
         // Afficher les marqueurs sur la carte
         markers.forEach((marker) => {
-          const { latitude, longitude } = marker.position
-          const markerIcon = L.icon({
-            iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
-            iconSize: [50, 50],
-            iconAnchor: [12, 41],
-            popupAnchor: [0, -30]
-          })
-          const leafletMarker = L.marker([latitude, longitude], { icon: markerIcon }).bindPopup(
-            `<b>${marker.name}</b>`
-          )
+            const { latitude, longitude } = marker.position
+            const markerIcon = L.icon({
+                iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
+                iconSize: [50, 50],
+                iconAnchor: [12, 41],
+                popupAnchor: [0, -30]
+            })
+            const leafletMarker = L.marker([latitude, longitude], { icon: markerIcon }).bindPopup(
+                `<b>${marker.name}</b>`
+            )
 
-          marker.leafletMarker = leafletMarker.addTo(map)
+            marker.leafletMarker = leafletMarker.addTo(map)
         })
-      } else {
+    } else {
         // Masquer les marqueurs de la carte
         markers.forEach((marker) => {
-          map.removeLayer(marker.leafletMarker)
+            if (marker.leafletMarker) {
+                map.removeLayer(marker.leafletMarker); // Retirer le marqueur de la carte
+                marker.leafletMarker.off(); // Désactiver les événements du marqueur
+                marker.leafletMarker = null; // Marquer le marqueur comme retiré
+            }
         })
-      }
-    })
+    }
+})
+
 
 
 
@@ -150,7 +155,7 @@ console.log('test' + props.markers)
     }
 
     if (props.position) {
-      userposition(map)
+      userposition(map, matchId)
     }
   })
 })
