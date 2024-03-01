@@ -3,7 +3,7 @@
     <HeaderComp data="logo"></HeaderComp>
     <div class="dashboard-content">
       <p>{{ myInfo }}</p>
-      <div class="dashboard-content-circle"><img src="../assets/Icons/Profile-pic.png" alt="ProfilePic" /></div>
+      <div class="dashboard-content-circle"><img :src="../assets/Icons/Profile-pic.pngimglink" width="300" alt="ProfilePic" /></div>
       <button class="dashboard-content-btn" @click="sendToHome">
         <img src="../assets/Icons/Logo-perso-blanc.png" alt="BTN" height="40px" width="40px" />
       </button>
@@ -14,10 +14,13 @@
 <script setup>
 import HeaderComp from '@/components/HeaderComp.vue'
 import { useRouter } from 'vue-router'
-import { useGamesStore } from '@/stores/games'
-import { useUserStore } from '@/stores/user';
-import { computed, onMounted } from 'vue'
+import { useCounterStore } from '@/stores/counter'
+//import { useGamesStore } from '@/stores/games';
+import { useUserStore } from '@/stores/user'
+import { computed } from 'vue'
 
+const userStore = useUserStore()
+const imglink = computed(() => userStore.userimglink)
 const gamesStore = useGamesStore()
 const userStore = useUserStore()
 const router = useRouter()
