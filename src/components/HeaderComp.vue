@@ -10,7 +10,7 @@
     <div class="header_profile" :class="{ hidden: showProfileBtn }">
       <img src="../assets/Icons/Profile-pic.png" alt="" @click="showProfileWindow" />
       <div id="profileWindow" class="header_myprofile hidden">
-        <img src="" alt="Photo" /> {{ myInfo }}<br />
+        <img src="../assets/Icons/Profile-pic.png" alt="Photo" /> {{ myInfo }}<br />
         <router-link to="/profile">Modifier le profil ?</router-link><br />
         <router-link to="/help">Besoin d'aide ?</router-link>
         <button @click="disconnect">Déconnexion</button>

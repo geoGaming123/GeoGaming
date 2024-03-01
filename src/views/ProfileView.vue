@@ -20,7 +20,7 @@ import HeaderComp from '@/components/HeaderComp.vue'
               <button>Changer</button>
             </div>
             <div class="profile_form_Picture_Img">
-              <img src="" alt="Ma photo" />
+              <img src="../assets/Icons/Profile-pic.png" alt="Ma photo" />
             </div>
           </section>
           <section class="profile_form_Pseudo">

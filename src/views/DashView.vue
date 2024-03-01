@@ -3,7 +3,7 @@
     <HeaderComp data="logo"></HeaderComp>
     <div class="dashboard-content">
       <p>{{ myInfo }}</p>
-      <div class="dashboard-content-circle"><img src="" alt="ProfilePic" /></div>
+      <div class="dashboard-content-circle"><img src="../assets/Icons/Profile-pic.png" alt="ProfilePic" /></div>
       <button class="dashboard-content-btn" @click="sendToHome">
         <img src="../assets/Icons/Logo-perso-blanc.png" alt="BTN" height="40px" width="40px" />
       </button>
