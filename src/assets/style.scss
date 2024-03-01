@@ -57,10 +57,14 @@
       text-align: center;
       font-size: 3rem;
       margin-top: 100px;
+      text-transform: capitalize;
+      font-style: italic;
+      font-weight: bold;
+      color: darken($color: $theme-color, $amount: 20);
     }
     &-circle {
-      height: 300px;
-      width: 300px;
+      height: 250px;
+      width: 250px;
       margin: auto;
       border-radius: 100%;
       border: 2px solid white;
@@ -72,10 +76,10 @@
       bottom: 0;
       right: 20px;
       border: none;
-      border-bottom: 10px solid rgb(255, 0, 255);
+      border-bottom: 8px solid rgb(255, 0, 255);
       background-color: transparent;
       width: 40px;
-      height: 70px;
+      height: 60px;
     }
   }
 }
@@ -101,7 +105,7 @@
     border-bottom: 2px solid black;
     color: black;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   &_activebtn {
     border-bottom: none !important;
@@ -276,6 +280,8 @@
     max-height: calc(100vh - 120px - 80px);
     overflow-y: auto;
     align-items: start;
+    scrollbar-width: thin;
+    scrollbar-color: $theme-color white;
   }
   &-onglets {
     width: 100%;
@@ -327,6 +333,8 @@
         & td {
           padding: 0.5rem;
           font-size: 0.8rem !important;
+          font-style: italic;
+          font-weight: 600;
           width: 33%;
         }
       }
@@ -366,4 +374,27 @@
 .gamelist-item {
   border-bottom: 1px solid #00000030;
   line-height: 2rem;
+  &-id {
+    font-size: .7rem;
+    font-style: italic;
+  }
+  &-title {
+    text-transform: capitalize;
+    font-weight: 500;
+  }
+  &-nbr {
+    font-weight: 500;
+  }
+  &-players {
+    font-size: .9rem;
+    font-style: italic;
+  }
+  &-winner {
+    text-transform: capitalize;
+    font-size: .9rem;
+    font-weight: 500;
+    &-score {
+      font-weight: 500;
+    }
+  }
 }

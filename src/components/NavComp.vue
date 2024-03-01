@@ -3,11 +3,7 @@
     <button @click="activateNav('present')" :class="{ nav_activebtn: activeNav === 'present' }">
       Partie<br />En cours
     </button>
-    <button
-      class="nav-center"
-      @click="activateNav('futur')"
-      :class="{ nav_activebtn: activeNav === 'futur' }"
-    >
+    <button class="nav-center" @click="activateNav('futur')" :class="{ nav_activebtn: activeNav === 'futur' }">
       Partie<br />Futures
     </button>
     <button @click="activateNav('past')" :class="{ nav_activebtn: activeNav === 'past' }">

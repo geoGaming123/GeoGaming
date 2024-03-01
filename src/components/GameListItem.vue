@@ -1,31 +1,28 @@
 <template>
   
   <tr class="gamelist-item" v-if="title === 'past' && tab === 'created'" @click="sendTo('rank', props.aMatch.id)">
-    <td>{{ props.aMatch.acf.title }}<br>{{ props.aMatch.acf.players.length }} joueurs</td>
-    <td>{{ rankingFirst.name }}<br>{{ ranking[0].score }} s</td>
+    <td><span class="gamelist-item-id">#{{ props.aMatch.id }} - </span><span class="gamelist-item-title">{{ props.aMatch.acf.title }}</span><br><span class="gamelist-item-nbr">{{ props.aMatch.acf.players.length }}</span><span class="gamelist-item-players"> joueurs</span></td>
+    <td><span class="gamelist-item-winner">{{ rankingFirst.name }}</span><br><span class="gamelist-item-winner-score">{{ ranking[0].score }}</span></td>
     <td>{{ formatDate(props.aMatch.acf.end_date) }}</td>
 </tr>
   <tr class="gamelist-item" v-if="title === 'past' && tab === 'joined'" @click="sendTo('rank', props.aMatch.id)">
-    <td>{{ props.aMatch.acf.title }}<br>{{ formatDate(props.aMatch.acf.end_date) }}</td>
-    <td>{{ rankingFirst.name }}<br>{{ ranking[0].score }} s</td>
-    <td>{{ myRank + 1 }}/{{ theMatchPlayers.length }}<br><span v-if="theMatch && myTime.length > 0">{{ myTime[0].score }}s</span></td>
+    <td><span class="gamelist-item-id">#{{ props.aMatch.id }} - </span><span class="gamelist-item-title">{{ props.aMatch.acf.title }}</span><br>{{ formatDate(props.aMatch.acf.end_date) }}</td>
+    <td><span class="gamelist-item-winner">{{ rankingFirst.name }}</span><br><span class="gamelist-item-winner-score">{{ ranking[0].score }}</span></td>
+    <td>{{ myRank + 1 }} / {{ theMatchPlayers.length }}<br><span class="gamelist-item-winner-score" v-if="theMatch && myTime.length > 0">{{ myTime[0].score }}</span></td>
   </tr>
   <tr class="gamelist-item" v-if="title === 'present'" @click="sendTo('game', props.aMatch.id)">
-    <td>#{{ props.aMatch.id }} - {{ props.aMatch.acf.title }}<br>{{ props.aMatch.acf.players.length }} joueurs</td>
+    <td><span class="gamelist-item-id">#{{ props.aMatch.id }} - </span><span class="gamelist-item-title">{{ props.aMatch.acf.title }}</span><br><span class="gamelist-item-nbr">{{ props.aMatch.acf.players.length }}</span><span class="gamelist-item-players"> joueurs</span></td>
     <td>{{ dayRemaining }} jours {{ hourRemaining }} heures</td>
   </tr>
   <tr class="gamelist-item" v-if="title === 'futur'"  @click="sendTo('nextgame', props.aMatch.id)">
-    <td>#{{ props.aMatch.id }} - {{ props.aMatch.acf.title }}<br>{{ props.aMatch.acf.players.length }} joueurs</td>
+    <td><span class="gamelist-item-id">#{{ props.aMatch.id }} - </span><span class="gamelist-item-title">{{ props.aMatch.acf.title }}</span><br><span class="gamelist-item-nbr">{{ props.aMatch.acf.players.length }}</span><span class="gamelist-item-players"> joueurs</span></td>
     <td>{{ formatDate(props.aMatch.acf.start_date) }} - {{ formattedStartTime }}</td>
   </tr>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router'
-import { useDataStore } from '@/stores/data'
-import { computed, ref } from 'vue';
 const router = useRouter()
-const dataStore = useDataStore()
 
 const props = defineProps({
   aMatch : Object,
