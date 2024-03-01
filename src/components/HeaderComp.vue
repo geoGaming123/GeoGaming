@@ -5,7 +5,7 @@
       <img v-if="props.color == 'white'" src="../assets/Icons/Logo-texte-bleu.png" alt="Logo*" />
     </div>
     <div class="header_return" :class="{ hidden: !showLogo }">
-      <button @click="lastPage">Return</button>
+      <button @click="lastPage"><img src="../assets/Icons/logout-white.png" alt="Return" width="30px"></button>
     </div>
     <div class="header_profile" :class="{ hidden: showProfileBtn }">
       <img src="../assets/Icons/Profile-pic.png" alt="" @click="showProfileWindow" />

@@ -1,37 +1,29 @@
 <template>
+  <HeaderComp></HeaderComp>
+  <div class="game">
   <h2>{{ match.acf.title }}</h2>
-  <p>{{ match.acf.description }}</p>
-  <p>Start Date: {{ match.acf.start_date }}</p>
-  <p>End Date: {{ match.acf.end_date }}</p>
-  <p>balise: {{ match.acf.markers.length }}</p>
-  <div v-if="match.acf.players.length > 1">
-  <p>players: {{ match.acf.players.length }}</p>
+  <div class="game-info">
+    <p class="game-info-desc">{{ match.acf.description }}</p>
+    <p class="game-info-start">Début :<br><span class="game-info-date"></span>{{ startDate }}<br>{{ startTime }}</p>
+    <p class="game-info-end">Fin :<br><span class="game-info-date">{{ endDate }}<br>{{ endTime }}</span></p>
+    <p class="game-info-players">
+      <span v-if="match.acf.players.length > 0">{{ match.acf.players.length }}</span>
+      <span v-else>0</span>
+       joueur(s)</p>
+    <p class="game-info-balises">{{ match.acf.markers.length }} balise(s)</p>
+  </div>
+  
+  <div class="game-map" id="map"></div>
+  
+  <div class="game-btns">
+    <Timer  :updateShowMarkers="updateShowMarkers"></Timer>
+    <ButtonJoin class="green" :id="matchId"></ButtonJoin>
+    <ButtonLeaveGame class="red"  :id="matchId"></ButtonLeaveGame>
+    <ButtonModified class="orange" :id="matchId"></ButtonModified>
+    <ButtonDelete  class="red" :id="matchId"></ButtonDelete>
+  </div>
 </div>
-<div v-else>
-  <p>players: 0</p>
-</div>
-
-
-
-  <div id="map"></div>
-
-  <div v-if="props.timer">
-    <Timer :updateShowMarkers="updateShowMarkers"></Timer>
-  </div>
-
-  <div v-if="props.delete">
-    <ButtonDelete :id="matchId"></ButtonDelete>
-  </div>
-
-  <div v-if="props.join">
-    <ButtonJoin :id="matchId"></ButtonJoin>
-  </div>
-
-  <div v-if="props.leave">
-    <ButtonLeaveGame :id="matchId"></ButtonLeaveGame>
-  </div>
-
-  <ButtonModified :id="matchId"></ButtonModified>
+  
 </template>
 
 <script setup>
@@ -44,6 +36,7 @@ import ButtonModified from './ButtonModified.vue'
 import ButtonLeaveGame from './ButtonLeaveGame.vue'
 import Timer from '@/components/map/Timer.vue'
 import { userposition } from './Userposition.vue'
+import HeaderComp from '../HeaderComp.vue'
 
 const gamesStore = useGamesStore()
 const props = defineProps([
@@ -69,6 +62,14 @@ const match = ref(
     return gamesStore.oneMatch
   })
 )
+
+let [startDate, startTime] = match.value.acf.start_date.split(' ')
+startDate = startDate
+startTime = startTime
+let [endDate, endTime] = match.value.acf.end_date.split(' ')
+endDate = endDate
+endTime = endTime
+
 console.log(props.startpoint)
 onMounted(() => {
   const startPoint = match.value.acf.start_point

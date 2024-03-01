@@ -128,6 +128,11 @@
   &_white {
     background-color: #fff !important;
   }
+  &_return button {
+    background-color: transparent;
+    border: none;
+    margin-left: -10px;
+  }
   &_profile {
     background-color: white;
     border-radius: 100%;
@@ -395,6 +400,68 @@
     font-weight: 500;
     &-score {
       font-weight: 500;
+    }
+  }
+}
+
+// ********************************* //
+// ************ GAME-VIEW ********** //
+// ********************************* //
+
+.game {
+  margin-inline: 1rem;
+  & p {
+    font-style: italic;
+  }
+  & h2 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-block-start: .5rem;
+    font-size: 1.5rem;
+  }
+  &-info {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-between;
+    &-date {
+      font-style: normal !important;
+      }
+    &-desc {
+      width: 100%;
+      font-style: italic;
+      margin-block-end: .5rem;
+    }
+    &-start, &-end {
+      width: 50%;
+    }
+    &-balises, &-players {
+      width: auto;
+    }
+  }
+  &-map {
+    width: 100%;
+    height: 45vh;
+    margin-block: 1rem;
+  }
+  &-btns {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    & button {
+      border-radius: 8px;
+      border: none;
+      padding: .6rem .8rem;
+      font-size: 1rem;
+      font-weight: 500;
+      font-family: inherit;
+      background-color: $theme-color;
+      color: white;
+      cursor: pointer;
+      margin: .3rem;
+      text-transform: capitalize;
     }
   }
 }

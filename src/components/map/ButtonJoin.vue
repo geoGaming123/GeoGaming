@@ -1,7 +1,5 @@
 <template>
-  <div>
     <button @click="confirmJoinGame">Rejoindre</button>
-  </div>
 </template>
 
 <script setup>
