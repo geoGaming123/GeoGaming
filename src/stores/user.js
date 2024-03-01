@@ -20,7 +20,8 @@ export const useUserStore = defineStore({
     userLogin: {
       username: ref(''),
       password: ref('')
-    }
+    },
+    userimglink: ref('')
   }),
   getters: {
     username() {
@@ -35,37 +36,28 @@ export const useUserStore = defineStore({
       this.userData.avatar = e.target.files[0]
     },
     // Methods to interact with user data
-    async createUser() {
 
+    async createUser() {
       try {
-        
-        const form = new FormData
+        const form = new FormData()
         form.append('username', this.userData.username)
         form.append('email', this.userData.email)
         form.append('password', this.userData.password)
         form.append('file', this.userData.avatar)
-        
-        const basicAuth = btoa("admin"+':'+"Yh2V sfDi 7Pek 2qMo rBb7 4tIu")
 
-        const userSignUp = await fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/users', {
-          method: 'POST',
-          headers: {
-            Authorization: `Basic ${basicAuth}`
-          },
-          body: form
-        })
+        const basicAuth = btoa('admin' + ':' + 'Yh2V sfDi 7Pek 2qMo rBb7 4tIu')
+
+        const userSignUp = await fetch(
+          'https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/users',
+          {
+            method: 'POST',
+            headers: {
+              Authorization: `Basic ${basicAuth}`
+            },
+            body: form
+          }
+        )
         console.log('userSignup:', userSignUp.status)
-
-        const postUserImage = await fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/media', {
-          method: 'POST',
-          headers: {
-            Authorization: `Basic ${basicAuth}`
-          },
-          body: form
-        })
-        const postUserImageResponse = await postUserImage.json()
-        const postUserImageLink = postUserImageResponse.link 
-        console.log('postUserImage:', postUserImage.status, await postUserImageLink)
 
         const getUserToken = await fetch(
           'https://cepegra-frontend.xyz/wf11-atelier/wp-json/jwt-auth/v1/token',
@@ -74,20 +66,40 @@ export const useUserStore = defineStore({
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({"username":`${this.userData.username}`,"password":`${this.userData.password}`})
+            body: JSON.stringify({
+              username: `${this.userData.username}`,
+              password: `${this.userData.password}`
+            })
           }
         )
         console.log(getUserToken)
         const thisToken = await getUserToken.json()
 
-        const patchUserImage = await fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/users/me', {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${thisToken.token}`
-          },
-          body: JSON.stringify({fields:{"avatar": `${postUserImageResponse.link}`}})
-        })
+        const postUserImage = await fetch(
+          'https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/media',
+          {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${thisToken.token}`
+            },
+            body: form
+          }
+        )
+        const postUserImageResponse = await postUserImage.json()
+        const postUserImageLink = postUserImageResponse.link
+        this.userimglink = await postUserImageResponse.link
+        console.log('postUserImage:', postUserImage.status, await postUserImageLink)
+        const patchUserImage = await fetch(
+          'https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/users/me',
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${thisToken.token}`
+            },
+            body: JSON.stringify({ fields: { avatar: `${postUserImageResponse.link}` } })
+          }
+        )
         console.log('patchUserImage:', patchUserImage.status)
       } catch (error) {
         throw new Error('Failed to create new user', error)
