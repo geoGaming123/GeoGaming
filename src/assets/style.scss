@@ -108,7 +108,7 @@
     border: none;
     border-bottom: 2px solid black;
     color: black;
-    font-weight: bold;
+    font-weight: 500;
     font-size: 1.2rem;
   }
   &_activebtn {
@@ -126,7 +126,7 @@
   width: 100%;
   background-color: $theme-color;
   color: white;
-  font-weight: bold;
+  font-weight: 400;
   padding: 1rem;
   justify-content: space-between;
   &_white {
@@ -172,7 +172,7 @@
       left: 50px;
       border-radius: 10px;
       border: 1px solid #00000060;
-      font-weight: bold;
+      font-weight: 400;
     }
   }
 }
@@ -383,7 +383,7 @@
           padding: 0.5rem;
           font-size: 0.8rem !important;
           font-style: italic;
-          font-weight: 600;
+          font-weight: 400;
           width: 33%;
         }
       }
@@ -429,10 +429,10 @@
   }
   &-title {
     text-transform: capitalize;
-    font-weight: 500;
+    font-weight: 300;
   }
   &-nbr {
-    font-weight: 500;
+    font-weight: 300;
   }
   &-players {
     font-size: .9rem;
@@ -441,9 +441,9 @@
   &-winner {
     text-transform: capitalize;
     font-size: .9rem;
-    font-weight: 500;
+    font-weight: 400;
     &-score {
-      font-weight: 500;
+      font-weight: 400;
     }
   }
 }
@@ -499,7 +499,7 @@
       border: none;
       padding: .6rem .8rem;
       font-size: 1rem;
-      font-weight: 500;
+      font-weight: 400;
       font-family: inherit;
       background-color: $theme-color;
       color: white;
@@ -527,7 +527,7 @@
     border: 1px solid transparent;
     padding: 0.6em 1.2em;
     font-size: 1em;
-    font-weight: 500;
+    font-weight: 400;
     background-color: #00d1c5;
     color: white;
     cursor: pointer;
