@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia';
-import { reactive } from 'vue';
-import { useUserStore } from './user';
+import { defineStore } from 'pinia'
+import { reactive } from 'vue'
+import { useUserStore } from './user'
 
 export const useGamesStore = defineStore('games', {
   id: 'test',
@@ -20,18 +20,18 @@ export const useGamesStore = defineStore('games', {
     players: [],
     userId: '',
     userToken: '',
-    userName: '',
+    userName: ''
   }),
 
   getters: {
     getuserId: (state) => {
       const userStore = useUserStore()
-      return state.userId = userStore.myID
+      return (state.userId = userStore.myID)
     },
 
     getUserToken: (state) => {
       const userStore = useUserStore()
-      return state.userToken = userStore.myToken
+      return (state.userToken = userStore.myToken)
     },
 
     getUserName: (state) => {
@@ -52,6 +52,26 @@ export const useGamesStore = defineStore('games', {
     }
   },
   actions: {
+
+    compareAndPatchData() {
+      // Récupérez le match actuel du state
+      const currentMatch = this.match;
+    
+      if (
+        this.formData.title !== currentMatch.acf.title ||
+        this.formData.description !== currentMatch.acf.description ||
+        this.formData.startDate !== currentMatch.acf.startDate ||
+        this.formData.endDate !== currentMatch.acf.endDate ||
+        // Ajoutez d'autres conditions de comparaison si nécessaire
+        JSON.stringify(this.markers) !== JSON.stringify(currentMatch.acf.markers) ||
+        JSON.stringify(this.startPoint) !== JSON.stringify(currentMatch.acf.start_point)
+      ) {
+        // Si des modifications sont détectées, effectuez le patch avec les données actuelles
+        this.patchData();
+      }
+    },
+    
+
     addUserId(userId) {
       if (userId) {
         this.userId = userId
@@ -159,6 +179,7 @@ export const useGamesStore = defineStore('games', {
           markers.push({
             id: index, // Utilisez l'index comme identifiant
             name: marker.name,
+            position: marker.position,
             isCaptured: false,
             penality: marker.penality
           })
@@ -170,14 +191,15 @@ export const useGamesStore = defineStore('games', {
         // Ajouter le nouveau joueur à la liste existante
         existingPlayers.push({
           userId: String(userId),
-          name:this.userName,
+          name: this.userName,
           position: {
             latitude: '',
             longitude: ''
           },
           marker: markers,
           time: '',
-          score: ''
+          score: '',
+          start_Game: false
         })
 
         // Envoyer la requête PATCH avec les données mises à jour
