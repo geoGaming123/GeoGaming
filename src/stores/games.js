@@ -36,7 +36,7 @@ export const useGamesStore = defineStore('games', {
 
     getUserName: (state) => {
       const userStore = useUserStore()
-      return state.userName = userStore.userData.acf.pseudo
+      return state.userName = userStore.userData.username
     },
 
     oneMatch: (state) => {

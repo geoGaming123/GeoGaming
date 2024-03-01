@@ -31,7 +31,7 @@ const props = defineProps({
 })
 
 const userStore = useUserStore()
-const myInfo = computed(() => userStore.userData.acf.pseudo)
+const myInfo = computed(() => userStore.userLogin.username)
 const router = useRouter()
 
 const showLogo = computed(() => {

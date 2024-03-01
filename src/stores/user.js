@@ -24,9 +24,9 @@ export const useUserStore = defineStore({
     userimglink: ref('')
   }),
   getters: {
-    username() {
+   /* username() {
       return (this.userData.acf.pseudo = this.userData.username)
-    }
+    }*/
   },
   actions: {
     rerout() {

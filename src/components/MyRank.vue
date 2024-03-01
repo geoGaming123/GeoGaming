@@ -1,6 +1,6 @@
 <template>
   <div class="myRank">
-    <img src="../assets/Icons/Profile-pic.png" alt="Ma_photo" /><span class="myRank_pseudo">{{ myName }}</span>
+    <img class="rankList_El_img" :src="userStore.userimglink" width="100" alt="Ma_photo" /><span class="myRank_pseudo">{{ myName }}</span>
     <div class="myRank_Stat">
       <span>{{ props.myRankNumber }}/{{ props.players }}</span><span>{{ props.rank.score }}</span>
     </div>
@@ -17,7 +17,7 @@ const props = defineProps({
 })
 
 const userStore = useUserStore()
-const myName = userStore.userData.acf.pseudo
+const myName = userStore.userLogin.username
 
 </script>
 
