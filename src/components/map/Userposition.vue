@@ -3,15 +3,15 @@ import { ref, computed, onBeforeUnmount } from 'vue'
 import { useGamesStore } from '@/stores/games'
 import * as L from 'leaflet'
 
-export function userposition(map, matchId) {
+export function userposition(map) {
   const gamesStore = useGamesStore()
 
   const match = computed(() => {
     return gamesStore.oneMatch
   })
-
   const showStartButton = ref(false)
   const startPoint = match.value.acf.start_point.position
+  // console.log("START",startPoint);
 
   const calculateDistance = (pointA, pointB) => {
     const earthRadius = 6371e3
@@ -30,14 +30,14 @@ export function userposition(map, matchId) {
   }
 
   const updateMarkerCaptured = (marker) => {
-    const players = gamesStore.oneMatch.acf.players;
-    players.forEach(player => {
-      const markers = player.marker;
-      const foundMarker = markers.find(m => m.name === marker.name);
+    const currentPlayer = gamesStore.oneMatch.acf.players.find(player => player.userId === String(gamesStore.userId));
+    if (currentPlayer) {
+      const playerMarkers = currentPlayer.marker;
+      const foundMarker = playerMarkers.find(m => m.name === marker.name);
       if (foundMarker) {
         foundMarker.isCaptured = true;
       }
-    });
+    }
   }
 
   let watchUserPosition 
@@ -80,21 +80,21 @@ export function userposition(map, matchId) {
           showStartButton.value = false
         }
 
-        const playerMarkers = gamesStore.oneMatch.acf.players
-          .find(player => player.userId === gamesStore.userId)?.marker || [];
-
+        const currentPlayer = gamesStore.oneMatch.acf.players.find(player => player.userId === String(gamesStore.userId));
+        const playerMarkers = currentPlayer?.marker || [];
+        // console.log(playerMarkers);
         playerMarkers.forEach((marker) => {
           const distance = calculateDistance({ latitude, longitude }, marker.position)
           if (distance <= 10 && !marker.isCaptured) {
             marker.isCaptured = true
-            marker.leafletMarker.setOpacity(0.4)
+            // marker.leafletMarker.setOpacity(0.4)
             const totalBalises = playerMarkers.length
             const balisesRestantes = playerMarkers.filter((m) => !m.isCaptured).length
             const balisesPrises = totalBalises - balisesRestantes
             const message = `Vous avez récupéré ${balisesPrises}/${totalBalises} balise(s). ${balisesRestantes} balise(s) restante(s).`
             alert(message)
             updateMarkerCaptured(marker)
-            gamesStore.updatePlayerMarkers(matchId)
+            // gamesStore.updatePlayerMarkers(matchId, playerMarkers)
           }
         })
       },

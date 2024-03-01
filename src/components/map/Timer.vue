@@ -9,7 +9,9 @@
 <script setup>
 import { ref } from 'vue'
 import { userposition } from './Userposition.vue'
+import { useGamesStore } from '@/stores/games';
 const { showStartButton } = userposition()
+const gamesStore = useGamesStore()
 let timerRunning = ref(false)
 let intervalId = null
 let startButtonClicked = ref(false)
@@ -18,8 +20,9 @@ let secondes = ref(0)
 const props = defineProps({
   updateShowMarkers: Function
 })
-function startTimer() {
-  if (showStartButton.value) {
+        function startTimer() {
+          if (showStartButton.value) {
+            console.log("1",gamesStore.oneMatch.acf.players);
     startButtonClicked.value = true
     // Vérifiez si le bouton Start peut être activé
     timerRunning.value = true
@@ -50,4 +53,6 @@ function endTimer() {
     console.log(`Le temps total écoulé est de ${minutes.value} minutes ${secondes.value} secondes.`)
   }
 }
+
+
 </script>
