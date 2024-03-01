@@ -24,7 +24,7 @@ import HeaderComp from '@/components/HeaderComp.vue'
             </div>
           </section>
           <section class="profile_form_Pseudo">
-            <label for="pseudo">Pseudo</label><br />
+            <h1 class="roboto-title" for="pseudo">Pseudo</h1><br />
             <input id="pseudo" type="text" />
           </section>
           <section class="profile_form_Save">

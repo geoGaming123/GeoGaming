@@ -279,8 +279,10 @@
     margin-block: 2rem;
   }
   &_form {
-    display: flex;
-    width: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      gap: 0.4em;
     &_Picture {
       display: flex;
       width: 100%;
@@ -288,13 +290,12 @@
       margin-block: 4rem;
     }
     & #pseudo {
-      width: 50%;
-      padding: 1rem;
-      background-color: #f1f1f153;
-      border: 1px solid #eaeaea;
-      border-radius: 15px;
+      background-color: #fafafa;
+      border: #eeeeee solid 1px;
+      border-radius: 8px;
+      padding: 0.4rem 1.2rem;
     }
-    &__Save {
+    &_Save {
       width: 100%;
       &_btn {
         width: 300px;
@@ -302,6 +303,16 @@
         bottom: 50px;
         left: calc(50% - 150px);
       }
+    }
+    & button {
+      border-radius: 8px;
+      border: 1px solid transparent;
+      padding: 0.6em 1.2em;
+      font-size: 1em;
+      font-weight: 400;
+      background-color: #00d1c5;
+      color: white;
+      cursor: pointer;
     }
   }
   & button {
