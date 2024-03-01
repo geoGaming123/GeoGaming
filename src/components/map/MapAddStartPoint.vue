@@ -1,7 +1,5 @@
 <template>
-  <button class="btn" @click.prevent="addNewStartPoint" :disabled="startPointsExist">
-    Point de départ
-  </button>
+<button class="btn" @click.prevent="addNewStartPoint" :class="{ 'hidden': startPointsExist }">Point de départ</button>
 </template>
 
 <script setup>

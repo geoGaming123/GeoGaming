@@ -62,3 +62,4 @@ if (match.value.acf.players.some((player) => player.userId === String(userId.val
   btnleave.value = true
 }
 </script>
+

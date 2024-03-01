@@ -9,6 +9,7 @@
     :timer="timer"
     :position="position"
     :leave="btnleave"
+    :master="master"
   ></MapRender>
 </template>
 
@@ -40,6 +41,7 @@ const startpoint = ref(true)
 const markers = ref(false)
 const timer = ref(false)
 const position = ref(false)
+const master = ref(false)
 
 if (String(match.value.acf.masteruid) === String(userId.value)) {
   btndelete.value = true
@@ -47,6 +49,7 @@ if (String(match.value.acf.masteruid) === String(userId.value)) {
   btnmodified.value = true
   startpoint.value = true
   markers.value = true
+  master.value=true
 }
 
 if (match.value.acf.players.some((player) => player.userId === String(userId.value))) {

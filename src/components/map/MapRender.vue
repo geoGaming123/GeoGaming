@@ -4,8 +4,10 @@
   <h2>{{ match.acf.title }}</h2>
   <div class="game-info">
     <p class="game-info-desc">{{ match.acf.description }}</p>
+    <div v-if="master" class="game-info-master">
     <p class="game-info-start">Début :<br><span class="game-info-date"></span>{{ startDate }}<br>{{ startTime }}</p>
     <p class="game-info-end">Fin :<br><span class="game-info-date">{{ endDate }}<br>{{ endTime }}</span></p>
+    </div>
     <p class="game-info-players">
       <span v-if="match.acf.players.length > 0">{{ match.acf.players.length }}</span>
       <span v-else>0</span>
@@ -48,9 +50,10 @@ const props = defineProps([
   'position',
   'markers',
   'timer',
-  'modified'
+  'modified',
+  'master',
 ])
-console.log('timer' + props.timer)
+
 const showMarkers = ref(false)
 const matchId = props.id
 function updateShowMarkers(value) {
@@ -152,3 +155,10 @@ console.log('test' + props.markers)
   })
 })
 </script>
+<style>
+.game-info-master{
+  display: flex;
+  width: 100%;
+}
+
+</style>
