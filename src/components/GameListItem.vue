@@ -55,7 +55,7 @@ const theMatch = props.aMatch // Données de la partie
 const theMatchPlayers = theMatch.acf.players // Joueurs de la partie
 const ranking = theMatchPlayers.slice().sort((a, b) => a.score - b.score) // Trié dans l'ordre de leur temps
 const myTime = theMatchPlayers.filter(player => player.userId == myID) // Récupére score id connecté
-const myRank = theMatchPlayers.findIndex(i => i.userId == myID) // Position dans le tableau 
+const myRank = ranking.findIndex(i => i.userId == myID) // Position dans le tableau 
 
 const rankingFirst = ranking[0]
 

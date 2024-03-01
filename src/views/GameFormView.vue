@@ -1,7 +1,7 @@
 <template>
       <HeaderComp  profile="profile"></HeaderComp>
   <div class='gameform'>
-    <h1>Créer une partie</h1>
+    <h1 class="roboto-title">Créer une partie</h1>
     <form @submit.prevent="submitForm">
       <label for="title">Titre :</label>
       <input type="text" id="title" v-model="gamesStore.formData.title" required />

@@ -1,7 +1,7 @@
 <template>
   <HeaderComp></HeaderComp>
   <div class="game">
-  <h2>{{ match.acf.title }}</h2>
+  <h2 class="roboto-title">{{ match.acf.title }}</h2>
   <div class="game-info">
     <p class="game-info-desc">{{ match.acf.description }}</p>
     <div v-if="master" class="game-info-master">

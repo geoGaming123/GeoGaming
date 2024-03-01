@@ -1,6 +1,6 @@
 <template>
   <div class="myRank">
-    <img src="" alt="Ma_photo" /><span class="myRank_pseudo">{{ myName }}</span>
+    <img src="../assets/Icons/Profile-pic.png" alt="Ma_photo" /><span class="myRank_pseudo">{{ myName }}</span>
     <div class="myRank_Stat">
       <span>{{ props.myRankNumber }}/{{ props.players }}</span><span>{{ props.rank.score }}</span>
     </div>
