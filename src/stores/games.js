@@ -52,6 +52,26 @@ export const useGamesStore = defineStore('games', {
     }
   },
   actions: {
+
+    compareAndPatchData() {
+      // Récupérez le match actuel du state
+      const currentMatch = this.match;
+    
+      if (
+        this.formData.title !== currentMatch.acf.title ||
+        this.formData.description !== currentMatch.acf.description ||
+        this.formData.startDate !== currentMatch.acf.startDate ||
+        this.formData.endDate !== currentMatch.acf.endDate ||
+        // Ajoutez d'autres conditions de comparaison si nécessaire
+        JSON.stringify(this.markers) !== JSON.stringify(currentMatch.acf.markers) ||
+        JSON.stringify(this.startPoint) !== JSON.stringify(currentMatch.acf.start_point)
+      ) {
+        // Si des modifications sont détectées, effectuez le patch avec les données actuelles
+        this.patchData();
+      }
+    },
+    
+
     addUserId(userId) {
       if (userId) {
         this.userId = userId

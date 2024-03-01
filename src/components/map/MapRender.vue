@@ -16,11 +16,11 @@
   <div class="game-map" id="map"></div>
   
   <div class="game-btns">
-    <Timer  :updateShowMarkers="updateShowMarkers"></Timer>
-    <ButtonJoin class="green" :id="matchId"></ButtonJoin>
-    <ButtonLeaveGame class="red"  :id="matchId"></ButtonLeaveGame>
-    <ButtonModified class="orange" :id="matchId"></ButtonModified>
-    <ButtonDelete  class="red" :id="matchId"></ButtonDelete>
+    <Timer v-if="props.timer" :updateShowMarkers="updateShowMarkers"></Timer>
+    <ButtonJoin v-if="props.join" class="green" :id="matchId"></ButtonJoin>
+    <ButtonLeaveGame v-if="props.leave" class="red"  :id="matchId"></ButtonLeaveGame>
+    <ButtonModified v-if="props.modified" class="orange" :id="matchId"></ButtonModified>
+    <ButtonDelete  v-if="props.delete" class="red" :id="matchId"></ButtonDelete>
   </div>
 </div>
   
@@ -47,8 +47,10 @@ const props = defineProps([
   'startpoint',
   'position',
   'markers',
-  'timer'
+  'timer',
+  'modified'
 ])
+console.log('timer' + props.timer)
 const showMarkers = ref(false)
 const matchId = props.id
 function updateShowMarkers(value) {
@@ -57,11 +59,10 @@ function updateShowMarkers(value) {
 
 gamesStore.getMatch(matchId)
 
-const match = ref(
-  computed(() => {
+const match = computed(() => {
     return gamesStore.oneMatch
   })
-)
+
 
 let [startDate, startTime] = match.value.acf.start_date.split(' ')
 startDate = startDate
