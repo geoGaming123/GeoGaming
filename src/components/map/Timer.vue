@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="startTimer" :disabled="timerRunning || !showStartButton" :class="{ 'disabled': timerRunning || !showStartButton }">Start</button>
+    <button @click="startTimer" v-show="showStartButton" :disabled="timerRunning || !showStartButton" :class="{ 'disabled': timerRunning || !showStartButton }">Start</button>
     <button @click="endTimer" v-show="showStartButton && timerRunning">End</button>
     <p v-if="timerRunning">Temps écoulé: {{ minutes }} minutes {{ secondes }} secondes</p>
   </div>
@@ -9,11 +9,9 @@
 <script setup>
 import { ref } from 'vue'
 import { userposition } from './Userposition.vue'
-import { useGamesStore } from '@/stores/games';
 const { showStartButton } = userposition()
 let timerRunning = ref(false)
 let intervalId = null
-let startButtonClicked = ref(false)
 let startButtonClicked = ref(false)
 let minutes = ref(0)
 let secondes = ref(0)
