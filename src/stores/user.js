@@ -35,6 +35,17 @@ export const useUserStore = defineStore({
     onFileUpload(e) {
       this.userData.avatar = e.target.files[0]
     },
+    async userDashImage() {
+      const getmyimage = await fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/users/me', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${this.myToken}`
+        }
+      })
+      const getmyimageresult = await getmyimage.json() 
+      console.log(getmyimageresult)
+      this.userimglink = getmyimageresult.acf.avatar
+    },
     // Methods to interact with user data
 
     async createUser() {
@@ -87,7 +98,7 @@ export const useUserStore = defineStore({
         )
         const postUserImageResponse = await postUserImage.json()
         const postUserImageLink = postUserImageResponse.link
-        this.userimglink = await postUserImageResponse.link
+
         console.log('postUserImage:', postUserImage.status, await postUserImageLink)
         const patchUserImage = await fetch(
           'https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/users/me',
@@ -125,7 +136,7 @@ export const useUserStore = defineStore({
         const userLoginInfo = await userLoginData.json()
         const userToken = userLoginInfo.token
         console.log(await userLoginInfo)
-        localStorage.setItem('myToken', `${userToken}`)
+        
         const userID = await fetch(
           `https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/users/me`,
           {
@@ -140,7 +151,7 @@ export const useUserStore = defineStore({
         console.log(await myID)
         this.myID = myID.id
         this.myToken = userToken
-        return this.rerout()
+        return this.rerout(), this.userDashImage()
       } catch (error) {
         console.error('Error while logging in:', error)
         throw error
