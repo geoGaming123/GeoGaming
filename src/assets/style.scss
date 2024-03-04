@@ -462,6 +462,15 @@
     }
   }
 }
+.empty td:nth-child(1){
+  width: 1% !important;
+}
+.empty td:nth-child(2){
+  width: 98%;
+}
+.empty td:nth-child(3){
+  width: 1% !important;
+}
 
 // ********************************* //
 // ************ GAME-VIEW ********** //
