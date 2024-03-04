@@ -1,0 +1,619 @@
+@import 'variables';
+@import 'normalize';
+
+// ********************************* //
+// *********** CONNEXION *********** //
+// ********************************* //
+
+.logo {
+  width: 100%;
+  text-align: center;
+}
+.login {
+  padding: 1.5rem;
+  & form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0.6em;
+  }
+  & button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: $theme-color;
+    color: white;
+    cursor: pointer;
+  }
+  & a {
+    color: $theme-color;
+    text-decoration: none;
+  }
+  & label {
+    margin-block-start: .5rem;
+  }
+  & input {
+    font-size: 1em;
+    background-color: #fafafa;
+    border: #eeeeee solid 1px;
+    border-radius: 8px;
+    padding: 0.6em 1.2em;
+    margin-block-end: .5rem;
+  }
+  &--separation {
+    width: 70%;
+    margin: .7em auto;
+    text-align: center;
+  }
+  &--separation:before, &--separation:after {
+    content: "";
+    display: inline-block;
+    width: 50%;
+    margin: 0 .5em 0 -55%;
+    vertical-align: middle;
+    border-bottom: 1px solid $theme-color;
+  }
+  &--separation:after {
+    margin: 0 -55% 0 .5em;
+  }
+  & span {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  &--btn {
+    margin: 0 auto;
+    color: $theme-color !important;
+    background-color: white !important;
+    border: 2px solid $theme-color !important;
+    padding: 0.6em 1.2em;
+  }
+}
+
+
+// ********************************* //
+// *********** DASHBOARD *********** //
+// ********************************* //
+
+.dashboard {
+  background-color: $theme-color;
+  height: 100vh;
+  &-content {
+    width: 100%;
+    & p {
+      width: 100%;
+      text-align: center;
+      font-size: 3rem;
+      margin-top: 100px;
+      text-transform: capitalize;
+      font-style: italic;
+      font-weight: bold;
+      color: darken($color: $theme-color, $amount: 20);
+    }
+    &-circle {
+      height: 250px;
+      width: 250px;
+      margin: auto;
+      border-radius: 100%;
+      border: 2px solid white;
+      overflow: hidden;
+      text-align: center;
+      & img {
+        width: 100%;
+        height: 100%;
+        
+      }
+    }
+    &-btn {
+      position: absolute;
+      bottom: 0;
+      right: 20px;
+      border: none;
+      border-bottom: 8px solid rgb(255, 0, 255);
+      background-color: transparent;
+      width: 40px;
+      height: 60px;
+    }
+  }
+}
+.modifProfile {
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+  & button {
+  border: none;
+  background-color: transparent;
+  }
+}
+
+// ********************************* //
+// *********** NAV-COMP ************ //
+// ********************************* //
+
+.nav {
+  width: 100%;
+  height: 60px;
+  padding-inline: calc(1rem - 2px);
+  display: flex;
+  justify-content: center;
+  &-center {
+    border-left: 1px solid #00000030 !important;
+    border-right: 1px solid #00000030 !important;
+  }
+  & button {
+    width: 33%;
+    background-color: #fff;
+    border: none;
+    border-bottom: 2px solid black;
+    color: black;
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+  &_activebtn {
+    border-bottom: none !important;
+  }
+}
+
+// ********************************* //
+// ********** HEADER-COMP ********** //
+// ********************************* //
+
+.header {
+  display: flex;
+  height: 60px;
+  width: 100%;
+  background-color: $theme-color;
+  color: white;
+  font-weight: 400;
+  padding: 1rem;
+  justify-content: space-between;
+  &_white {
+    background-color: #fff !important;
+  }
+  &_return button {
+    background-color: transparent;
+    border: none;
+    margin-left: -10px;
+  }
+  &_profile {
+    background-color: white;
+    border-radius: 100%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  &_myprofile {
+    position: fixed;
+    top: 60px; /* Set to 60 (header height) */
+    right: 0;
+    height: 300px;
+    width: 200px;
+    background-color: $theme-color;
+    padding: 1rem;
+    border: 1px solid black;
+    z-index: 999;
+    line-height: 4rem;
+    & a {
+      color: white;
+      text-decoration: none;
+    }
+    & button {
+      width: 100px;
+      height: 40px;
+      position: absolute;
+      bottom: 20px;
+      left: 50px;
+      border-radius: 10px;
+      border: 1px solid #00000060;
+      font-weight: 400;
+    }
+  }
+}
+
+// ********************************* //
+// *********** HELP-VIEW *********** //
+// ********************************* //
+
+.rules {
+  padding-inline: 1rem;
+  & h1 {
+    text-align: center;
+    margin-block: .5rem;
+  }
+  & details {
+    padding-block: 0.5rem;
+    text-align: left;
+    & summary {
+      font-size: 1rem;
+      font-style: italic;
+      & span {
+        font-weight: 500;
+        text-decoration: underline;
+        font-style: normal;
+      }
+    }
+    & div {
+      padding: .5rem;
+    }
+  }
+  &-end {
+    margin: .8rem;
+  }
+}
+
+// ********************************* //
+// *********** RANK-VIEW *********** //
+// ********************************* //
+
+.rankList {
+  padding-inline-start: 0;
+  font-size: 1rem;
+  width: 100%;
+  padding-block-start: 0.5rem;
+  font-weight: 500;
+  &_El {
+    list-style: none;
+    width: 100%;
+    padding-inline: 1.5rem;
+    padding-block: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 5fr 2fr;
+    align-items: center;
+    &_rank {
+      font-size: 1.3rem;
+    }
+    &_name {
+      text-transform: capitalize;
+    }
+    &_img {
+      border: 1px solid $theme-color;
+      border-radius: 100%;
+      margin-right: 1rem;
+    }
+    &_score {
+      text-align: right;
+    }
+  }
+  &_me {
+    color: $theme-color;
+  }
+}
+
+// ********************************* //
+// ********** MYRANK-COMP ********** //
+// ********************************* //
+
+.myRank {
+  width: 100%;
+  background-color: $theme-color;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: white;
+  &_pseudo {
+    margin-inline-start: 1rem;
+    color: darken($color: $theme-color, $amount: 15);
+  }
+  &_Stat {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+// ********************************* //
+// ********** PROFILE-VIEW ********* //
+// ********************************* //
+
+.profile {
+  padding-inline: 2rem;
+  &_Info {
+    margin-block: 2rem;
+  }
+  &_form {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      gap: 0.4em;
+    &_Picture {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      margin-block: 4rem;
+    }
+    & #pseudo {
+      background-color: #fafafa;
+      border: #eeeeee solid 1px;
+      border-radius: 8px;
+      padding: 0.4rem 1.2rem;
+    }
+    &_Save {
+      width: 100%;
+      &_btn {
+        width: 300px;
+        position: absolute;
+        bottom: 50px;
+        left: calc(50% - 150px);
+      }
+    }
+    & button {
+      border-radius: 8px;
+      border: 1px solid transparent;
+      padding: 0.6em 1.2em;
+      font-size: 1em;
+      font-weight: 400;
+      background-color: #00d1c5;
+      color: white;
+      cursor: pointer;
+    }
+  }
+  & button {
+    padding: 1rem;
+    border: 1px solid $theme-color;
+    background-color: $theme-color;
+    color: white;
+    font-size: 1rem;
+    border-radius: 15px;
+  }
+}
+
+// ********************************* //
+// ************ Home-VIEW ********** //
+// ********************************* //
+
+.gamelist {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-inline: 1rem;
+  &-content {
+    display: flex;
+    width: 100%;
+    max-height: calc(100vh - 120px - 80px);
+    overflow-y: auto;
+    align-items: start;
+    scrollbar-width: thin;
+    scrollbar-color: $theme-color white;
+  }
+  &-onglets {
+    width: 100%;
+    height: 80px;
+    justify-content: left;
+    position: fixed;
+    bottom: -22px;
+    &-btns {
+      width: 75%;
+      & button {
+        width: 33%;
+        height: 50px;
+        border: none;
+        border-right: 1px solid #00000030;
+        border-top: 2px solid black;
+        background-color: white;
+        &:last-child {
+          border-right: none !important;
+        }
+      }
+    }
+  }
+  &-activebtn {
+    border-top: none !important;
+  }
+  &-addgame {
+    width: 50px;
+    height: 50px;
+    background-color: $theme-color;
+    border: 1px solid $theme-color;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    position: fixed;
+    bottom: 8px;
+    right: 20px;
+  }
+  & table {
+    border-collapse: collapse;
+    width: 100%;
+    & thead {
+      & .gamelist-title {
+        background-color: $theme-color;
+        color: white;
+        position: absolute;
+        z-index: 10;
+        width: calc(100% - 2rem);
+        display: flex;
+        justify-content: space-between;
+        & td {
+          padding: 0.5rem;
+          font-size: 0.8rem !important;
+          font-style: italic;
+          font-weight: 400;
+          width: 33%;
+        }
+      }
+    }
+    & tbody {
+      & tr:nth-child(1) td {
+        padding-top: 60px !important;
+      }
+    }
+    & td {
+      font-size: 1rem;
+      &:first-child {
+        text-align: left !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 40%;
+        width: 40%;
+        max-width: 1px;
+      }
+      &:nth-child(2) {
+        text-align: center;
+        min-width: 20%;
+        width: 20%;
+        max-width: 20%;
+      }
+      &:last-child {
+        text-align: right !important;
+        min-width: 40%;
+        width: 40%;
+        max-width: 40%;
+      }
+    }
+  }
+}
+
+.gamelist-item {
+  border-bottom: 1px solid #00000030;
+  line-height: 2rem;
+  &-id {
+    font-size: .7rem;
+    font-style: italic;
+  }
+  &-title {
+    text-transform: capitalize;
+    font-weight: 300;
+  }
+  &-nbr {
+    font-weight: 300;
+  }
+  &-players {
+    font-size: .9rem;
+    font-style: italic;
+  }
+  &-winner {
+    text-transform: capitalize;
+    font-size: .9rem;
+    font-weight: 400;
+    &-score {
+      font-weight: 400;
+    }
+  }
+}
+.empty td:nth-child(1){
+  width: 1% !important;
+}
+.empty td:nth-child(2){
+  width: 98%;
+}
+.empty td:nth-child(3){
+  width: 1% !important;
+}
+
+// ********************************* //
+// ************ GAME-VIEW ********** //
+// ********************************* //
+
+.game {
+  margin-inline: 1rem;
+  & p {
+    font-style: italic;
+  }
+  & h2 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-block-start: .5rem;
+    font-size: 1.5rem;
+  }
+  &-info {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-between;
+    &-date {
+      font-style: normal !important;
+      }
+    &-desc {
+      width: 100%;
+      font-style: italic;
+      margin-block-end: .5rem;
+    }
+    &-start, &-end {
+      width: 50%;
+    }
+    &-balises, &-players {
+      width: auto;
+    }
+  }
+  &-map {
+    width: 100%;
+    height: 45vh;
+    margin-block: 1rem;
+  }
+  &-btns {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    & button {
+      border-radius: 8px;
+      border: none;
+      padding: .6rem .8rem;
+      font-size: 1rem;
+      font-weight: 400;
+      font-family: inherit;
+      background-color: $theme-color;
+      color: white;
+      cursor: pointer;
+      margin: .3rem;
+      text-transform: capitalize;
+    }
+  }
+}
+
+// ********************************* //
+// ************ GAME-FORM ********** //
+// ********************************* //
+
+.gameform {
+  margin: 1rem;
+  & form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0.4em;
+  }
+  & button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 400;
+    background-color: #00d1c5;
+    color: white;
+    cursor: pointer;
+  }
+  & input, textarea {
+    background-color: #fafafa;
+    border: #eeeeee solid 1px;
+    border-radius: 8px;
+    padding: 0.4rem 1.2rem;
+  }
+}
+
+
+// ********************************* //
+// ************ load btn ********** //
+// ********************************* //
+
+.install-btn{
+  background-color: $theme-color;
+  border: none;
+  position: absolute;
+  top: 10%;
+  left: -25px;
+  transform: rotate(90deg);
+  color: white;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px 5px 0 0;
+}

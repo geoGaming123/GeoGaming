@@ -1,0 +1,54 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  color: $text-color-black;
+  background: white;
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.6;
+    font-family: "Roboto Flex", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings:
+      "slnt" 0,
+      "wdth" 100,
+      "GRAD" 0,
+      "XOPQ" 96,
+      "XTRA" 468,
+      "YOPQ" 79,
+      "YTAS" 750,
+      "YTDE" -203,
+      "YTFI" 738,
+      "YTLC" 514,
+      "YTUC" 712;
+    font-size: 1rem;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.bolder {
+  font-weight: 500;
+}
+.hidden {
+  display: none;
+}
+.opacitylow {
+  opacity: 20%;
+}
+.green {
+  background-color: rgb(66, 198, 66) !important;
+}
+.red {
+  background-color: rgb(238, 52, 52) !important;
+}
+.orange {
+  background-color: rgb(251, 129, 7) !important;
+}
