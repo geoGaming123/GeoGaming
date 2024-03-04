@@ -63,12 +63,6 @@ export const useDataStore = defineStore('data', {
           this.myUser = res
         })
         .catch((error) => console.error('Erreur :', error))
-    },
-    toggleNav() {
-      this.incrementPast++
-      this.incrementPresent++
-      this.incrementFutur++
-      console.log('incremented')
     }
   }
 })

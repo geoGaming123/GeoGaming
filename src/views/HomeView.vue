@@ -7,7 +7,6 @@
       :MatchesData="PastMatchesData"
       v-if="showMenuData == 'past'"
       :myID="myID"
-      :key="incrementPast"
       :menu="showMenuData"
     ></GameList>
     <GameList
@@ -15,7 +14,6 @@
       :MatchesData="PresentMatchesData"
       v-if="showMenuData == 'present'"
       :myID="myID"
-      :key="incrementPresent"
       :menu="showMenuData"
     ></GameList>
     <GameList
@@ -23,7 +21,6 @@
       :MatchesData="FutureMatchesData"
       v-if="showMenuData == 'futur'"
       :myID="myID"
-      :key="incrementFutur"
       :menu="showMenuData"
     ></GameList>
   </main>
@@ -41,9 +38,6 @@ const dataStore = useDataStore()
 dataStore.getAllMatches() // Charge les données des parties et distribue en 3 array selon la temporalité
 const userStore = useUserStore()
 const myID = computed(() => userStore.myID)  // Récupère l'id de l'user connecté
-const incrementPast = computed(()=> dataStore.incrementPast)
-const incrementPresent = computed(()=> dataStore.incrementPresent)
-const incrementFutur = computed(()=> dataStore.incrementFutur)
 
 setTimeout(() => {
   console.log('HomeView - ID - ' + myID.value)
