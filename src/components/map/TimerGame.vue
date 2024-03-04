@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="startTimer" v-show="showStartButton" :disabled="timerRunning || !showStartButton" :class="{ 'disabled': timerRunning || !showStartButton }">Start</button>
+    <button @click="startTimer" v-show="showStartButton && !gameEnded" :disabled="timerRunning || !showStartButton || gameEnded" :class="{ 'disabled': timerRunning || !showStartButton || gameEnded }">Start</button>
     <button @click="endTimer" v-show="showStartButton && timerRunning">End</button>
     <p v-if="timerRunning">Temps écoulé: {{ minutes }} minutes {{ secondes }} secondes</p>
   </div>
@@ -15,6 +15,7 @@ let intervalId = null
 let startButtonClicked = ref(false)
 let minutes = ref(0)
 let secondes = ref(0)
+let gameEnded = ref(false)
 const props = defineProps({
   updateShowMarkers: Function
 })
@@ -37,7 +38,7 @@ function startTimer() {
     }, 1000)
   } else {
     // Affichez un message ou effectuez une action si le bouton Start ne peut pas être activé
-    console.log('Vous ne pouvez pas démarrer le timer pour le moment.')
+    alert('Vous ne pouvez pas démarrer le timer pour le moment.')
   }
 }
 
@@ -47,7 +48,8 @@ function endTimer() {
     // Nettoyer l'intervalle
     clearInterval(intervalId)
     // Vous pouvez également déclencher des actions supplémentaires à la fin du timer
-    console.log(`Le temps total écoulé est de ${minutes.value} minutes ${secondes.value} secondes.`)
+    alert(`Le temps total écoulé est de ${minutes.value} minutes ${secondes.value} secondes.`)
+    gameEnded.value = true // La partie est terminée
   }
 }
 
@@ -58,4 +60,4 @@ function endTimer() {
     opacity: 0.6;  /* Vous pouvez ajuster le style comme vous le souhaitez pour indiquer qu'il est désactivé */
     cursor: not-allowed;
   }
-</style>./UserPosition.vue
+</style>

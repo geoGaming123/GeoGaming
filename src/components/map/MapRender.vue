@@ -18,7 +18,7 @@
   <div class="game-map" id="map"></div>
   
   <div class="game-btns">
-    <Timer v-if="props.timer" :updateShowMarkers="updateShowMarkers"></Timer>
+    <TimerGame v-if="props.timer" :updateShowMarkers="updateShowMarkers"></TimerGame>
     <ButtonJoin v-if="props.join" class="green" :id="matchId"></ButtonJoin>
     <ButtonLeaveGame v-if="props.leave" class="red"  :id="matchId"></ButtonLeaveGame>
     <ButtonModified v-if="props.modified" class="orange" :id="matchId"></ButtonModified>
@@ -38,6 +38,7 @@ import ButtonModified from './ButtonModified.vue'
 import ButtonLeaveGame from './ButtonLeaveGame.vue'
 import { userposition } from './UserPosition.vue'
 import HeaderComp from '../HeaderComp.vue'
+import TimerGame from './TimerGame.vue'
 
 const gamesStore = useGamesStore()
 const props = defineProps([
@@ -66,14 +67,6 @@ const match = computed(() => {
   })
 
 
-let [startDate, startTime] = match.value.acf.start_date.split(' ')
-startDate = startDate
-startTime = startTime
-let [endDate, endTime] = match.value.acf.end_date.split(' ')
-endDate = endDate
-endTime = endTime
-
-console.log(props.startpoint)
 onMounted(() => {
   const startPoint = match.value.acf.start_point
   const markers = match.value.acf.markers
@@ -110,33 +103,53 @@ onMounted(() => {
 
     
       watch(showMarkers, (newValue) => {
-    if (newValue || props.markers) {
+    if (newValue) {
         // Afficher les marqueurs sur la carte
-        markers.forEach((marker) => {
-            const { latitude, longitude } = marker.position
-            const markerIcon = L.icon({
-                iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
-                iconSize: [50, 50],
-                iconAnchor: [12, 41],
-                popupAnchor: [0, -30]
-            })
-            const leafletMarker = L.marker([latitude, longitude], { icon: markerIcon }).bindPopup(
-                `<b>${marker.name}</b>`
-            )
+        const currentPlayer = gamesStore.oneMatch.acf.players.find(
+            (player) => player.userId === String(gamesStore.userId)
+        );
+        const playerMarkers = currentPlayer?.marker || [];
 
-            marker.leafletMarker = leafletMarker.addTo(map)
-        })
+        playerMarkers.forEach((playerMarker) => {
+    const { latitude, longitude } = playerMarker.position;
+    const markerIcon = L.icon({
+        iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
+        iconSize: [50, 50],
+        iconAnchor: [12, 41],
+        popupAnchor: [0, -30]
+    });
+
+    // Créer un marqueur avec l'opacité initiale basée sur l'état capturé
+    const opacity = playerMarker.isCaptured ? 0.4 : 1.0;
+    const leafletMarker = L.marker([latitude, longitude], {
+        icon: markerIcon,
+        opacity: opacity // Définissez l'opacité du marqueur
+    }).bindPopup(`<b>${playerMarker.name}</b>`);
+
+    playerMarker.leafletMarker = leafletMarker.addTo(map);
+
+    // Surveiller les changements d'état capturé et mettre à jour l'opacité
+    watch(() => playerMarker.isCaptured, (newValue) => {
+        leafletMarker.setOpacity(newValue ? 0.4 : 1.0);
+    });
+});
     } else {
         // Masquer les marqueurs de la carte
-        markers.forEach((marker) => {
-            if (marker.leafletMarker) {
-                map.removeLayer(marker.leafletMarker); // Retirer le marqueur de la carte
-                marker.leafletMarker.off(); // Désactiver les événements du marqueur
-                marker.leafletMarker = null; // Marquer le marqueur comme retiré
+        const currentPlayer = gamesStore.oneMatch.acf.players.find(
+            (player) => player.userId === String(gamesStore.userId)
+        );
+        const playerMarkers = currentPlayer?.marker || [];
+
+        playerMarkers.forEach((playerMarker) => {
+            if (playerMarker.leafletMarker) {
+                map.removeLayer(playerMarker.leafletMarker); // Retirer le marqueur de la carte
+                playerMarker.leafletMarker.off(); // Désactiver les événements du marqueur
+                playerMarker.leafletMarker = null; // Marquer le marqueur comme retiré
             }
-        })
+        });
     }
-})
+});
+
 
 
 
@@ -154,7 +167,7 @@ onMounted(() => {
     }
 
     if (props.position) {
-      userposition(map, matchId)
+      userposition(map, showMarkers)
     }
   })
 })
@@ -165,4 +178,4 @@ onMounted(() => {
   width: 100%;
 }
 
-</style>./UserPosition.vue
+</style>
