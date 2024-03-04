@@ -3,8 +3,8 @@
     <HeaderComp data="logo"></HeaderComp>
     <div class="dashboard-content">
       <p>{{ myInfo }}</p>
-      <div v-if="imglink" class="dashboard-content-circle"><img :src="imglink" width="300" alt="ProfilePic" /></div>
-      <div v-else class="dashboard-content-circle"><img src="../assets/Icons/Profile-pic.png" alt="ProfilePic" /></div>
+      <div v-if="imglink != ''" class="dashboard-content-circle"><img :src="imglink" width="300" alt="ProfilePicDl" /></div>
+      <div v-else class="dashboard-content-circle"><img src="../assets/Icons/Profile-pic.png" alt="ProfilePicAuto" /></div>
       <div class="modifProfile">
         <button @click="sendToProfile"><img src="../assets/Icons/stylus.png" alt=""></button>
       </div>
@@ -21,7 +21,6 @@ import { useRouter } from 'vue-router'
 import { useGamesStore } from '@/stores/games';
 import { useUserStore } from '@/stores/user'
 import { computed, onMounted } from 'vue'
-import LoadingComp from '@/components/LoadingComp.vue';
 
 const userStore = useUserStore()
 const imglink = computed(() => userStore.userimglink)

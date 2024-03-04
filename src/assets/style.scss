@@ -27,7 +27,6 @@
     background-color: $theme-color;
     color: white;
     cursor: pointer;
-    margin-block: 1rem;
   }
   & a {
     color: $theme-color;
@@ -37,11 +36,39 @@
     margin-block-start: .5rem;
   }
   & input {
+    font-size: 1em;
     background-color: #fafafa;
     border: #eeeeee solid 1px;
     border-radius: 8px;
-    padding: 0.4em 1.2em;
+    padding: 0.6em 1.2em;
     margin-block-end: .5rem;
+  }
+  &--separation {
+    width: 70%;
+    margin: .7em auto;
+    text-align: center;
+  }
+  &--separation:before, &--separation:after {
+    content: "";
+    display: inline-block;
+    width: 50%;
+    margin: 0 .5em 0 -55%;
+    vertical-align: middle;
+    border-bottom: 1px solid $theme-color;
+  }
+  &--separation:after {
+    margin: 0 -55% 0 .5em;
+  }
+  & span {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  &--btn {
+    margin: 0 auto;
+    color: $theme-color !important;
+    background-color: white !important;
+    border: 2px solid $theme-color !important;
+    padding: 0.6em 1.2em;
   }
 }
 
