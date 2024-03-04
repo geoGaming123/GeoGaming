@@ -12,9 +12,9 @@
 </div>
 
   <div id="map"></div>
-
+  <userposition :showMarkers="showMarkers" ></userposition>
   <div v-if="props.timer">
-    <Timer :updateShowMarkers="updateShowMarkers"></Timer>
+    <TimerGame :updateShowMarkers="updateShowMarkers"></TimerGame>
   </div>
 
   <div v-if="props.delete">
@@ -40,8 +40,8 @@ import ButtonDelete from '@/components/map/ButtonDelete.vue'
 import ButtonJoin from './ButtonJoin.vue'
 import ButtonModified from './ButtonModified.vue'
 import ButtonLeaveGame from './ButtonLeaveGame.vue'
-import Timer from '@/components/map/Timer.vue'
-import { userposition } from './Userposition.vue';
+import { userposition } from './UserPosition.vue';
+import TimerGame from './TimerGame.vue'
 
 const gamesStore = useGamesStore()
 const props = defineProps([
@@ -67,7 +67,6 @@ const match = ref(
     return gamesStore.oneMatch
   })
 )
-console.log(props.startpoint)
 onMounted(() => {
   const startPoint = match.value.acf.start_point
   const markers = match.value.acf.markers
@@ -148,7 +147,7 @@ onMounted(() => {
     }
 
     if (props.position) {
-      userposition(map, matchId)
+      userposition(map, showMarkers)
     }
   })
 })

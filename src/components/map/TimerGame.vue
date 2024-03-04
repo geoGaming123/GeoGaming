@@ -8,10 +8,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import { userposition } from './Userposition.vue'
-import { useGamesStore } from '@/stores/games';
+import { userposition } from './UserPosition.vue'
 const { showStartButton } = userposition()
-const gamesStore = useGamesStore()
 let timerRunning = ref(false)
 let intervalId = null
 let startButtonClicked = ref(false)
@@ -22,7 +20,6 @@ const props = defineProps({
 })
         function startTimer() {
           if (showStartButton.value) {
-            console.log("1",gamesStore.oneMatch.acf.players);
     startButtonClicked.value = true
     // Vérifiez si le bouton Start peut être activé
     timerRunning.value = true
@@ -40,7 +37,7 @@ const props = defineProps({
     }, 1000)
   } else {
     // Affichez un message ou effectuez une action si le bouton Start ne peut pas être activé
-    console.log('Vous ne pouvez pas démarrer le timer pour le moment.')
+    alert('Vous ne pouvez pas démarrer le timer pour le moment.')
   }
 }
 
@@ -50,7 +47,7 @@ function endTimer() {
     // Nettoyer l'intervalle
     clearInterval(intervalId)
     // Vous pouvez également déclencher des actions supplémentaires à la fin du timer
-    console.log(`Le temps total écoulé est de ${minutes.value} minutes ${secondes.value} secondes.`)
+    alert(`Le temps total écoulé est de ${minutes.value} minutes ${secondes.value} secondes.`)
   }
 }
 

@@ -3,16 +3,19 @@ import { ref, computed, onBeforeUnmount } from 'vue'
 import { useGamesStore } from '@/stores/games'
 import * as L from 'leaflet'
 
-export function userposition(map) {
+
+export function userposition(map, showMarkers) {
   const gamesStore = useGamesStore()
 
   const match = computed(() => {
     return gamesStore.oneMatch
   })
+  console.log("PROPS",showMarkers);  
   const showStartButton = ref(false)
   const startPoint = match.value.acf.start_point.position
-  // console.log("START",startPoint);
+  console.log(startPoint);
 
+  
   const calculateDistance = (pointA, pointB) => {
     const earthRadius = 6371e3
     const lat1 = (pointA.latitude * Math.PI) / 180
@@ -82,12 +85,11 @@ export function userposition(map) {
 
         const currentPlayer = gamesStore.oneMatch.acf.players.find(player => player.userId === String(gamesStore.userId));
         const playerMarkers = currentPlayer?.marker || [];
-        // console.log(playerMarkers);
+        console.log(playerMarkers);
         playerMarkers.forEach((marker) => {
           const distance = calculateDistance({ latitude, longitude }, marker.position)
-          if (distance <= 10 && !marker.isCaptured) {
+          if (showMarkers && distance <= 10 && !marker.isCaptured) {
             marker.isCaptured = true
-            // marker.leafletMarker.setOpacity(0.4)
             const totalBalises = playerMarkers.length
             const balisesRestantes = playerMarkers.filter((m) => !m.isCaptured).length
             const balisesPrises = totalBalises - balisesRestantes
