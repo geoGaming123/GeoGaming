@@ -18,6 +18,7 @@ import { useRouter } from 'vue-router'
 import { useGamesStore } from '@/stores/games';
 import { useUserStore } from '@/stores/user'
 import { computed, onMounted } from 'vue'
+import LoadingComp from '@/components/LoadingComp.vue';
 
 const userStore = useUserStore()
 const imglink = computed(() => userStore.userimglink)
