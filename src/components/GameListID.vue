@@ -8,6 +8,21 @@
       :title="title"
       :tab="tab"
     ></GameListItem>
+    <tr class="gamelist-item empty" v-if="tab === 'created' && Matches.length === 0">
+      <td></td>
+      <td>Aucune partie créée :c</td>
+      <td></td>
+  </tr>
+    <tr class="gamelist-item empty" v-if="tab === 'available' && Matches.length === 0">
+      <td></td>
+      <td>Aucune partie disponible :c</td>
+      <td></td>
+  </tr>
+    <tr class="gamelist-item empty" v-if="tab === 'joined' && Matches.length === 0">
+      <td></td>
+      <td>Aucune partie rejointe :c</td>
+      <td></td>
+  </tr>
   </tbody>
 </template>
 
