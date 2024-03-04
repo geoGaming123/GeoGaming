@@ -21,8 +21,8 @@ const signUpAction = () => {
 <template>
   <div class="logo">
     <img src="../assets/Icons/Logo-perso-bleu.png" height="100px" alt="">
+    <h1>Créer un compte</h1>
   </div>
-  <h1>Créer un compte</h1>
 
   <div class="card">
     <form action="" method="" class="loginForm" @submit.prevent="signUpAction">
