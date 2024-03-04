@@ -91,6 +91,14 @@
     }
   }
 }
+.modifProfile {
+  width: 100%;
+  text-align: center;
+  & button {
+  border: none;
+  background-color: transparent;
+  }
+}
 
 // ********************************* //
 // *********** NAV-COMP ************ //
