@@ -5,9 +5,10 @@ import HeaderComp from '@/components/HeaderComp.vue'
 <template>
   <main>
     <HeaderComp></HeaderComp>
-    <div class="regles">
+    <div class="rules">
+      <h1>Règlement</h1>
       <details>
-        <summary>Règle 1 : Respect des autres joueurs</summary>
+        <summary><span>Règle 1</span> : Respect des autres joueurs</summary>
         <div>
           <p>
             Les participants doivent respecter les autres coureurs, éviter tout comportement
@@ -17,7 +18,7 @@ import HeaderComp from '@/components/HeaderComp.vue'
       </details>
 
       <details>
-        <summary>Règle 2 : Interdictions d'obstacles</summary>
+        <summary><span>Règle 2</span> : Interdictions d'obstacles</summary>
         <div>
           <p>
             Il est interdit d'ajouter intentionnellement des obstacles sur le parcours pour gêner
@@ -27,7 +28,7 @@ import HeaderComp from '@/components/HeaderComp.vue'
       </details>
 
       <details>
-        <summary>Règle 3 : Respect de l'environnement</summary>
+        <summary><span>Règle 3</span> : Respect de l'environnement</summary>
         <div>
           <p>
             Les coureurs doivent respecter l'environnement et ne pas jeter de déchets sur le
@@ -37,7 +38,7 @@ import HeaderComp from '@/components/HeaderComp.vue'
       </details>
 
       <details>
-        <summary>Règle 4 : Inscription honnête</summary>
+        <summary><span>Règle 4</span> : Inscription honnête</summary>
         <div>
           <p>
             Les participants doivent fournir des informations d'inscription précises et ne peuvent
@@ -47,7 +48,7 @@ import HeaderComp from '@/components/HeaderComp.vue'
       </details>
 
       <details>
-        <summary>Règle 5 : Suivre les consignes</summary>
+        <summary><span>Règle 5</span> : Suivre les consignes</summary>
         <div>
           <p>
             Si des consignes de partie ont été ajoutées par l'organisateur, merci de bien vouloir
@@ -56,7 +57,7 @@ import HeaderComp from '@/components/HeaderComp.vue'
         </div>
       </details>
 
-      <p>
+      <p class="rules-end">
         Tout signalement d'un nom-respect du règlement pourra être suivi d'une exclusion de
         l'application.
       </p>
@@ -65,10 +66,5 @@ import HeaderComp from '@/components/HeaderComp.vue'
 </template>
 
 <style scoped>
-.regles {
-  padding-inline: 1rem;
-}
-details {
-  padding-block: 0.5rem;
-}
+
 </style>

@@ -1,7 +1,5 @@
 <template>
-  <div>
     <button @click="confirmDelete">supprimer</button>
-  </div>
 </template>
 
 <script setup>

@@ -5,22 +5,25 @@
     <GameList
       title="past"
       :MatchesData="PastMatchesData"
-      v-show="showMenuData == 'past'"
+      v-if="showMenuData == 'past'"
       :myID="myID"
+      :key="incrementPast"
       :menu="showMenuData"
     ></GameList>
     <GameList
       title="present"
       :MatchesData="PresentMatchesData"
-      v-show="showMenuData == 'present'"
+      v-if="showMenuData == 'present'"
       :myID="myID"
+      :key="incrementPresent"
       :menu="showMenuData"
     ></GameList>
     <GameList
       title="futur"
       :MatchesData="FutureMatchesData"
-      v-show="showMenuData == 'futur'"
+      v-if="showMenuData == 'futur'"
       :myID="myID"
+      :key="incrementFutur"
       :menu="showMenuData"
     ></GameList>
   </main>
@@ -31,13 +34,16 @@ import HeaderComp from '@/components/HeaderComp.vue'
 import NavComp from '@/components/NavComp.vue'
 import GameList from '@/components/GameList.vue'
 import { ref, computed } from 'vue'
-import { useCounterStore } from '@/stores/counter'
+import { useDataStore } from '@/stores/data'
 import { useUserStore } from '@/stores/user'
 
-const monStore = useCounterStore()
-monStore.getAllMatches() // Charge les données des parties et distribue en 3 array selon la temporalité
+const dataStore = useDataStore()
+dataStore.getAllMatches() // Charge les données des parties et distribue en 3 array selon la temporalité
 const userStore = useUserStore()
 const myID = computed(() => userStore.myID)  // Récupère l'id de l'user connecté
+const incrementPast = computed(()=> dataStore.incrementPast)
+const incrementPresent = computed(()=> dataStore.incrementPresent)
+const incrementFutur = computed(()=> dataStore.incrementFutur)
 
 setTimeout(() => {
   console.log('HomeView - ID - ' + myID.value)
@@ -47,15 +53,16 @@ const showMenuData = ref('present') // Nav à afficher par défaut
 
 const showMenu = (tab) => { //Recois "tab" du footer pour savoir le menu actif
   showMenuData.value = tab
+  dataStore.getAllMatches()
 }
 const FutureMatchesData = computed(() => { // Récupère le tableau des parties futures
-  return monStore.getMatchesFuture
+  return dataStore.getMatchesFuture
 })
 const PastMatchesData = computed(() => { // Récupère le tableau des parties passées
-  return monStore.getMatchesPast
+  return dataStore.getMatchesPast
 })
 const PresentMatchesData = computed(() => { // Récupère le tableau des parties en cours
-  return monStore.getMatchesPresent
+  return dataStore.getMatchesPresent
 })
 </script>
 

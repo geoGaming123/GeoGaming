@@ -1,24 +1,24 @@
 <template>
-      <HeaderComp  profile="profile" color="white"></HeaderComp>
+      <HeaderComp  profile="profile"></HeaderComp>
   <div class='gameform'>
-    <h1>Créer une partie</h1>
+    <h1 class="roboto-title">Créer une partie</h1>
     <form @submit.prevent="submitForm">
-      <label for="title">Title:</label>
+      <label for="title">Titre :</label>
       <input type="text" id="title" v-model="gamesStore.formData.title" required />
 
-      <label for="description">Description:</label>
+      <label for="description">Description :</label>
       <textarea id="description" v-model="gamesStore.formData.description" required></textarea>
 
-      <label>Date de début:</label>
+      <label>Date de début :</label>
       <input type="datetime-local" v-model="gamesStore.formData.startDate" required />
 
-      <label>Date de fin:</label>
+      <label>Date de fin :</label>
       <input type="datetime-local" v-model="gamesStore.formData.endDate" required />
 
-      <label>Location:</label>
+      <label>Location :</label>
       <MapForm :searchBarVisible="true" :startPointVisible="true" :markersVisible="true"></MapForm>
 
-      <button type="submit" class="btn submit">Submit</button>
+      <button type="submit" class="green">Submit</button>
     </form>
   </div>
 </template>
@@ -65,44 +65,3 @@ const submitForm = () => {
   };
 };
 </script>
-
-<style>
-.gameform {
-  margin: 20px;
-}
-form {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  gap: 0.4em;
-}
-
-.btn {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  background-color: #00d1c5;
-  color: white;
-  cursor: pointer;
-}
-.btn:hover {
-  opacity: 0.7;
-}
-
-input,
-textarea {
-  background-color: #fafafa;
-  border: #eeeeee solid 1px;
-  border-radius: 8px;
-  padding: 0.4em 1.2em;
-}
-
-#map {
-  width: 100%;
-}
-.submit {
-  background-color: #43be6e;
-}
-</style>

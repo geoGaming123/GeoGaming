@@ -5,15 +5,15 @@
       <img v-if="props.color == 'white'" src="../assets/Icons/Logo-texte-bleu.png" alt="Logo*" />
     </div>
     <div class="header_return" :class="{ hidden: !showLogo }">
-      <button @click="lastPage">Return</button>
+      <button @click="lastPage"><img src="../assets/Icons/logout-white.png" alt="Return" width="30px"></button>
     </div>
     <div class="header_profile" :class="{ hidden: showProfileBtn }">
       <img src="../assets/Icons/Profile-pic.png" alt="" @click="showProfileWindow" />
       <div id="profileWindow" class="header_myprofile hidden">
-        <img src="" alt="Photo" /> {{ myInfo }}<br />
+        <img class="rankList_El_img" :src="userStore.userimglink" width="50" alt="Photo" /> {{ myInfo }}<br />
         <router-link to="/profile">Modifier le profil ?</router-link><br />
         <router-link to="/help">Besoin d'aide ?</router-link>
-        <router-link to="/"><button @click="disconnect">Déconnexion</button></router-link>
+        <button @click="disconnect">Déconnexion</button>
       </div>
     </div>
   </section>
@@ -31,7 +31,7 @@ const props = defineProps({
 })
 
 const userStore = useUserStore()
-const myInfo = computed(() => userStore.userData.acf.pseudo)
+const myInfo = computed(() => userStore.userLogin.username)
 const router = useRouter()
 
 const showLogo = computed(() => {
@@ -50,7 +50,10 @@ const showProfileWindow = () => {
 }
 
 const disconnect = () => {
-  console.log('Déconnecté')
+  if(confirm('Voulez-vous vraiment vous déconnecter ?')){
+    console.log('Déconnecté')
+    router.push('/')
+  }
 }
 </script>
 

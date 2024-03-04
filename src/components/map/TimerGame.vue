@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="startTimer" v-show="showStartButton" :disabled="startButtonClicked">Start</button>
+    <button @click="startTimer" v-show="showStartButton" :disabled="timerRunning || !showStartButton" :class="{ 'disabled': timerRunning || !showStartButton }">Start</button>
     <button @click="endTimer" v-show="showStartButton && timerRunning">End</button>
     <p v-if="timerRunning">Temps écoulé: {{ minutes }} minutes {{ secondes }} secondes</p>
   </div>
@@ -18,8 +18,8 @@ let secondes = ref(0)
 const props = defineProps({
   updateShowMarkers: Function
 })
-        function startTimer() {
-          if (showStartButton.value) {
+function startTimer() {
+  if (showStartButton.value) {
     startButtonClicked.value = true
     // Vérifiez si le bouton Start peut être activé
     timerRunning.value = true
@@ -53,3 +53,9 @@ function endTimer() {
 
 
 </script>
+<style>
+  .disabled {
+    opacity: 0.6;  /* Vous pouvez ajuster le style comme vous le souhaitez pour indiquer qu'il est désactivé */
+    cursor: not-allowed;
+  }
+</style>./UserPosition.vue

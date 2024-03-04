@@ -1,7 +1,5 @@
 <template>
-  <div>
     <button @click="redirectToModified">Modifier</button>
-  </div>
 </template>
 
 <script setup>

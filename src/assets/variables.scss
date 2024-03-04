@@ -1,11 +1,49 @@
+// Import des Fonts
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,slnt,wdth,wght,GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC@8..144,-10..0,25..151,100..1000,-200..150,27..175,323..603,25..135,649..854,-305..-98,560..788,416..570,528..760&display=swap');
+/*
+.roboto-title {
+    font-family: "Roboto Flex", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-variation-settings:
+      "slnt" 0,     // From -10 to 0        // Inclinaison
+      "wdth" 100,   // From 25 to 151       // Largeur caractère
+      "GRAD" 0,     // From -200 to 150     // Epaisseur trait
+      "XOPQ" 96,    // From 27 to 175       // 
+      "XTRA" 468,   // From 323 to 603      // 
+      "YOPQ" 79,    // From 25 to 135       // 
+      "YTAS" 750,   // From 649 to 854      // 
+      "YTDE" -203,  // From -305 to -98     // 
+      "YTFI" 738,   // From 560 to 788      // 
+      "YTLC" 514,   // From 416 to 570      // 
+      "YTUC" 712;   // From 528 to 760      // 
+  }
+  */
+.roboto-title {
+    font-family: "Roboto Flex", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings:
+      "slnt" 0,
+      "wdth" 100,
+      "GRAD" 0,
+      "XOPQ" 96,
+      "XTRA" 468,
+      "YOPQ" 79,
+      "YTAS" 750,
+      "YTDE" -203,
+      "YTFI" 738,
+      "YTLC" 514,
+      "YTUC" 712;
+  }
+
+
 // Déclaration des variables
 
 $theme-color: #00d1c5;
 $grey-color: #f1f1f1;
 $text-color-black: rgba(0, 0, 0, 0.8);
-/*
-$title-font-fam : ;
-$title-size: ;
-$text-font-fam: ;
-$text-size: ;
-*/
+

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="map-container" id="map"></div>
-    <h2>ajouter:</h2>
+    <div class="game-map" id="map"></div>
+    <h2>Ajouter</h2>
     <div class="controls">
       <div v-if="markersVisible">
         <MapAddMarkers :map="map"></MapAddMarkers>
