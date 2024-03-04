@@ -20,7 +20,7 @@
   <div class="game-btns">
     <TimerGame v-if="props.timer" :updateShowMarkers="updateShowMarkers"></TimerGame>
     <ButtonJoin v-if="props.join" class="green" :id="matchId"></ButtonJoin>
-    <ButtonLeaveGame v-if="props.leave" class="red"  :id="matchId"></ButtonLeaveGame>
+    <ButtonLeaveGame v-if="props.leave && !showMarkers" class="red"  :id="matchId"></ButtonLeaveGame>
     <ButtonModified v-if="props.modified" class="orange" :id="matchId"></ButtonModified>
     <ButtonDelete  v-if="props.delete" class="red" :id="matchId"></ButtonDelete>
   </div>
