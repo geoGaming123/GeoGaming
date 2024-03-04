@@ -51,6 +51,7 @@ const signUpAction = () => {
   border: 1.5px solid;
 }
 .errorclass {
+  display: inline-block;
   color: red;
   border-color: red;
   border-radius: 8px;
