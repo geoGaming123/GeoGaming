@@ -11,7 +11,8 @@ export const useDataStore = defineStore('data', {
     myUser: {},
     incrementPast: 0,
     incrementPresent: 0,
-    incrementFutur: 0
+    incrementFutur: 0,
+    isLoading: 0
   }),
   getters: {
     getMatches: (state) => state.matches,
@@ -19,10 +20,12 @@ export const useDataStore = defineStore('data', {
     getMatchesPresent: (state) => state.matchesPresent,
     getMatchesFuture: (state) => state.matchesFuture,
     getMatchToRank: (state) => state.matchToRank,
-    getMyUser: (state) => state.myUser
+    getMyUser: (state) => state.myUser,
+    isItLoading: (state) => state.isLoading
   },
   actions: {
     getAllMatches() {
+      this.isLoading++
       fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match?per_page=50')
         .then((res) => res.json())
         .then((res) => {
@@ -38,6 +41,7 @@ export const useDataStore = defineStore('data', {
               new Date(matches.acf.end_date) > this.dateNow &&
               this.dateNow > new Date(matches.acf.start_date)
           )
+          this.isLoading--
         })
         .catch((error) => console.error('Erreur :', error))
     },
@@ -63,12 +67,6 @@ export const useDataStore = defineStore('data', {
           this.myUser = res
         })
         .catch((error) => console.error('Erreur :', error))
-    },
-    toggleNav() {
-      this.incrementPast++
-      this.incrementPresent++
-      this.incrementFutur++
-      console.log('incremented')
     }
   }
 })

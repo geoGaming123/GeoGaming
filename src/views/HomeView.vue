@@ -7,7 +7,6 @@
       :MatchesData="PastMatchesData"
       v-if="showMenuData == 'past'"
       :myID="myID"
-      :key="incrementPast"
       :menu="showMenuData"
     ></GameList>
     <GameList
@@ -15,7 +14,6 @@
       :MatchesData="PresentMatchesData"
       v-if="showMenuData == 'present'"
       :myID="myID"
-      :key="incrementPresent"
       :menu="showMenuData"
     ></GameList>
     <GameList
@@ -23,9 +21,9 @@
       :MatchesData="FutureMatchesData"
       v-if="showMenuData == 'futur'"
       :myID="myID"
-      :key="incrementFutur"
       :menu="showMenuData"
     ></GameList>
+    <LoadingComp v-if="isLoading === 1"></LoadingComp>
   </main>
 </template>
 
@@ -36,18 +34,16 @@ import GameList from '@/components/GameList.vue'
 import { ref, computed } from 'vue'
 import { useDataStore } from '@/stores/data'
 import { useUserStore } from '@/stores/user'
+import LoadingComp from '@/components/LoadingComp.vue'
 
 const dataStore = useDataStore()
 dataStore.getAllMatches() // Charge les données des parties et distribue en 3 array selon la temporalité
 const userStore = useUserStore()
 const myID = computed(() => userStore.myID)  // Récupère l'id de l'user connecté
-const incrementPast = computed(()=> dataStore.incrementPast)
-const incrementPresent = computed(()=> dataStore.incrementPresent)
-const incrementFutur = computed(()=> dataStore.incrementFutur)
-
+const isLoading = computed(()=>dataStore.isItLoading)
 setTimeout(() => {
   console.log('HomeView - ID - ' + myID.value)
-}, 3000)
+}, 2000)
 
 const showMenuData = ref('present') // Nav à afficher par défaut
 

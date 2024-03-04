@@ -14,16 +14,12 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useDataStore } from '@/stores/data';
-
-const dataStore = useDataStore()
 
 const emit = defineEmits(['activateNav']) //Définis l'évènement à émettre
 const activeNav = ref('present')
 const activateNav = (tab) => {
   activeNav.value = tab // Valeur à émettre selon menu actif
   emit('activateNav', tab)
-  dataStore.toggleNav()
 }
 </script>
 

@@ -91,6 +91,15 @@
     }
   }
 }
+.modifProfile {
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+  & button {
+  border: none;
+  background-color: transparent;
+  }
+}
 
 // ********************************* //
 // *********** NAV-COMP ************ //
@@ -461,6 +470,15 @@
       font-weight: 400;
     }
   }
+}
+.empty td:nth-child(1){
+  width: 1% !important;
+}
+.empty td:nth-child(2){
+  width: 98%;
+}
+.empty td:nth-child(3){
+  width: 1% !important;
 }
 
 // ********************************* //
