@@ -5,6 +5,7 @@ export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
     // Define state properties here if needed
+    onError: false,
     loggedin: true,
     admintoken:
       'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NlcGVncmEtZnJvbnRlbmQueHl6L3dmMTEtYXRlbGllciIsImlhdCI6MTcwOTEyODE1MiwibmJmIjoxNzA5MTI4MTUyLCJleHAiOjE3MDk3MzI5NTIsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.WvWfzVTkalj9yAFVkbMrXREJKrwR61EWEU8xqYfHb7M',
@@ -29,8 +30,17 @@ export const useUserStore = defineStore({
     }*/
   },
   actions: {
+    setUserData(username, email, password) {
+      this.userData.username = username
+      this.userData.email = email
+      this.userData.password = password
+    },
+    setUserLogin(username, password) {
+      this.userLogin.username = username
+      this.userLogin.password = password
+    },
     rerout() {
-      this.$router.push({ path: '/dash' })
+      this.$router.push({ path: `/dash` })
     },
     onFileUpload(e) {
       this.userData.avatar = e.target.files[0]
@@ -68,6 +78,10 @@ export const useUserStore = defineStore({
             body: form
           }
         )
+        if(!userSignUp.ok) {
+          this.onError = true
+          return
+        }
         console.log('userSignup:', userSignUp.status)
 
         const getUserToken = await fetch(
@@ -83,6 +97,10 @@ export const useUserStore = defineStore({
             })
           }
         )
+        if(!getUserToken.ok) {
+          this.onError = true
+          return
+        }
         console.log(getUserToken)
         const thisToken = await getUserToken.json()
 
@@ -96,6 +114,10 @@ export const useUserStore = defineStore({
             body: form
           }
         )
+        if(!postUserImage.ok) {
+          this.onError = true
+          return
+        }
         const postUserImageResponse = await postUserImage.json()
         const postUserImageLink = postUserImageResponse.link
 
@@ -111,9 +133,19 @@ export const useUserStore = defineStore({
             body: JSON.stringify({ fields: { avatar: `${postUserImageResponse.link}` } })
           }
         )
+        if(!patchUserImage.ok) {
+          this.onError = true
+          return
+        }
         console.log('patchUserImage:', patchUserImage.status)
+        if(userSignUp.ok, getUserToken.ok, postUserImage.ok, patchUserImage.ok) {
+        this.setUserLogin(this.userData.username, this.userData.password)
+        this.pageBool = !this.pageBool
+        }
+        
       } catch (error) {
-        throw new Error('Failed to create new user', error)
+        this.onError = true
+        console.log(error)
       }
     },
     async loginUser() {
@@ -151,6 +183,7 @@ export const useUserStore = defineStore({
         console.log(await myID)
         this.myID = myID.id
         this.myToken = userToken
+
         return this.rerout(), this.userDashImage()
       } catch (error) {
         console.error('Error while logging in:', error)
