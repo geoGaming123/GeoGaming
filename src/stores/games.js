@@ -197,8 +197,8 @@ export const useGamesStore = defineStore('games', {
             longitude: ''
           },
           marker: markers,
-          time: '',
-          score: '',
+          time: '0',
+          score: '0',
           start_Game: false
         })
 
