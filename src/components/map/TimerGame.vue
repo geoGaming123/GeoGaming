@@ -8,7 +8,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { userposition } from './Userposition.vue'
+import { userposition } from './UserPosition.vue'
 const { showStartButton } = userposition()
 let timerRunning = ref(false)
 let intervalId = null
