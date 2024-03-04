@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="startTimer" v-show="showStartButton" :disabled="timerRunning || !showStartButton" :class="{ 'disabled': timerRunning || !showStartButton }">Start</button>
+    <button @click="startTimer" v-show="showStartButton && !gameEnded" :disabled="timerRunning || !showStartButton || gameEnded" :class="{ 'disabled': timerRunning || !showStartButton || gameEnded }">Start</button>
     <button @click="endTimer" v-show="showStartButton && timerRunning">End</button>
     <p v-if="timerRunning">Temps écoulé: {{ minutes }} minutes {{ secondes }} secondes</p>
   </div>
@@ -15,6 +15,7 @@ let intervalId = null
 let startButtonClicked = ref(false)
 let minutes = ref(0)
 let secondes = ref(0)
+let gameEnded = ref(false)
 const props = defineProps({
   updateShowMarkers: Function
 })
@@ -48,6 +49,7 @@ function endTimer() {
     clearInterval(intervalId)
     // Vous pouvez également déclencher des actions supplémentaires à la fin du timer
     alert(`Le temps total écoulé est de ${minutes.value} minutes ${secondes.value} secondes.`)
+    gameEnded.value = true // La partie est terminée
   }
 }
 

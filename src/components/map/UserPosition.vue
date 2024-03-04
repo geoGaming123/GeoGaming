@@ -3,19 +3,16 @@ import { ref, computed, onBeforeUnmount } from 'vue'
 import { useGamesStore } from '@/stores/games'
 import * as L from 'leaflet'
 
-
 export function userposition(map, showMarkers) {
   const gamesStore = useGamesStore()
   const match = computed(() => {
     return gamesStore.oneMatch
   })
-  
-  // console.log("PROPS",showMarkers);   
+
   const showStartButton = ref(false)
   const startPoint = match.value.acf.start_point.position
-  console.log(startPoint);
+  console.log(startPoint)
 
-  
   const calculateDistance = (pointA, pointB) => {
     const earthRadius = 6371e3
     const lat1 = (pointA.latitude * Math.PI) / 180
@@ -33,17 +30,19 @@ export function userposition(map, showMarkers) {
   }
 
   const updateMarkerCaptured = (marker) => {
-    const currentPlayer = gamesStore.oneMatch.acf.players.find(player => player.userId === String(gamesStore.userId));
+    const currentPlayer = gamesStore.oneMatch.acf.players.find(
+      (player) => player.userId === String(gamesStore.userId)
+    )
     if (currentPlayer) {
-      const playerMarkers = currentPlayer.marker;
-      const foundMarker = playerMarkers.find(m => m.name === marker.name);
+      const playerMarkers = currentPlayer.marker
+      const foundMarker = playerMarkers.find((m) => m.name === marker.name)
       if (foundMarker) {
-        foundMarker.isCaptured = true;
+        foundMarker.isCaptured = true
       }
     }
   }
 
-  let watchUserPosition 
+  let watchUserPosition
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -82,21 +81,23 @@ export function userposition(map, showMarkers) {
         } else {
           showStartButton.value = false
         }
-        console.log("PROPS2", showMarkers);
-        const currentPlayer = gamesStore.oneMatch.acf.players.find(player => player.userId === String(gamesStore.userId));
-        const playerMarkers = currentPlayer?.marker || [];
-        console.log(playerMarkers);
+        const currentPlayer = gamesStore.oneMatch.acf.players.find(
+          (player) => player.userId === String(gamesStore.userId)
+        )
+        const playerMarkers = currentPlayer?.marker || []
+        console.log("MARKER", playerMarkers);
         playerMarkers.forEach((marker) => {
+
           const distance = calculateDistance({ latitude, longitude }, marker.position)
-          if (showMarkers && showStartButton && distance <= 10 && !marker.isCaptured) {
+          if (distance <= 10 && !marker.isCaptured) {
             marker.isCaptured = true
             const totalBalises = playerMarkers.length
             const balisesRestantes = playerMarkers.filter((m) => !m.isCaptured).length
             const balisesPrises = totalBalises - balisesRestantes
             const message = `Vous avez récupéré ${balisesPrises}/${totalBalises} balise(s). ${balisesRestantes} balise(s) restante(s).`
             alert(message)
+            
             updateMarkerCaptured(marker)
-            // gamesStore.updatePlayerMarkers(matchId, playerMarkers)
           }
         })
       },

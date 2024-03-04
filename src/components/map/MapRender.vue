@@ -66,7 +66,7 @@ const match = computed(() => {
     return gamesStore.oneMatch
   })
 
-console.log(props.startpoint)
+
 onMounted(() => {
   const startPoint = match.value.acf.start_point
   const markers = match.value.acf.markers
@@ -105,31 +105,51 @@ onMounted(() => {
       watch(showMarkers, (newValue) => {
     if (newValue) {
         // Afficher les marqueurs sur la carte
-        match.value.acf.markers.forEach((marker) => {
-            const { latitude, longitude } = marker.position
-            const markerIcon = L.icon({
-                iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
-                iconSize: [50, 50],
-                iconAnchor: [12, 41],
-                popupAnchor: [0, -30]
-            })
-            const leafletMarker = L.marker([latitude, longitude], { icon: markerIcon }).bindPopup(
-                `<b>${marker.name}</b>`
-            )
+        const currentPlayer = gamesStore.oneMatch.acf.players.find(
+            (player) => player.userId === String(gamesStore.userId)
+        );
+        const playerMarkers = currentPlayer?.marker || [];
 
-            marker.leafletMarker = leafletMarker.addTo(map)
-        })
+        playerMarkers.forEach((playerMarker) => {
+    const { latitude, longitude } = playerMarker.position;
+    const markerIcon = L.icon({
+        iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
+        iconSize: [50, 50],
+        iconAnchor: [12, 41],
+        popupAnchor: [0, -30]
+    });
+
+    // Créer un marqueur avec l'opacité initiale basée sur l'état capturé
+    const opacity = playerMarker.isCaptured ? 0.4 : 1.0;
+    const leafletMarker = L.marker([latitude, longitude], {
+        icon: markerIcon,
+        opacity: opacity // Définissez l'opacité du marqueur
+    }).bindPopup(`<b>${playerMarker.name}</b>`);
+
+    playerMarker.leafletMarker = leafletMarker.addTo(map);
+
+    // Surveiller les changements d'état capturé et mettre à jour l'opacité
+    watch(() => playerMarker.isCaptured, (newValue) => {
+        leafletMarker.setOpacity(newValue ? 0.4 : 1.0);
+    });
+});
     } else {
         // Masquer les marqueurs de la carte
-        match.value.acf.markers.forEach((marker) => {
-            if (marker.leafletMarker) {
-                map.removeLayer(marker.leafletMarker); // Retirer le marqueur de la carte
-                marker.leafletMarker.off(); // Désactiver les événements du marqueur
-                marker.leafletMarker = null; // Marquer le marqueur comme retiré
+        const currentPlayer = gamesStore.oneMatch.acf.players.find(
+            (player) => player.userId === String(gamesStore.userId)
+        );
+        const playerMarkers = currentPlayer?.marker || [];
+
+        playerMarkers.forEach((playerMarker) => {
+            if (playerMarker.leafletMarker) {
+                map.removeLayer(playerMarker.leafletMarker); // Retirer le marqueur de la carte
+                playerMarker.leafletMarker.off(); // Désactiver les événements du marqueur
+                playerMarker.leafletMarker = null; // Marquer le marqueur comme retiré
             }
-        })
+        });
     }
-})
+});
+
 
 
 
