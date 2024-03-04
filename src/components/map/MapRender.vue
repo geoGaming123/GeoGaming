@@ -36,8 +36,7 @@ import ButtonDelete from '@/components/map/ButtonDelete.vue'
 import ButtonJoin from './ButtonJoin.vue'
 import ButtonModified from './ButtonModified.vue'
 import ButtonLeaveGame from './ButtonLeaveGame.vue'
-import Timer from '@/components/map/Timer.vue'
-import { userposition } from './Userposition.vue'
+import { userposition } from './UserPosition.vue'
 import HeaderComp from '../HeaderComp.vue'
 
 const gamesStore = useGamesStore()
@@ -166,4 +165,4 @@ onMounted(() => {
   width: 100%;
 }
 
-</style>
+</style>./UserPosition.vue
