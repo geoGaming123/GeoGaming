@@ -8,7 +8,10 @@ export const useDataStore = defineStore('data', {
     matchesFuture: [],
     matchToRank: [],
     dateNow: new Date(),
-    myUser: {}
+    myUser: {},
+    incrementPast: 0,
+    incrementPresent: 0,
+    incrementFutur: 0
   }),
   getters: {
     getMatches: (state) => state.matches,
@@ -59,6 +62,12 @@ export const useDataStore = defineStore('data', {
           this.myUser = res
         })
         .catch((error) => console.error('Erreur :', error))
+    },
+    toggleNav() {
+      this.incrementPast++
+      this.incrementPresent++
+      this.incrementFutur++
+      console.log('incremented')
     }
   }
 })
