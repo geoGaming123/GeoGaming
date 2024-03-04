@@ -34,7 +34,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.bolder {
+  font-weight: 500;
+}
 .hidden {
   display: none;
 }

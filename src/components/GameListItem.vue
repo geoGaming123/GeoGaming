@@ -1,23 +1,60 @@
 <template>
-  
+
+  <!-- Partie passées créées -->
+
   <tr class="gamelist-item" v-if="title === 'past' && tab === 'created' && ranking.length > 0" @click="sendTo('rank', props.aMatch.id)">
     <td><span class="gamelist-item-id">#{{ props.aMatch.id }} - </span><span class="gamelist-item-title">{{ props.aMatch.acf.title }}</span><br><span class="gamelist-item-nbr">{{ props.aMatch.acf.players.length }}</span><span class="gamelist-item-players"> joueurs</span></td>
     <td><span class="gamelist-item-winner">{{ rankingFirst.name }}</span><br><span class="gamelist-item-winner-score">{{ ranking[0].score }}</span></td>
     <td>{{ formatDate(props.aMatch.acf.end_date) }}</td>
-</tr>
+  </tr>
+
+    <tr class="gamelist-item" v-if="title === 'past' && tab === 'created' && ranking.length === 0" @click="sendTo('rank', props.aMatch.id)">
+      <td><span class="gamelist-item-id">#{{ props.aMatch.id }} - </span><span class="gamelist-item-title">{{ props.aMatch.acf.title }}</span><br><span class="gamelist-item-nbr">{{ props.aMatch.acf.players.length }}</span><span class="gamelist-item-players"> joueurs</span></td>
+      <td>Pas de<br>gagnant</td>
+      <td>{{ formatDate(props.aMatch.acf.end_date) }}</td>
+  </tr>
+
+  <!-- Parties passées rejointes -->
+
   <tr class="gamelist-item" v-if="title === 'past' && tab === 'joined' && ranking.length > 0" @click="sendTo('rank', props.aMatch.id)">
     <td><span class="gamelist-item-id">#{{ props.aMatch.id }} - </span><span class="gamelist-item-title">{{ props.aMatch.acf.title }}</span><br>{{ formatDate(props.aMatch.acf.end_date) }}</td>
     <td><span class="gamelist-item-winner">{{ rankingFirst.name }}</span><br><span class="gamelist-item-winner-score">{{ ranking[0].score }}</span></td>
     <td>{{ myRank + 1 }} / {{ theMatchPlayers.length }}<br><span class="gamelist-item-winner-score" v-if="theMatch && myTime.length > 0">{{ myTime[0].score }}</span></td>
   </tr>
+
+  <tr class="gamelist-item" v-if="title === 'past' && tab === 'joined' && ranking.length === 0" @click="sendTo('rank', props.aMatch.id)">
+    <td><span class="gamelist-item-id">#{{ props.aMatch.id }} - </span><span class="gamelist-item-title">{{ props.aMatch.acf.title }}</span><br>{{ formatDate(props.aMatch.acf.end_date) }}</td>
+    <td>Pas de<br>gagnant</td>
+    <td>Vous n'avez<br>pas joué :c</td>
+  </tr>
+
+  <tr class="gamelist-item" v-if="title === 'past' && tab === 'joined' && ranking.length > 0 && myRank === -1" @click="sendTo('rank', props.aMatch.id)">
+    <td><span class="gamelist-item-id">#{{ props.aMatch.id }} - </span><span class="gamelist-item-title">{{ props.aMatch.acf.title }}</span><br>{{ formatDate(props.aMatch.acf.end_date) }}</td>
+    <td><span>{{ rankingFirst.name }}</span><br><span class="gamelist-item-winner-score">{{ ranking[0].score }}</span></td>
+    <td>Vous n'avez<br>pas joué :c</td>
+  </tr>
+
+  <!-- Parties Présentes -->
+
   <tr class="gamelist-item" v-if="title === 'present'" @click="sendTo('game', props.aMatch.id)">
     <td><span class="gamelist-item-id">#{{ props.aMatch.id }} - </span><span class="gamelist-item-title">{{ props.aMatch.acf.title }}</span><br><span class="gamelist-item-nbr">{{ props.aMatch.acf.players.length }}</span><span class="gamelist-item-players"> joueurs</span></td>
-    <td>{{ dayRemaining }} jours {{ hourRemaining }} heures</td>
+    <td>
+      <span v-if="daysRemaining > 0">
+        <span class="bolder">{{ daysRemaining }}</span> j 
+      </span>
+      <span v-if="hoursRemaining > 0">
+        <span class="bolder">{{ hoursRemaining }}</span> h 
+      </span>
+      <span class="bolder">{{ minutesRemaining }}</span> min</td>
   </tr>
+
+  <!-- Parties futures -->
+
   <tr class="gamelist-item" v-if="title === 'futur'"  @click="sendTo('nextgame', props.aMatch.id)">
     <td><span class="gamelist-item-id">#{{ props.aMatch.id }} - </span><span class="gamelist-item-title">{{ props.aMatch.acf.title }}</span><br><span class="gamelist-item-nbr">{{ props.aMatch.acf.players.length }}</span><span class="gamelist-item-players"> joueurs</span></td>
     <td>{{ formatDate(props.aMatch.acf.start_date) }} - {{ formattedStartTime }}</td>
   </tr>
+
 </template>
 
 <script setup>
@@ -48,8 +85,11 @@ const formattedStartTime = `${startHour}:${startMin < 10 ? '0' : ''}${startMin}`
 const now = new Date(); // Récupère la date du jour
 const futureDate = new Date(props.aMatch.acf.end_date); // Récupère la date de fin de partie
 const timeDiff = futureDate.getTime() - now.getTime(); // Calcule le temps restant
-const dayRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Jours restants
-const hourRemaining = Math.floor((timeDiff / (1000 * 3600)) % 24); // Heures restantes
+
+// Calcul des jours, heures et minutes restantes
+const daysRemaining = Math.floor(timeDiff / (1000 * 3600 * 24)); // Jours restants
+const hoursRemaining = Math.floor((timeDiff / (1000 * 3600)) % 24); // Heures restantes
+const minutesRemaining = Math.floor((timeDiff / (1000 * 60)) % 60); // Minutes restantes
 
 const theMatch = props.aMatch // Données de la partie
 const theMatchPlayers = theMatch.acf.players // Joueurs de la partie
