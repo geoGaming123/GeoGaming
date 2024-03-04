@@ -7,7 +7,7 @@ export const useDataStore = defineStore('data', {
     matchesPresent: [],
     matchesFuture: [],
     matchToRank: [],
-    dateNow: new Date(),
+    dateNow: null,
     myUser: {},
     incrementPast: 0,
     incrementPresent: 0,
@@ -27,6 +27,7 @@ export const useDataStore = defineStore('data', {
         .then((res) => res.json())
         .then((res) => {
           console.log(res)
+          this.dateNow = new Date()
           this.matches = res
           this.matchesFuture = res.filter(
             (matches) => new Date(matches.acf.start_date) > this.dateNow

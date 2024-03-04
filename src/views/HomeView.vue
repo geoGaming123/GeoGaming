@@ -53,6 +53,7 @@ const showMenuData = ref('present') // Nav à afficher par défaut
 
 const showMenu = (tab) => { //Recois "tab" du footer pour savoir le menu actif
   showMenuData.value = tab
+  dataStore.getAllMatches()
 }
 const FutureMatchesData = computed(() => { // Récupère le tableau des parties futures
   return dataStore.getMatchesFuture
