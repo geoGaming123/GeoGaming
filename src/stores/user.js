@@ -43,7 +43,7 @@ export const useUserStore = defineStore({
         }
       })
       const getmyimageresult = await getmyimage.json() 
-      console.log(getmyimageresult)
+      // console.log(getmyimageresult)
       this.userimglink = getmyimageresult.acf.avatar
     },
     // Methods to interact with user data
@@ -68,7 +68,7 @@ export const useUserStore = defineStore({
             body: form
           }
         )
-        console.log('userSignup:', userSignUp.status)
+        // console.log('userSignup:', userSignUp.status)
 
         const getUserToken = await fetch(
           'https://cepegra-frontend.xyz/wf11-atelier/wp-json/jwt-auth/v1/token',
@@ -83,7 +83,7 @@ export const useUserStore = defineStore({
             })
           }
         )
-        console.log(getUserToken)
+        // console.log(getUserToken)
         const thisToken = await getUserToken.json()
 
         const postUserImage = await fetch(
@@ -99,7 +99,7 @@ export const useUserStore = defineStore({
         const postUserImageResponse = await postUserImage.json()
         const postUserImageLink = postUserImageResponse.link
 
-        console.log('postUserImage:', postUserImage.status, await postUserImageLink)
+        // console.log('postUserImage:', postUserImage.status, await postUserImageLink)
         const patchUserImage = await fetch(
           'https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/users/me',
           {
@@ -111,7 +111,7 @@ export const useUserStore = defineStore({
             body: JSON.stringify({ fields: { avatar: `${postUserImageResponse.link}` } })
           }
         )
-        console.log('patchUserImage:', patchUserImage.status)
+        // console.log('patchUserImage:', patchUserImage.status)
       } catch (error) {
         throw new Error('Failed to create new user', error)
       }
@@ -135,7 +135,7 @@ export const useUserStore = defineStore({
 
         const userLoginInfo = await userLoginData.json()
         const userToken = userLoginInfo.token
-        console.log(await userLoginInfo)
+        // console.log(await userLoginInfo)
         
         const userID = await fetch(
           `https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/users/me`,
@@ -148,7 +148,7 @@ export const useUserStore = defineStore({
           }
         )
         const myID = await userID.json()
-        console.log(await myID)
+        // console.log(await myID)
         this.myID = myID.id
         this.myToken = userToken
         return this.rerout(), this.userDashImage()
