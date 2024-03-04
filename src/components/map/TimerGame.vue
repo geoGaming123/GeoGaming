@@ -58,4 +58,4 @@ function endTimer() {
     opacity: 0.6;  /* Vous pouvez ajuster le style comme vous le souhaitez pour indiquer qu'il est désactivé */
     cursor: not-allowed;
   }
-</style>./UserPosition.vue
+</style>

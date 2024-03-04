@@ -103,9 +103,9 @@ onMounted(() => {
 
     
       watch(showMarkers, (newValue) => {
-    if (newValue || props.markers) {
+    if (newValue) {
         // Afficher les marqueurs sur la carte
-        markers.forEach((marker) => {
+        match.value.acf.markers.forEach((marker) => {
             const { latitude, longitude } = marker.position
             const markerIcon = L.icon({
                 iconUrl: 'https://www.svgrepo.com/show/374529/address.svg',
@@ -121,7 +121,7 @@ onMounted(() => {
         })
     } else {
         // Masquer les marqueurs de la carte
-        markers.forEach((marker) => {
+        match.value.acf.markers.forEach((marker) => {
             if (marker.leafletMarker) {
                 map.removeLayer(marker.leafletMarker); // Retirer le marqueur de la carte
                 marker.leafletMarker.off(); // Désactiver les événements du marqueur
@@ -158,4 +158,4 @@ onMounted(() => {
   width: 100%;
 }
 
-</style>./UserPosition.vue
+</style>

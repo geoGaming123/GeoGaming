@@ -10,7 +10,7 @@ export function userposition(map, showMarkers) {
     return gamesStore.oneMatch
   })
   
-  console.log("PROPS",showMarkers);  
+  // console.log("PROPS",showMarkers);   
   const showStartButton = ref(false)
   const startPoint = match.value.acf.start_point.position
   console.log(startPoint);
@@ -82,13 +82,13 @@ export function userposition(map, showMarkers) {
         } else {
           showStartButton.value = false
         }
-
+        console.log("PROPS2", showMarkers);
         const currentPlayer = gamesStore.oneMatch.acf.players.find(player => player.userId === String(gamesStore.userId));
         const playerMarkers = currentPlayer?.marker || [];
         console.log(playerMarkers);
         playerMarkers.forEach((marker) => {
           const distance = calculateDistance({ latitude, longitude }, marker.position)
-          if (showMarkers.value && distance <= 10 && !marker.isCaptured) {
+          if (showMarkers && showStartButton && distance <= 10 && !marker.isCaptured) {
             marker.isCaptured = true
             const totalBalises = playerMarkers.length
             const balisesRestantes = playerMarkers.filter((m) => !m.isCaptured).length
