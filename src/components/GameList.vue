@@ -62,27 +62,12 @@
     </section>
     <section class="gamelist-onglets">
       <div class="gamelist-onglets-btns">
-        <button
-          @click="activateTab('created')"
-          :class="{ 'gamelist-activebtn': activeTab === 'created' }"
-        >
-          Créées
-        </button>
-        <button
-          @click="activateTab('available')"
-          :class="{ 'gamelist-activebtn': activeTab === 'available', hidden: activeMenu == 'past' }"
-        >
-          Disponibles
-        </button>
-        <button
-          @click="activateTab('joined')"
-          :class="{ 'gamelist-activebtn': activeTab === 'joined' }"
-        >
-          Rejointes
-        </button>
+        <button @click="activateTab('created')" :class="{ 'gamelist-activebtn': activeTab === 'created' }">Créées</button>
+        <button @click="activateTab('available')" :class="{ 'gamelist-activebtn': activeTab === 'available', hidden: props.menu == 'past' }">Disponibles</button>
+        <button @click="activateTab('joined')" :class="{ 'gamelist-activebtn': activeTab === 'joined' }">Rejointes</button>
       </div>
     </section>
-    <button @click="addGame()" class="gamelist-addgame" :class="{ hidden: activeMenu == 'past' }">
+    <button @click="addGame()" class="gamelist-addgame" :class="{ hidden: props.menu == 'past' }">
       +
     </button>
   </section>
@@ -108,15 +93,6 @@ const activateTab = (tab) => {
   activeTab.value = tab
 }
 
-const activeMenu = ref(null)
-watch(
-  () => props.menu,
-  (newMenu) => {
-    // Récupère le menu actif pour l'affichage de l'onglet disponbible
-    activeMenu.value = newMenu
-  }
-)
-
 const myID = props.myID
 const myMatches = computed(() => props.MatchesData.filter((match) => match.acf.masteruid == myID))
 const joinedMatches = computed(() =>
@@ -129,8 +105,6 @@ const otherMatches = computed(() =>
 )
 
 const addGame = () => {
-  // Fonction du bouton "+"
-  console.log('Add a Game')
   router.push('/gameform')
 }
 </script>

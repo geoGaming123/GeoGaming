@@ -5,8 +5,12 @@
 // *********** CONNEXION *********** //
 // ********************************* //
 
+.logo {
+  width: 100%;
+  text-align: center;
+}
 .login {
-  padding: 2rem;
+  padding: 1.5rem;
   & form {
     display: flex;
     flex-direction: column;

@@ -1,11 +1,11 @@
 <template>
   
-  <tr class="gamelist-item" v-if="title === 'past' && tab === 'created'" @click="sendTo('rank', props.aMatch.id)">
+  <tr class="gamelist-item" v-if="title === 'past' && tab === 'created' && ranking.length > 0" @click="sendTo('rank', props.aMatch.id)">
     <td><span class="gamelist-item-id">#{{ props.aMatch.id }} - </span><span class="gamelist-item-title">{{ props.aMatch.acf.title }}</span><br><span class="gamelist-item-nbr">{{ props.aMatch.acf.players.length }}</span><span class="gamelist-item-players"> joueurs</span></td>
     <td><span class="gamelist-item-winner">{{ rankingFirst.name }}</span><br><span class="gamelist-item-winner-score">{{ ranking[0].score }}</span></td>
     <td>{{ formatDate(props.aMatch.acf.end_date) }}</td>
 </tr>
-  <tr class="gamelist-item" v-if="title === 'past' && tab === 'joined'" @click="sendTo('rank', props.aMatch.id)">
+  <tr class="gamelist-item" v-if="title === 'past' && tab === 'joined' && ranking.length > 0" @click="sendTo('rank', props.aMatch.id)">
     <td><span class="gamelist-item-id">#{{ props.aMatch.id }} - </span><span class="gamelist-item-title">{{ props.aMatch.acf.title }}</span><br>{{ formatDate(props.aMatch.acf.end_date) }}</td>
     <td><span class="gamelist-item-winner">{{ rankingFirst.name }}</span><br><span class="gamelist-item-winner-score">{{ ranking[0].score }}</span></td>
     <td>{{ myRank + 1 }} / {{ theMatchPlayers.length }}<br><span class="gamelist-item-winner-score" v-if="theMatch && myTime.length > 0">{{ myTime[0].score }}</span></td>
@@ -53,7 +53,7 @@ const hourRemaining = Math.floor((timeDiff / (1000 * 3600)) % 24); // Heures res
 
 const theMatch = props.aMatch // Données de la partie
 const theMatchPlayers = theMatch.acf.players // Joueurs de la partie
-const ranking = theMatchPlayers.slice().sort((a, b) => a.score - b.score) // Trié dans l'ordre de leur temps
+const ranking = theMatchPlayers.filter(i=>i.score > 0).slice().sort((a, b) => a.score - b.score) // Trié dans l'ordre de leur temps
 const myTime = theMatchPlayers.filter(player => player.userId == myID) // Récupére score id connecté
 const myRank = ranking.findIndex(i => i.userId == myID) // Position dans le tableau 
 

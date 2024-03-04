@@ -5,6 +5,9 @@ const userStore = useUserStore()
 </script>
 
 <template>
+  <div class="logo">
+    <img src="../assets/Icons/Logo-perso-bleu.png" height="100px" alt="">
+  </div>
   <h1>Connexion</h1>
 
   <div class="card">
