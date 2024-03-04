@@ -18,7 +18,7 @@
   <div class="game-map" id="map"></div>
   
   <div class="game-btns">
-    <Timer v-if="props.timer" :updateShowMarkers="updateShowMarkers"></Timer>
+    <TimerGame v-if="props.timer" :updateShowMarkers="updateShowMarkers"></TimerGame>
     <ButtonJoin v-if="props.join" class="green" :id="matchId"></ButtonJoin>
     <ButtonLeaveGame v-if="props.leave" class="red"  :id="matchId"></ButtonLeaveGame>
     <ButtonModified v-if="props.modified" class="orange" :id="matchId"></ButtonModified>
@@ -38,6 +38,7 @@ import ButtonModified from './ButtonModified.vue'
 import ButtonLeaveGame from './ButtonLeaveGame.vue'
 import { userposition } from './UserPosition.vue'
 import HeaderComp from '../HeaderComp.vue'
+import TimerGame from './TimerGame.vue'
 
 const gamesStore = useGamesStore()
 const props = defineProps([

@@ -6,10 +6,10 @@ import * as L from 'leaflet'
 
 export function userposition(map, showMarkers) {
   const gamesStore = useGamesStore()
-
   const match = computed(() => {
     return gamesStore.oneMatch
   })
+  
   console.log("PROPS",showMarkers);  
   const showStartButton = ref(false)
   const startPoint = match.value.acf.start_point.position
@@ -88,7 +88,7 @@ export function userposition(map, showMarkers) {
         console.log(playerMarkers);
         playerMarkers.forEach((marker) => {
           const distance = calculateDistance({ latitude, longitude }, marker.position)
-          if (showMarkers && distance <= 10 && !marker.isCaptured) {
+          if (showMarkers.value && distance <= 10 && !marker.isCaptured) {
             marker.isCaptured = true
             const totalBalises = playerMarkers.length
             const balisesRestantes = playerMarkers.filter((m) => !m.isCaptured).length
