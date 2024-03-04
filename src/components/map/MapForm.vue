@@ -3,11 +3,12 @@
     <div class="game-map" id="map"></div>
     <h2>Ajouter</h2>
     <div class="controls">
-      <div v-if="markersVisible">
-        <MapAddMarkers :map="map"></MapAddMarkers>
-      </div>
+
       <div v-if="startPointVisible">
-        <MapAddStartPoint :map="map"></MapAddStartPoint>
+        <MapAddStartPoint @click="showMarkers" :map="map"></MapAddStartPoint>
+      </div>
+      <div v-if="markersVisible && switcher">
+        <MapAddMarkers :map="map"></MapAddMarkers>
       </div>
     </div>
   </div>
@@ -28,7 +29,11 @@ const props = defineProps([
 ])
 const map = ref(null)
 const tiles = ref(null)
+const switcher = ref(false)
 
+const showMarkers = (() => {
+  switcher.value = true
+})
 onMounted(() => {
   // MAP INIT
   map.value = L.map('map', {
