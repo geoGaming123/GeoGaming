@@ -25,9 +25,7 @@ export const useDataStore = defineStore('data', {
   },
   actions: {
     getAllMatches() {
-      console.log("doubi - " + this.isLoading + " douba - " +  this.isItLoading)
       this.isLoading++
-      console.log("doubi - " + this.isLoading + " douba - " +  this.isItLoading)
       fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match?per_page=50')
         .then((res) => res.json())
         .then((res) => {
@@ -43,9 +41,7 @@ export const useDataStore = defineStore('data', {
               new Date(matches.acf.end_date) > this.dateNow &&
               this.dateNow > new Date(matches.acf.start_date)
           )
-          console.log("doubi - " + this.isLoading + " douba - " +  this.isItLoading)
           this.isLoading--
-          console.log("doubi - " + this.isLoading + " douba - " +  this.isItLoading)
         })
         .catch((error) => console.error('Erreur :', error))
     },
