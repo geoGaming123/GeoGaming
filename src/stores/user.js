@@ -22,12 +22,11 @@ export const useUserStore = defineStore({
       username: ref(''),
       password: ref('')
     },
-    userimglink: ref('')
+    userimglink: ref(''),
+    isLoading: 0
   }),
   getters: {
-   /* username() {
-      return (this.userData.acf.pseudo = this.userData.username)
-    }*/
+    isItLoading: (state) => state.isLoading
   },
   actions: {
     setUserData(username, email, password) {
@@ -59,6 +58,7 @@ export const useUserStore = defineStore({
     // Methods to interact with user data
 
     async createUser() {
+      this.isLoading++
       try {
         const form = new FormData()
         form.append('username', this.userData.username)
@@ -142,6 +142,7 @@ export const useUserStore = defineStore({
         this.setUserLogin(this.userData.username, this.userData.password)
         this.pageBool = !this.pageBool
         }
+        this.isLoading--
         
       } catch (error) {
         this.onError = true
@@ -150,6 +151,7 @@ export const useUserStore = defineStore({
     },
     async loginUser() {
       try {
+        this.isLoading++
         const userLoginData = await fetch(
           'https://cepegra-frontend.xyz/wf11-atelier/wp-json/jwt-auth/v1/token',
           {
@@ -183,7 +185,8 @@ export const useUserStore = defineStore({
         console.log(await myID)
         this.myID = myID.id
         this.myToken = userToken
-
+        
+        this.isLoading--
         return this.rerout(), this.userDashImage()
       } catch (error) {
         console.error('Error while logging in:', error)
