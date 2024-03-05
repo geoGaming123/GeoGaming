@@ -36,7 +36,7 @@ const signUpAction = () => {
     </form>
     <div v-if="userStore.onError" class="errorcontainer errorclass">
     <h1>❌</h1>
-    <p>Erreur: une erreur est survenue, veuillez réessayer s'il vous plâit.</p>
+    <p>Erreur: une erreur est survenue, veuillez réessayer s'il vous plaît.</p>
   </div>
   </div>
   
