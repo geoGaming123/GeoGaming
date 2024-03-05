@@ -11,7 +11,6 @@ export function userposition(map, showMarkers) {
 
   const showStartButton = ref(false)
   const startPoint = match.value.acf.start_point.position
-  console.log("START",startPoint);
 
   const calculateDistance = (pointA, pointB) => {
     const earthRadius = 6371e3
@@ -85,7 +84,6 @@ export function userposition(map, showMarkers) {
           (player) => player.userId === String(gamesStore.userId)
         )
         const playerMarkers = currentPlayer?.marker || []
-        console.log("MARKER", playerMarkers);
         playerMarkers.forEach((marker) => {
 
           const distance = calculateDistance({ latitude, longitude }, marker.position)

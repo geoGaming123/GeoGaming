@@ -53,7 +53,6 @@ if (String(match.value.acf.masteruid) === String(userId.value)) {
 }
 
 if (match.value.acf.players.some((player) => player.userId === String(userId.value))) {
-  console.log('user trouvé')
   btnleave.value = true
   btnjoin.value = false
 }

@@ -46,7 +46,6 @@ onMounted(() => {
   gamesStore
   .getMatches()
   .then(() => {
-    console.log(matches.value)
   })
   .catch((error) => console.error('Error fetching matches:', error))
 })

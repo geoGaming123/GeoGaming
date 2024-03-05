@@ -17,11 +17,9 @@ const switchInstallBtn = () => {
    
     deferredPrompt.userChoice.then(choice => {
       if(choice === 'accepted') {
-        console.log("Installation acceptée")
         
       }
       else {
-        console.log("Installation refusée")
       }
       deferredPrompt = null
     })

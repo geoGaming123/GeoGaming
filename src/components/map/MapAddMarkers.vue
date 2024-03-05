@@ -70,7 +70,6 @@ const addNewMarker = () => {
 
   newMarker.on('dragend', () => {
     const newMarkerLatLng = newMarker.getLatLng();
-    console.log(markerData.name + ' coordinates:', newMarkerLatLng.lat, newMarkerLatLng.lng);
     markerData.position = { latitude: newMarkerLatLng.lat, longitude: newMarkerLatLng.lng };
   });
 
@@ -88,7 +87,6 @@ const addNewMarker = () => {
 // Watcher pour switcher
 watch(() => switcher.value, (newValue, oldValue) => {
   if (!newValue && markerRef.value) {
-    console.log('switcher is now false');
     // Affichez la popup avec le bouton Delete
     showDeletePopup(markerRef.value);
 

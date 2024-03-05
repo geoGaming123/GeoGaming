@@ -52,7 +52,6 @@ const showPopupWithMessage = (message) => {
   setTimeout(() => {
     startPoint.value.marker.closePopup();
     switcher.value = false;
-    console.log(switcher.value);
   }, 2000);
 };
 
@@ -75,11 +74,6 @@ const addNewStartPoint = () => {
 
     newStartPoint.on('dragend', () => {
       const newStartPointLatLng = newStartPoint.getLatLng()
-      console.log(
-        `Coordonnées du point de départ ${weaponIndex - 1}:`,
-        newStartPointLatLng.lat,
-        newStartPointLatLng.lng
-      )
       startPointData.position = {
         latitude: newStartPointLatLng.lat,
         longitude: newStartPointLatLng.lng
@@ -107,7 +101,6 @@ const addNewStartPoint = () => {
 // Watcher pour switcher
 watch(() => switcher.value, (newValue, oldValue) => {
   if (!newValue) {
-    console.log('switcher is now false');
     // Affichez la popup avec le bouton Delete
     showDeletePopup();
   }

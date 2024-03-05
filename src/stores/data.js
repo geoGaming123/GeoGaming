@@ -29,7 +29,6 @@ export const useDataStore = defineStore('data', {
       fetch('https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match?per_page=50')
         .then((res) => res.json())
         .then((res) => {
-          console.log(res)
           this.dateNow = new Date()
           this.matches = res
           this.matchesFuture = res.filter(

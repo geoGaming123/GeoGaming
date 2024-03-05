@@ -51,7 +51,6 @@ const showProfileWindow = () => {
 
 const disconnect = () => {
   if(confirm('Voulez-vous vraiment vous déconnecter ?')){
-    console.log('Déconnecté')
     router.push('/')
   }
 }

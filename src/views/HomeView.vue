@@ -41,9 +41,6 @@ dataStore.getAllMatches() // Charge les données des parties et distribue en 3 a
 const userStore = useUserStore()
 const myID = computed(() => userStore.myID)  // Récupère l'id de l'user connecté
 const isLoading = computed(()=>dataStore.isItLoading)
-setTimeout(() => {
-  console.log('HomeView - ID - ' + myID.value)
-}, 2000)
 
 const showMenuData = ref('present') // Nav à afficher par défaut
 

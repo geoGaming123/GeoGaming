@@ -42,8 +42,6 @@ const markers = ref(false)
 const timer = ref(false)
 const position = ref(false)
 
-console.log(String(match.value.acf.masteruid))
-console.log(String(userId.value))
 
 if (String(match.value.acf.masteruid) === String(userId.value)) {
   startpoint.value = true

@@ -52,14 +52,13 @@ export const useUserStore = defineStore({
         }
       })
       const getmyimageresult = await getmyimage.json() 
-      console.log(getmyimageresult)
       this.userimglink = getmyimageresult.acf.avatar
     },
     // Methods to interact with user data
 
     async createUser() {
-      this.isLoading++
       try {
+        this.isLoading++
         const form = new FormData()
         form.append('username', this.userData.username)
         form.append('email', this.userData.email)
@@ -79,10 +78,10 @@ export const useUserStore = defineStore({
           }
         )
         if(!userSignUp.ok) {
+          this.isLoading--
           this.onError = true
           return
         }
-        console.log('userSignup:', userSignUp.status)
 
         const getUserToken = await fetch(
           'https://cepegra-frontend.xyz/wf11-atelier/wp-json/jwt-auth/v1/token',
@@ -98,10 +97,10 @@ export const useUserStore = defineStore({
           }
         )
         if(!getUserToken.ok) {
+          this.isLoading--
           this.onError = true
           return
         }
-        console.log(getUserToken)
         const thisToken = await getUserToken.json()
 
         const postUserImage = await fetch(
@@ -115,13 +114,13 @@ export const useUserStore = defineStore({
           }
         )
         if(!postUserImage.ok) {
+          this.isLoading--
           this.onError = true
           return
         }
         const postUserImageResponse = await postUserImage.json()
         const postUserImageLink = postUserImageResponse.link
 
-        console.log('postUserImage:', postUserImage.status, await postUserImageLink)
         const patchUserImage = await fetch(
           'https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/users/me',
           {
@@ -134,10 +133,10 @@ export const useUserStore = defineStore({
           }
         )
         if(!patchUserImage.ok) {
+          this.isLoading--
           this.onError = true
           return
         }
-        console.log('patchUserImage:', patchUserImage.status)
         if(userSignUp.ok, getUserToken.ok, postUserImage.ok, patchUserImage.ok) {
         this.setUserLogin(this.userData.username, this.userData.password)
         this.pageBool = !this.pageBool
@@ -145,8 +144,8 @@ export const useUserStore = defineStore({
         this.isLoading--
         
       } catch (error) {
+        this.isLoading--
         this.onError = true
-        console.log(error)
       }
     },
     async loginUser() {
@@ -169,7 +168,6 @@ export const useUserStore = defineStore({
 
         const userLoginInfo = await userLoginData.json()
         const userToken = userLoginInfo.token
-        console.log(await userLoginInfo)
         
         const userID = await fetch(
           `https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/users/me`,
@@ -182,14 +180,13 @@ export const useUserStore = defineStore({
           }
         )
         const myID = await userID.json()
-        console.log(await myID)
         this.myID = myID.id
         this.myToken = userToken
         
         this.isLoading--
         return this.rerout(), this.userDashImage()
       } catch (error) {
-        console.error('Error while logging in:', error)
+        this.isLoading--
         throw error
       }
 

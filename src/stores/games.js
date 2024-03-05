@@ -70,32 +70,6 @@ export const useGamesStore = defineStore('games', {
         this.patchData();
       }
     },
-    
-
-    addUserId(userId) {
-      if (userId) {
-        this.userId = userId
-        console.log('userId ajouté au store:', userId)
-      } else {
-        console.error('Invalid userId:', userId)
-      }
-    },
-
-    loadFromLocalStorage() {
-      const storedData = localStorage.getItem('testData')
-
-      if (storedData) {
-        const parsedData = JSON.parse(storedData)
-
-        this.title = parsedData.title || this.title
-        this.description = parsedData.description || this.description
-        this.startDate = parsedData.startDate || this.startDate
-        this.endDate = parsedData.endDate || this.endDate
-        this.markers = reactive(parsedData.markers || [])
-        this.start_point = reactive(parsedData.start_point || null)
-        this.userPosition = reactive(parsedData.userPosition || null)
-      }
-    },
 
     async getMatches() {
       try {
@@ -103,7 +77,6 @@ export const useGamesStore = defineStore('games', {
           `https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/?per_page=100`
         )
         const data = await response.json()
-        // console.log(data);
 
         // Set the matches in the store
         this.matches = data
@@ -114,7 +87,6 @@ export const useGamesStore = defineStore('games', {
 
     async getMatch(matchId) {
       const allMatches = this.allMatches
-      // console.log("recuperation userId" + "" + this.userId)
 
       // Find the match in the already fetched matches
       const match = allMatches.find((m) => Number(m.id) === Number(matchId))
@@ -125,13 +97,10 @@ export const useGamesStore = defineStore('games', {
       } else {
         // If the match is not found, you can still make an API request if needed
         try {
-          console.log('donnée non disponible dans le store ')
           const response = await fetch(
             `https://cepegra-frontend.xyz/wf11-atelier/wp-json/wp/v2/match/${matchId}`
           )
           const data = await response.json()
-
-          // console.log(data);
 
           // Set the match in the store
           this.match = data
@@ -169,7 +138,6 @@ export const useGamesStore = defineStore('games', {
         const playerExists = existingPlayers.some((player) => player.userId === String(userId))
 
         if (playerExists) {
-          console.log('Le joueur est déjà dans la liste.')
           return // Arrêter la fonction si le joueur existe déjà
         }
 
@@ -220,7 +188,6 @@ export const useGamesStore = defineStore('games', {
         )
 
         if (response.ok) {
-          console.log('Game joined successfully.')
           // Ajouter toute logique supplémentaire après avoir rejoint le jeu avec succès
         } else {
           console.error('Error joining game:', response.status)
@@ -245,7 +212,6 @@ export const useGamesStore = defineStore('games', {
         const playerIndex = existingPlayers.findIndex((player) => player.userId === String(userId))
 
         if (playerIndex === -1) {
-          console.log("Le joueur n'est pas dans la liste.")
           return // Arrêter la fonction si le joueur n'est pas trouvé
         }
 
@@ -270,7 +236,6 @@ export const useGamesStore = defineStore('games', {
         )
 
         if (response.ok) {
-          console.log('Game left successfully.')
           // Ajouter toute logique supplémentaire après avoir quitté le jeu avec succès
         } else {
           console.error('Error leaving game:', response.status)
@@ -283,7 +248,6 @@ export const useGamesStore = defineStore('games', {
     },
 
     postMatchData() {
-      console.log(this.userId)
       const token = this.userToken
 
       const matchData = {
@@ -323,7 +287,6 @@ export const useGamesStore = defineStore('games', {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("Réponse de l'API :", data)
           // Ajoutez ici toute logique de gestion de la réponse de l'API
         })
         .catch((error) => {
@@ -362,7 +325,6 @@ export const useGamesStore = defineStore('games', {
         )
 
         if (response.ok) {
-          console.log('Game deleted successfully.')
           // Add any additional logic after successfully deleting the game
         } else {
           console.error('Error deleting game:', response.status)
@@ -378,12 +340,10 @@ export const useGamesStore = defineStore('games', {
       this.markers = this.markers.filter((m) => m.name !== marker.name)
       // Mettez à jour le store après la suppression du marqueur
       this.updateMarkers(this.markers)
-      console.log('supprimer du store')
     },
 
     deleteStartPoint() {
       this.startPoint = null
-      console.log('supprimer du store')
       this.updateStartPoint(null)
     },
 
